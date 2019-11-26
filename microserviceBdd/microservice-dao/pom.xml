@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- =============================================================== -->
+	<!-- project information -->
+	<!-- =============================================================== -->
+	<!-- ===== Maven Project Parent ===== -->
+	<parent>
+		<groupId>com.eSales</groupId>
+		<artifactId>microserviceBdd</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<!-- ===== Maven information ===== -->
+	<artifactId>microserviceBdd-dao</artifactId>
+
+	<!-- ===== global Informations ===== -->
+	<name>microservice-dao</name>
+	<description>module for bdd link</description>
+	<version>1.0.0</version>
+
+	<!-- =============================================================== -->
+	<!-- Dependencies -->
+	<!-- =============================================================== -->
+	<dependencies>
+		<!-- ===== Modules ===== -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>microserviceBdd-model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- ===== Dependencies ===== -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- ===== driver BDD ===== -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- ========== Test Dependencies ========== -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+</project>
