@@ -1,10 +1,10 @@
-package com.eSales.microservicemodel;
+package com.eSales.microserviceDao;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MicroserviceModelApplicationTests {
+class MicroserviceDaoApplicationTests {
 
 	@Test
 	void contextLoads() {

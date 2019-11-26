@@ -1,10 +1,10 @@
-package com.eSales.microserviceweb;
+package com.eSales.microserviceBusiness;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiWebMicroserviceBddTests {
+class MicroserviceBusinessApplicationTests {
 
 	@Test
 	void contextLoads() {
