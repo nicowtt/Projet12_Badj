@@ -60,6 +60,9 @@ cmake-build-*/
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
+# Sonarlint plugin
+.idea/sonarlint
+
 # File-based project format
 *.iws
 
@@ -69,3 +72,9 @@ out/
 
 # Maven
 target/
+
+# ---- Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
