@@ -1,15 +1,13 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <h2>Liste des bourses</h2>
     <div class="list-group">
       <button
         class="list-group-item"
         *ngFor="let sale of sales; let i = index">
-        <h3 class="list-group-item-heading">
-          {{ sale.type }}
-        </h3>
-        <h4>{{ sale. description}}</h4>
+        <h3>{{ sale.type }} <span id="date">du {{ sale.dateBegin | date: 'dd/MM/yyyy'}}
+          au {{ sale.dateEnd | date: 'dd/MM/yyyy' }}</span></h3>
+        <h4>{{ sale.description}}</h4>
       </button>
     </div>
   </div>
