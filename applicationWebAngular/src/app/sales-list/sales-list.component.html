@@ -8,6 +8,7 @@
         <h3>{{ sale.type }} <span id="date">du {{ sale.dateBegin | date: 'dd/MM/yyyy'}}
           au {{ sale.dateEnd | date: 'dd/MM/yyyy' }}</span></h3>
         <h4>{{ sale.description}}</h4>
+        <h5>{{ sale.address.street}} {{sale.address.postalCode}} {{sale.address.city}}</h5>
       </button>
     </div>
   </div>

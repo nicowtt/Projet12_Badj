@@ -20,7 +20,7 @@ export class SalesService {
 
   getSales() {
     this.httpClient
-      .get<any[]>('http://localhost:9001/AllSales')
+      .get<any[]>('http://localhost:9001/AfterTodaySales')
       .subscribe(
         (response) => {
           this.sales = response;
