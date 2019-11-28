@@ -8,9 +8,15 @@ import { SalesListComponent } from './sales-list/sales-list.component';
 import {RouterModule, Routes} from "@angular/router";
 import {SalesService} from "./services/sales.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import {AuthService} from "./services/auth.service";
+import {AuthGuardService} from "./services/auth-guard.service";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
+  { path: 'auth/signin', component: SigninComponent },
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -19,16 +25,21 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    SalesListComponent
+    SalesListComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    SalesService
+    SalesService,
+    AuthService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
