@@ -31,14 +31,14 @@ export class SigninComponent implements OnInit {
   onSubmit() { // ici on récupère les données du formulaire
     const email = this.signInForm.get('email').value;
     const password = this.signInForm.get('password').value;
-    this.authService.signInUser(email, password);//.then(
-    //   () => { // si ok
-    //     this.router.navigate(['/sales']); // on redirige vers la page /sales
-    //   },
-    //   (error) => { // si erreur
-    //     this.errorMessage = error; // on l'affiche dans le template
-    //   }
-    // );
+    this.authService.signInUser(email, password).then(
+      () => { // si ok
+        this.router.navigate(['/sales']); // on redirige vers la page /sales
+      },
+      (error) => { // si erreur
+        this.errorMessage = error; // on l'affiche dans le template
+      }
+    );
   }
 
 }

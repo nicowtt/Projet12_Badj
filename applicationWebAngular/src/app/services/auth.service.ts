@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {UserModel} from "../models/User.model";
 
 
 @Injectable({
@@ -8,8 +7,8 @@ import {UserModel} from "../models/User.model";
 })
 export class AuthService {
 
-  userIsValide: Object;
-  isAuth: boolean;
+  private token: Object;
+  private errorAuth: String;
 
   constructor(private HttpClient: HttpClient) { }
 
@@ -32,17 +31,14 @@ export class AuthService {
         this.HttpClient
           .post('http://localhost:9001/checkUserLogIn', userObject)
           .subscribe(
-            (result) => {
-              this.userIsValide = result;
-              if (this.userIsValide === true) {
-                this.isAuth = true;
-              } else {
-                this.isAuth = false;
-              }
-              console.log('utilisateur validé: ' + this.isAuth);
+            (data) => {
+              this.token = data;
+              console.log(data);
+              resolve();
             },
             (error) => {
-              console.log('Erreur d envoi' + error);
+              this.errorAuth = "L'email ou le mot de passe n'est pas valide"
+              reject(this.errorAuth);
             }
           );
       });
