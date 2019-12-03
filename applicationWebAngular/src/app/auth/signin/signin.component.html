@@ -1,18 +1,38 @@
 <div class="raw">
   <div class="col-sm-8 col-sm-offset-2">
+
     <h2>Connexion</h2>
     <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" id="email" class="form-control" formControlName="email">
+        <input type="text" id="email" class="form-control" formControlName="email"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <p></p>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div class="error" *ngIf="f.email.errors.required">Veuillez écrire un email</div>
       </div>
+      </div>
+
       <div class="form-group">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" class="form-control" formControlName="password">
+        <input type="password" id="password" class="form-control" formControlName="password"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <p></p>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div class="error" *ngIf="f.password.errors.required">Veuillez écrire un mot de passe</div>
+        </div>
       </div>
-      <button class="btn btn-primary" type="submit" [disabled]="signInForm.invalid">Connexion</button>
+
+        <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary" type="submit">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Connexion
+          </button>
+        </div>
+
     </form>
-    <p></p>
-    <p class="text-danger">{{ errorMessage }}</p>
+
+    <app-alert></app-alert>
+
   </div>
 </div>

@@ -43,7 +43,7 @@ public class UserController {
      * @param user
      * @return httpResponse 404 or 200 and new token if needed when login and password id ok.
      */
-    @PostMapping(value = "/checkUserLogIn", consumes = "application/json")
+    @PostMapping(value = "/checkUserLogIn", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> checkUserLogin(@RequestBody User user) {
         boolean userIsValid = false;
 

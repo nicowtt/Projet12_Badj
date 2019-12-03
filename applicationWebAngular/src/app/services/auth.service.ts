@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {BehaviorSubject, Observable} from "rxjs";
+import {UserModel} from "../models/User.model";
+import {map} from "rxjs/operators";
 
 
 @Injectable({
@@ -7,41 +10,44 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AuthService {
 
-  private token: Object;
-  private errorAuth: String;
+  private currentUserSubject: BehaviorSubject<UserModel>;
+  public currentUser: Observable<UserModel>;
 
-  constructor(private HttpClient: HttpClient) { }
 
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('currentUSer')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): UserModel {
+    return this.currentUserSubject.value;
+  }
 
   /**
-   * for check if email and password is ok
+   * User sign in
    * @param email
    * @param password
    */
-  signInUser(email: string, password: string) {
-    const userObject = {
-      email: '',
-      password: ''
-    };
-    userObject.email = email;
-    userObject.password = password;
-
-    return new Promise(
-      (resolve, reject) => {
-        this.HttpClient
-          .post('http://localhost:9001/checkUserLogIn', userObject)
-          .subscribe(
-            (data) => {
-              this.token = data;
-              console.log(data);
-              resolve();
-            },
-            (error) => {
-              this.errorAuth = "L'email ou le mot de passe n'est pas valide"
-              reject(this.errorAuth);
-            }
-          );
-      });
+  signInUser(email, password) {
+    return this.http.post<any>('http://localhost:9001/checkUserLogIn', { email, password })
+      .pipe(map(user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        console.log('local quand sigIn: ' + localStorage.getItem('currentUser'));
+        return user;
+      }))
   }
+
+  /**
+   * User logOut
+   */
+  logout() {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+    // console.log('local quand logOut: ' + localStorage.getItem('currentUser'));
+  }
+
   }
 

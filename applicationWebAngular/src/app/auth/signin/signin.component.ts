@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {first} from "rxjs/operators";
+import {AlertService} from "../../services/alert.service";
 
 @Component({
   selector: 'app-signin',
@@ -11,14 +13,19 @@ import {Router} from "@angular/router";
 export class SigninComponent implements OnInit {
 
   signInForm: FormGroup;
-  errorMessage: string;
+  loading = false;
+  submitted = false;
+  returnUrl: String;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     this.initForm();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/Sales';
   }
 
   initForm() {
@@ -28,17 +35,31 @@ export class SigninComponent implements OnInit {
     });
   }
 
-  onSubmit() { // ici on récupère les données du formulaire
-    const email = this.signInForm.get('email').value;
-    const password = this.signInForm.get('password').value;
-    this.authService.signInUser(email, password).then(
-      () => { // si ok
-        this.router.navigate(['/sales']); // on redirige vers la page /sales
-      },
-      (error) => { // si erreur
-        this.errorMessage = error; // on l'affiche dans le template
-      }
-    );
-  }
+  // easy access to form fields
+  get f() { return this.signInForm.controls; }
 
+  /**
+   * when submit signIn form
+   */
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.signInForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.authService.signInUser(this.f.email.value, this.f.password.value)
+      // .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.alertService.error("Le nom d'utilisateur ou le mot de passe est incorrect");
+          this.loading = false;
+        }
+      );
+  }
 }

@@ -10,18 +10,18 @@
     </ul>
 
     <ul class="nav navbar-right">
-      <li routerLinkActive="active" *ngIf="!isAuth"> <!-- si l'utilisateur n'est pas authentifié-->
+      <li routerLinkActive="active" *ngIf="!currentUser"> <!-- si l'utilisateur n'est pas authentifié-->
         <a routerLink="auth/signup">Créer un compte</a>
       </li>
     </ul>
     <ul class="nav navbar-right">
-      <li routerLinkActive="active" *ngIf="!isAuth"> <!-- si l'utilisateur n'est pas authentifié-->
+      <li routerLinkActive="active" *ngIf="!currentUser"> <!-- si l'utilisateur n'est pas authentifié-->
         <a routerLink="auth/signin">Connexion</a>
       </li>
       <li>
         <a (click)="onSignOut()"
            style="cursor:pointer"
-           *ngIf="isAuth">Déconnexion</a> <!-- si l'utilisateur est authentifié il peut cliquer sur deconnexion-->
+           *ngIf="currentUser">Déconnexion</a> <!-- si l'utilisateur est authentifié il peut cliquer sur deconnexion-->
       </li>
     </ul>
   </div>

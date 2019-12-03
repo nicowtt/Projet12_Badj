@@ -13,6 +13,8 @@ import { SigninComponent } from './auth/signin/signin.component';
 import {AuthService} from "./services/auth.service";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { AlertComponent } from './alert/alert.component';
+import {AlertService} from "./services/alert.service";
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
@@ -27,7 +29,9 @@ const appRoutes: Routes = [
     HeaderComponent,
     SalesListComponent,
     SignupComponent,
+    AlertComponent,
     SigninComponent
+
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,8 @@ const appRoutes: Routes = [
   providers: [
     SalesService,
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    AlertService
   ],
   bootstrap: [AppComponent]
 })

@@ -18,6 +18,9 @@ export class SalesService {
     this.saleSubject.next(this.sales);
   }
 
+  /**
+   * for get next sales (after today)
+   */
   getSales() {
     this.httpClient
       .get<any[]>('http://localhost:9001/AfterTodaySales')
