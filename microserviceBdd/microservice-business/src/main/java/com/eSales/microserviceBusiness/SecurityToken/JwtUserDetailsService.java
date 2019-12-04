@@ -4,7 +4,7 @@ package com.eSales.microserviceBusiness.SecurityToken;
 import java.util.ArrayList;
 
 import com.eSales.microserviceDao.UserDao;
-import com.eSales.microserviceModel.entities.User;
+import com.eSales.microserviceModel.entities.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

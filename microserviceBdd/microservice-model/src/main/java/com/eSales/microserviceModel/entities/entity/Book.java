@@ -1,20 +1,20 @@
-package com.eSales.microserviceModel.entities;
+package com.eSales.microserviceModel.entities.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "objects")
-public class Object {
+@Table(name = "books")
+public class Book {
 
     @Id
     @Column(name = "id")
     private int articleId;
 
-    private String brand;
+    private String name;
 
-    private String color;
+    private String author;
 
     private String comment;
 
@@ -24,13 +24,13 @@ public class Object {
     private Article article;
 
     // constructor
-    public Object() {
+    public Book() {
     }
 
-    public Object(int articleId, String brand, String color, String comment, Article article) {
+    public Book(int articleId, String name, String author, String comment, Article article) {
         this.articleId = articleId;
-        this.brand = brand;
-        this.color = color;
+        this.name = name;
+        this.author = author;
         this.comment = comment;
         this.article = article;
     }
@@ -44,20 +44,20 @@ public class Object {
         this.articleId = articleId;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getName() {
+        return name;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getComment() {
@@ -76,3 +76,4 @@ public class Object {
         this.article = article;
     }
 }
+

@@ -1,6 +1,7 @@
-package com.eSales.microserviceModel.entities;
+package com.eSales.microserviceModel.entities.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,7 +10,9 @@ import java.util.Date;
 @Table(name = "articles")
 public class Article {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "id")
     private int id;
 

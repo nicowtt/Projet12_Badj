@@ -1,6 +1,6 @@
 package com.eSales.microserviceDao;
 
-import com.eSales.microserviceModel.entities.User;
+import com.eSales.microserviceModel.entities.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

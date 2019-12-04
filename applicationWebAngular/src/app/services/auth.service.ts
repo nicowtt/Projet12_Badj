@@ -15,7 +15,7 @@ export class AuthService {
 
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('currentUSer')));
+    this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -31,12 +31,14 @@ export class AuthService {
   signInUser(email, password) {
     return this.http.post<any>('http://localhost:9001/checkUserLogIn', { email, password })
       .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-        console.log('local quand sigIn: ' + localStorage.getItem('currentUser'));
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          console.log('local quand sigIn: ' + localStorage.getItem('currentUser'));
+        }
         return user;
-      }))
+      }));
   }
 
   /**
@@ -49,5 +51,19 @@ export class AuthService {
     // console.log('local quand logOut: ' + localStorage.getItem('currentUser'));
   }
 
+  /**
+   * for create new user
+   * @param email
+   * @param password
+   */
+  createNewUser(newUser: Object) {
+    console.log(newUser);
+    return this.http.post<any>('http://localhost:9001/newUser', {newUser})
+      .pipe(map(newUser => {
+        console.log(newUser);
+          return newUser;
+      }
+      ));
+  }
   }
 

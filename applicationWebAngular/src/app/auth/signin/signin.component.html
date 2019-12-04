@@ -9,7 +9,8 @@
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
         <p></p>
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div class="error" *ngIf="f.email.errors.required">Veuillez écrire un email</div>
+          <div class="error" *ngIf="f.email.errors.required">Un email est requis</div>
+          <div *ngIf="f.email.errors.email">@ non présent</div>
       </div>
       </div>
 
@@ -20,6 +21,7 @@
         <p></p>
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
           <div class="error" *ngIf="f.password.errors.required">Veuillez écrire un mot de passe</div>
+          <div *ngIf="f.password.errors.pattern">minimum 3 caractères </div>
         </div>
       </div>
 
@@ -31,8 +33,6 @@
         </div>
 
     </form>
-
-    <app-alert></app-alert>
 
   </div>
 </div>

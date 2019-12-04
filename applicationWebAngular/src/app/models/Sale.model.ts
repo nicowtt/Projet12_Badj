@@ -1,4 +1,4 @@
-import {AdressModel} from "./Adress.model";
+import {AddressModel} from "./Address.model";
 
 export class Sale {
 
@@ -6,7 +6,7 @@ export class Sale {
   description: string;
   dateBegin: Date;
   dateEnd: Date;
-  address: AdressModel;
+  address: AddressModel;
 
   constructor() {}
 }

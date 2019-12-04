@@ -1,3 +1,22 @@
 .brand {
   margin: 5px;
 }
+
+.navBarUserName {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-style: italic;
+  color: black;
+}
+
+.navFunction {
+  margin-top: 10px;
+}
+
+#logoutButton {
+  color: #A58EB7;
+}
+
+#nameOnNav {
+  margin-right: 15px;
+}

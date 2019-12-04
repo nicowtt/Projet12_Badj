@@ -1,4 +1,4 @@
-package com.eSales.microserviceModel.entities;
+package com.eSales.microserviceModel.entities.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 

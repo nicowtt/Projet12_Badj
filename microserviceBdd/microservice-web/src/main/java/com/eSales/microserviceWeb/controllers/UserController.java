@@ -3,8 +3,9 @@ package com.eSales.microserviceWeb.controllers;
 import com.eSales.microserviceBusiness.SecurityToken.JwtUserDetailsService;
 import com.eSales.microserviceBusiness.contract.UserManager;
 import com.eSales.microserviceDao.UserDao;
-import com.eSales.microserviceModel.entities.dto.security.JwtResponse;
-import com.eSales.microserviceModel.entities.User;
+import com.eSales.microserviceModel.entities.entity.User;
+import com.eSales.microserviceModel.entities.dto.UserDto;
+import com.eSales.microserviceModel.entities.mapper.contract.UserMapper;
 import com.eSales.microserviceWeb.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,9 @@ public class UserController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
+    @Autowired
+    private UserMapper userMapper;
+
     /**
      * get all users
      * @return
@@ -46,16 +50,35 @@ public class UserController {
     @PostMapping(value = "/checkUserLogIn", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> checkUserLogin(@RequestBody User user) {
         boolean userIsValid = false;
+        User fullUser = new User();
+        UserDto fullUserDto = new UserDto();
 
         userIsValid = userManager.checkIfUserMailAndPasswordIsOk(user);
         if (userIsValid) {
+            fullUser = userDao.findByEmail(user.getEmail());
+            // user -> userDto
+            fullUserDto = userMapper.fromUserToDto(fullUser);
             // token is create
             final UserDetails userDetails = userDetailsService
                     .loadUserByUsername(user.getEmail());
             final String token = jwtTokenUtil.generateToken(userDetails);
-            return ResponseEntity.ok(new JwtResponse(token));
+//            return ResponseEntity.ok(new JwtResponse(token));
+            // add new token
+            fullUserDto.setToken(token);
+            return ResponseEntity.ok(fullUserDto);
         } else {
             return (new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
+    }
+
+    /**
+     * for create new user
+     * @param newUserDto
+     * @return
+     */
+    @PostMapping(value = "/newUser", consumes = "application/json")
+    public HttpStatus newUser(@RequestBody UserDto newUserDto) {
+        userManager.addUser(newUserDto);
+        return HttpStatus.CREATED;
     }
 }

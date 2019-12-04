@@ -4,24 +4,25 @@
       <img class="brand" style="max-width: 40px" src="https://image.noelshack.com/fichiers/2019/48/3/1574872466-logo.png" alt="logo">
     </a>
     <ul class="nav navbar-left">
-      <li routerLinkActive="active">
+      <li class="navFunction" routerLinkActive="active">
         <a routerLink="sales">Bourses</a>
       </li>
     </ul>
 
     <ul class="nav navbar-right">
-      <li routerLinkActive="active" *ngIf="!currentUser"> <!-- si l'utilisateur n'est pas authentifié-->
+      <li class="navFunction" routerLinkActive="active" *ngIf="!currentUser"> <!-- user not authenticated-->
         <a routerLink="auth/signup">Créer un compte</a>
       </li>
     </ul>
     <ul class="nav navbar-right">
-      <li routerLinkActive="active" *ngIf="!currentUser"> <!-- si l'utilisateur n'est pas authentifié-->
+      <li class="navFunction" routerLinkActive="active" *ngIf="!currentUser"> <!-- user not authenticated-->
         <a routerLink="auth/signin">Connexion</a>
       </li>
       <li>
-        <a (click)="onSignOut()"
+        <p *ngIf="currentUser" (click)="onSignOut()"
            style="cursor:pointer"
-           *ngIf="currentUser">Déconnexion</a> <!-- si l'utilisateur est authentifié il peut cliquer sur deconnexion-->
+           class="navbar-text navbar-right"><span id="logoutButton">Deconnexion </span>
+          <a routerLink="#" class="navbar-link" id="nameOnNav">{{currentUser.name}} {{currentUser.lastName}}</a></p>
       </li>
     </ul>
   </div>

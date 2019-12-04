@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {first} from "rxjs/operators";
 import {AlertService} from "../../services/alert.service";
 
 @Component({
@@ -31,7 +30,7 @@ export class SigninComponent implements OnInit {
   initForm() {
     this.signInForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{3,}/)]] // regex au moins 6 caractères alphanumérique
+      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{3,}/)]]
     });
   }
 

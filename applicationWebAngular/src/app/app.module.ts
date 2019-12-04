@@ -15,10 +15,12 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AlertComponent } from './alert/alert.component';
 import {AlertService} from "./services/alert.service";
+import {UserService} from "./services/user.service";
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
   { path: 'auth/signin', component: SigninComponent },
+  { path: 'auth/signup', component: SignupComponent },
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -44,7 +46,8 @@ const appRoutes: Routes = [
     SalesService,
     AuthService,
     AuthGuardService,
-    AlertService
+    AlertService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

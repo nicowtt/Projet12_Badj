@@ -1,4 +1,3 @@
-import {AdressModel} from "./Adress.model";
 
 export class UserModel {
 
@@ -7,9 +6,10 @@ export class UserModel {
   password: string;
   email: string;
   phone: string;
-  isVoluntary: boolean;
-  isResponsible: boolean;
-  addressId: AdressModel;
+  street: string;
+  postalCode: number;
+  city: string;
+  token: Object;
 
   constructor() {}
 }
