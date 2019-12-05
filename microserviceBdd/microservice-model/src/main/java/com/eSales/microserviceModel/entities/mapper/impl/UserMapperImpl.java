@@ -1,6 +1,7 @@
 package com.eSales.microserviceModel.entities.mapper.impl;
 
 import com.eSales.microserviceModel.entities.dto.UserDto;
+import com.eSales.microserviceModel.entities.entity.Address;
 import com.eSales.microserviceModel.entities.entity.User;
 import com.eSales.microserviceModel.entities.mapper.contract.UserMapper;
 import org.springframework.stereotype.Component;
@@ -11,8 +12,8 @@ public class UserMapperImpl implements UserMapper {
 
     /**
      * For map UserDto to User without address
-     * @param userDto
-     * @return
+     * @param userDto -> token + user + adress
+     * @return user
      */
     @Override
     public User fromDtoToUserWithoutAddress(UserDto userDto) {
@@ -29,8 +30,8 @@ public class UserMapperImpl implements UserMapper {
 
     /**
      * For map User to UserDto
-     * @param user
-     * @return
+     * @param user user
+     * @return userDto
      */
     @Override
     public UserDto fromUserToDto(User user) {
@@ -47,5 +48,21 @@ public class UserMapperImpl implements UserMapper {
         userDto.setCity(user.getAddress().getCity());
 
         return userDto;
+    }
+
+    /**
+     * for map UserDto to address
+     * @param userDto (token + user + adress)
+     * @return address bean
+     */
+    @Override
+    public Address fromUserDtoToAddress(UserDto userDto) {
+        Address address = new Address();
+
+        address.setStreet(userDto.getStreet());
+        address.setPostalCode(userDto.getPostalCode());
+        address.setCity(userDto.getCity());
+
+        return address;
     }
 }

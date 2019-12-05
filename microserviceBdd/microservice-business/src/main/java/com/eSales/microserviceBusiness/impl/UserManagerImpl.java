@@ -11,6 +11,7 @@ import com.eSales.microserviceModel.entities.mapper.contract.UserMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +40,7 @@ public class UserManagerImpl implements UserManager {
      */
     @Override
     public boolean checkIfUserMailAndPasswordIsOk(User userToValidate) {
-        User userOnBdd = new User();
+        User userOnBdd;
         boolean mailExist = false;
         boolean passwordIsValid = false;
         boolean mailAndUserExist = false;
@@ -81,40 +82,33 @@ public class UserManagerImpl implements UserManager {
     }
 
     /**
-     * for create new user
+     * for create new user (user address and user)
      * @param userDto
      */
     @Transactional
     @Override
-    public void addUser(UserDto userDto) {
-        Address addressInput = new Address();
-        Address newAddress = new Address();
-        int addressId;
-        User newUser = new User();
+    public boolean addUser(UserDto userDto) {
+        Address addressInputFromUserDto;
+        Address newAddress;
+        User newUserfromDto;
 
-        // set new address // todo mapper d'adresse dto -> address
-        addressInput.setStreet(userDto.getStreet());
-        addressInput.setPostalCode(userDto.getPostalCode());
-        addressInput.setCity(userDto.getCity());
+        // new address -> bdd
+        addressInputFromUserDto = userMapper.fromUserDtoToAddress(userDto);
 
-        // creation d'une nouvelle addresse
-        newAddress = addressDao.save(addressInput);
+        newAddress = addressDao.save(addressInputFromUserDto);
 
-        // set new user
-        newUser = userMapper.fromDtoToUserWithoutAddress(userDto);
-
-        // ajout de l'adress dans le newUser
-        newUser.setAddress(newAddress);
-
-        // hashing du password en clair reçus du userDto
+        // new user -> bdd
+        newUserfromDto = userMapper.fromDtoToUserWithoutAddress(userDto);
+        newUserfromDto.setAddress(newAddress);
         String hashedPassword = passwordEncoder.hashPassword(userDto.getPassword());
+        newUserfromDto.setPassword(hashedPassword);
 
-        // je le rajoute dans newUser
-        newUser.setPassword(hashedPassword);
-
-        // je save le new user en bdd
-        userDao.save(newUser);
-
+        try {
+            userDao.save(newUserfromDto);
+        } catch (DataIntegrityViolationException e) {
+            logger.info("L'enregistrement du nouvel utilisateur" + userDto.getEmail() + " à échoué: l'email existe déjà en BDD");
+            return false;
+        }
+        return true;
     }
-
 }

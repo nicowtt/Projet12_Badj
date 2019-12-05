@@ -7,6 +7,8 @@ import com.eSales.microserviceModel.entities.entity.User;
 import com.eSales.microserviceModel.entities.dto.UserDto;
 import com.eSales.microserviceModel.entities.mapper.contract.UserMapper;
 import com.eSales.microserviceWeb.security.JwtTokenUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,8 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    static final Log logger = LogFactory.getLog(UserController.class);
+
     /**
      * get all users
      * @return
@@ -44,28 +48,30 @@ public class UserController {
 
     /**
      * check user login and password
-     * @param user
+     * @param userDto
      * @return httpResponse 404 or 200 and new token if needed when login and password id ok.
      */
     @PostMapping(value = "/checkUserLogIn", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> checkUserLogin(@RequestBody User user) {
-        boolean userIsValid = false;
-        User fullUser = new User();
-        UserDto fullUserDto = new UserDto();
+    public ResponseEntity<UserDto> checkUserLogin(@RequestBody UserDto userDto) {
+        User userInput;
+        boolean userInputIsValidate;
+        User fullUserFromBdd;
+        UserDto fullUserFromBddDto;
 
-        userIsValid = userManager.checkIfUserMailAndPasswordIsOk(user);
-        if (userIsValid) {
-            fullUser = userDao.findByEmail(user.getEmail());
-            // user -> userDto
-            fullUserDto = userMapper.fromUserToDto(fullUser);
-            // token is create
+        userInput = userMapper.fromDtoToUserWithoutAddress(userDto);
+        userInputIsValidate = userManager.checkIfUserMailAndPasswordIsOk(userInput);
+
+        if (userInputIsValidate) {
+            fullUserFromBdd = userDao.findByEmail(userInput.getEmail());
+            fullUserFromBddDto = userMapper.fromUserToDto(fullUserFromBdd);
+            // token creation
             final UserDetails userDetails = userDetailsService
-                    .loadUserByUsername(user.getEmail());
+                    .loadUserByUsername(userInput.getEmail());
             final String token = jwtTokenUtil.generateToken(userDetails);
 //            return ResponseEntity.ok(new JwtResponse(token));
-            // add new token
-            fullUserDto.setToken(token);
-            return ResponseEntity.ok(fullUserDto);
+            fullUserFromBddDto.setToken(token);
+            fullUserFromBddDto.setPassword(null);
+            return ResponseEntity.ok(fullUserFromBddDto);
         } else {
             return (new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
@@ -78,7 +84,13 @@ public class UserController {
      */
     @PostMapping(value = "/newUser", consumes = "application/json")
     public HttpStatus newUser(@RequestBody UserDto newUserDto) {
-        userManager.addUser(newUserDto);
-        return HttpStatus.CREATED;
+
+        boolean addNewUserIsOk = userManager.addUser(newUserDto);
+
+        if (addNewUserIsOk) {
+            return HttpStatus.CREATED;
+        } else {
+            return HttpStatus.CONFLICT;
+        }
     }
 }

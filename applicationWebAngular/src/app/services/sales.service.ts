@@ -2,6 +2,7 @@ import {Observable, Subject} from "rxjs";
 import {Sale} from "../models/Sale.model";
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpClientModule} from "@angular/common/http";
+import {AlertService} from "./alert.service";
 
 @Injectable()
 export class SalesService {
@@ -11,7 +12,8 @@ export class SalesService {
 
   private sales: Sale[] = [];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,
+              private alertService: AlertService) {}
 
   // emmit method
   emmitSales() {
@@ -30,7 +32,8 @@ export class SalesService {
           this.emmitSales();
         },
         (error) => {
-          console.log('Erreur de chargement !' + error)
+          console.log('Erreur de chargement !' + error);
+          this.alertService.error("erreur reseau veuillez recommencer plus tard");
         }
       )
   };

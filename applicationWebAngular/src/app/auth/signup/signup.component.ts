@@ -14,11 +14,11 @@ import {AlertService} from "../../services/alert.service";
 })
 export class SignupComponent implements OnInit {
 
-  signUpForm: FormGroup; // le formulaire
+  signUpForm: FormGroup;
   loading = false;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, // je remplis les dépendances
+  constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private userService: UserService,
               private route: ActivatedRoute,
@@ -63,14 +63,18 @@ export class SignupComponent implements OnInit {
 
     this.loading = true;
     this.userService.AddUser(this.signUpForm.value)
-      .pipe(first())
+      // .pipe(first())
       .subscribe(
         res => {
           this.alertService.success('Utilisateur enregistré', true);
           this.router.navigate(['auth/signin']);
         },
         error => {
-          this.alertService.error(error);
+          if (error.status === 500) {
+            this.alertService.error("Erreur, l'email existe déjà");
+          } else {
+            this.alertService.error("erreur reseau veuillez recommencer plus tard");
+          }
           this.loading = false;
         }
       );

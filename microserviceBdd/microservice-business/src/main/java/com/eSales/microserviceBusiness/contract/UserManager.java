@@ -9,5 +9,5 @@ public interface UserManager {
 
     boolean checkIfUserMailAndPasswordIsOk(User userToValidate);
     boolean checkIfMailExist(String mail);
-    void addUser(UserDto userDto);
+    boolean addUser(UserDto userDto) ;
 }
