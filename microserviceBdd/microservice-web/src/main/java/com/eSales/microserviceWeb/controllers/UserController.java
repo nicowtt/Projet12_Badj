@@ -7,12 +7,14 @@ import com.eSales.microserviceModel.entities.entity.User;
 import com.eSales.microserviceModel.entities.dto.UserDto;
 import com.eSales.microserviceModel.entities.mapper.contract.UserMapper;
 import com.eSales.microserviceWeb.security.JwtTokenUtil;
+import com.sun.deploy.net.HttpResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -68,12 +70,11 @@ public class UserController {
             final UserDetails userDetails = userDetailsService
                     .loadUserByUsername(userInput.getEmail());
             final String token = jwtTokenUtil.generateToken(userDetails);
-//            return ResponseEntity.ok(new JwtResponse(token));
             fullUserFromBddDto.setToken(token);
             fullUserFromBddDto.setPassword(null);
             return ResponseEntity.ok(fullUserFromBddDto);
         } else {
-            return (new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            return (new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE));
         }
     }
 
@@ -83,14 +84,17 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/newUser", consumes = "application/json")
-    public HttpStatus newUser(@RequestBody UserDto newUserDto) {
-
-        boolean addNewUserIsOk = userManager.addUser(newUserDto);
-
+    public ResponseEntity<String> newUser(@RequestBody UserDto newUserDto) {
+        boolean addNewUserIsOk = false;
+        try {
+            addNewUserIsOk = userManager.addUser(newUserDto);
+        } catch (UnexpectedRollbackException e) {
+            logger.warn("roll back on new user");
+        }
         if (addNewUserIsOk) {
-            return HttpStatus.CREATED;
+            return (new ResponseEntity<>(HttpStatus.CREATED));
         } else {
-            return HttpStatus.CONFLICT;
+            return (new ResponseEntity<>("email already exist",HttpStatus.CONFLICT));
         }
     }
 }

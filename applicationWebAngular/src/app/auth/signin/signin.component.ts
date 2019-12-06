@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../services/alert.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-signin',
@@ -54,8 +55,12 @@ export class SigninComponent implements OnInit {
         data => {
           this.router.navigate([this.returnUrl]);
         },
-        error => {
-          this.alertService.error("Le nom d'utilisateur ou le mot de passe est incorrect");
+        (error: HttpErrorResponse) => {
+          if (error.status === 406) {
+            this.alertService.error("Le nom d'utilisateur ou le mot de passe est incorrect");
+          } else {
+            this.alertService.error(error.message);
+          }
           this.loading = false;
         }
       );

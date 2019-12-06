@@ -6,6 +6,7 @@ import {UserModel} from "../../models/User.model";
 import {UserService} from "../../services/user.service";
 import {first} from "rxjs/operators";
 import {AlertService} from "../../services/alert.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-signup',
@@ -69,11 +70,15 @@ export class SignupComponent implements OnInit {
           this.alertService.success('Utilisateur enregistré', true);
           this.router.navigate(['auth/signin']);
         },
-        error => {
-          if (error.status === 500) {
+        (error: HttpErrorResponse) => {
+          // console.log(error.error);
+          // console.log(error.name);
+          // console.log(error.message);
+          // console.log(error.status);
+          if (error.error === "email already exist") {
             this.alertService.error("Erreur, l'email existe déjà");
           } else {
-            this.alertService.error("erreur reseau veuillez recommencer plus tard");
+            this.alertService.error(error.message);
           }
           this.loading = false;
         }
