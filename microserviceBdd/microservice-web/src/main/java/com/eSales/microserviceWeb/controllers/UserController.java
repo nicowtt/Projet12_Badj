@@ -7,7 +7,6 @@ import com.eSales.microserviceModel.entities.entity.User;
 import com.eSales.microserviceModel.entities.dto.UserDto;
 import com.eSales.microserviceModel.entities.mapper.contract.UserMapper;
 import com.eSales.microserviceWeb.security.JwtTokenUtil;
-import com.sun.deploy.net.HttpResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
