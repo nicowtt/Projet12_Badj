@@ -1,4 +1,4 @@
-package com.eSales.microserviceModel.entities.entity;
+package com.eSales.microserviceModel.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -87,5 +87,18 @@ public class Sale {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    // to string
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                ", dateBegin=" + dateBegin +
+                ", dateEnd=" + dateEnd +
+                ", address=" + address +
+                '}';
     }
 }

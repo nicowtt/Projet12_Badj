@@ -1,7 +1,7 @@
 package com.eSales.microserviceBusiness.contract;
 
-import com.eSales.microserviceModel.entities.entity.User;
-import com.eSales.microserviceModel.entities.dto.UserDto;
+import com.eSales.microserviceModel.entity.User;
+import com.eSales.microserviceModel.dto.UserDto;
 import org.springframework.stereotype.Service;
 
 @Service

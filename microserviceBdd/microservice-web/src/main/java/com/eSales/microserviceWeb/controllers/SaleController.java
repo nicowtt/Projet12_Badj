@@ -1,7 +1,7 @@
 package com.eSales.microserviceWeb.controllers;
 
 import com.eSales.microserviceDao.SaleDao;
-import com.eSales.microserviceModel.entities.entity.Sale;
+import com.eSales.microserviceModel.entity.Sale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

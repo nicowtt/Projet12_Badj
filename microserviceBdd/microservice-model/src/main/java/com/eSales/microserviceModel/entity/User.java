@@ -1,4 +1,4 @@
-package com.eSales.microserviceModel.entities.entity;
+package com.eSales.microserviceModel.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
@@ -123,5 +123,21 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    // to string
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", isVoluntary=" + isVoluntary +
+                ", isResponsible=" + isResponsible +
+                ", address=" + address +
+                '}';
     }
 }

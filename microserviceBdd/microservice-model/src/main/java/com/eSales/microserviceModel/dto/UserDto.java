@@ -1,4 +1,4 @@
-package com.eSales.microserviceModel.entities.dto;
+package com.eSales.microserviceModel.dto;
 
 
 

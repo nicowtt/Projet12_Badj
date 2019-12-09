@@ -1,20 +1,20 @@
-package com.eSales.microserviceModel.entities.entity;
+package com.eSales.microserviceModel.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "books")
-public class Book {
+@Table(name = "objects")
+public class Object {
 
     @Id
     @Column(name = "id")
     private int articleId;
 
-    private String name;
+    private String brand;
 
-    private String author;
+    private String color;
 
     private String comment;
 
@@ -24,13 +24,13 @@ public class Book {
     private Article article;
 
     // constructor
-    public Book() {
+    public Object() {
     }
 
-    public Book(int articleId, String name, String author, String comment, Article article) {
+    public Object(int articleId, String brand, String color, String comment, Article article) {
         this.articleId = articleId;
-        this.name = name;
-        this.author = author;
+        this.brand = brand;
+        this.color = color;
         this.comment = comment;
         this.article = article;
     }
@@ -44,20 +44,20 @@ public class Book {
         this.articleId = articleId;
     }
 
-    public String getName() {
-        return name;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getColor() {
+        return color;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getComment() {
@@ -75,5 +75,16 @@ public class Book {
     public void setArticle(Article article) {
         this.article = article;
     }
-}
 
+    // to string
+    @Override
+    public String toString() {
+        return "Object{" +
+                "articleId=" + articleId +
+                ", brand='" + brand + '\'' +
+                ", color='" + color + '\'' +
+                ", comment='" + comment + '\'' +
+                ", article=" + article +
+                '}';
+    }
+}

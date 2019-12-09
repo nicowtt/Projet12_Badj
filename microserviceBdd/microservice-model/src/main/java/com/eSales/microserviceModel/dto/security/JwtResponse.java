@@ -1,4 +1,4 @@
-package com.eSales.microserviceModel.entities.dto.security;
+package com.eSales.microserviceModel.dto.security;
 
 
 import java.io.Serializable;

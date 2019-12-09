@@ -1,4 +1,4 @@
-package com.eSales.microserviceModel.entities.entity;
+package com.eSales.microserviceModel.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
@@ -219,5 +219,28 @@ public class Article {
 
     public void setObject(Object object) {
         this.object = object;
+    }
+
+    // to String
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                ", type='" + type + '\'' +
+                ", saleNumber=" + saleNumber +
+                ", price=" + price +
+                ", dateRecord=" + dateRecord +
+                ", isValidateToSell=" + isValidateToSell +
+                ", isSold=" + isSold +
+                ", isStolen=" + isStolen +
+                ", isReturnOwner=" + isReturnOwner +
+                ", user=" + user +
+                ", sale=" + sale +
+                ", clothe=" + clothe +
+                ", toy=" + toy +
+                ", book=" + book +
+                ", object=" + object +
+                '}';
     }
 }

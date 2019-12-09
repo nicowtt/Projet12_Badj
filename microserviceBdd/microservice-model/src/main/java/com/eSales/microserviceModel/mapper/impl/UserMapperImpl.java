@@ -1,9 +1,9 @@
-package com.eSales.microserviceModel.entities.mapper.impl;
+package com.eSales.microserviceModel.mapper.impl;
 
-import com.eSales.microserviceModel.entities.dto.UserDto;
-import com.eSales.microserviceModel.entities.entity.Address;
-import com.eSales.microserviceModel.entities.entity.User;
-import com.eSales.microserviceModel.entities.mapper.contract.UserMapper;
+import com.eSales.microserviceModel.dto.UserDto;
+import com.eSales.microserviceModel.entity.Address;
+import com.eSales.microserviceModel.entity.User;
+import com.eSales.microserviceModel.mapper.contract.UserMapper;
 import org.springframework.stereotype.Component;
 
 @Component

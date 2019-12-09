@@ -1,0 +1,34 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - cd docker/dev
+  - docker-compose up -d
+  - docker ps -a
+
+before_script:
+  - cd ../../src
+  - cd microserviceBdd
+
+script:
+  - mvn test
+  - cd ../docker/dev
+  - docker-compose stop
+  - docker-compose rm -f
+  - docker-compose up -d
+  - docker ps -a
+  - cd ../../src
+
+after_success:
+  - mvn --file pom.xml cobertura:cobertura -P test
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email: false
