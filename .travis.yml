@@ -1,5 +1,7 @@
 language: java
 
+dist: trusty
+
 jdk:
   - oraclejdk8
 
@@ -25,6 +27,7 @@ script:
   - docker-compose up -d
   - docker ps -a
   - cd ../../src
+  - cd microserviceBdd
 
 after_success:
   - mvn --file pom.xml cobertura:cobertura -P test
