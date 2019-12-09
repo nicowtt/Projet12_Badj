@@ -29,7 +29,7 @@ script:
 
 
 after_success:
-  - mvn --file pom.xml cobertura:cobertura -P test
+  - mvn --file pom.xml cobertura:cobertura
   - bash <(curl -s https://codecov.io/bash)
 
 notifications:
