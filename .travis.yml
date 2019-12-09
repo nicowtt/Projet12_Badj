@@ -16,8 +16,7 @@ before_install:
   - docker ps -a
 
 before_script:
-  - cd ../../src
-  - cd microserviceBdd
+  - cd ../../Projet12_Badj/microserviceBdd
 
 script:
   - mvn test
@@ -26,8 +25,8 @@ script:
   - docker-compose rm -f
   - docker-compose up -d
   - docker ps -a
-  - cd ../../src
-  - cd microserviceBdd
+  - cd ../../Projet12_Badj/microserviceBdd
+
 
 after_success:
   - mvn --file pom.xml cobertura:cobertura -P test
