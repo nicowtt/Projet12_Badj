@@ -31,13 +31,7 @@ script:
   - docker-compose rm -f
   - docker-compose up -d
   - docker ps -a
-  - cd ../../applicationWebAngular
-  - mvn test
-  - cd ../docker/dev
-  - docker-compose stop
-  - docker-compose rm -f
-  - docker-compose up -d
-  - docker ps -a
+  - cd ../../microserviceBdd
 
 
 after_success:
