@@ -5,9 +5,7 @@ dist: trusty
 environment:
   TZ: "Europe/Paris"
   command: >
-    sh -c "ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &&
-    echo $TZ > /etc/timezone &&
-    exec my-main-application"
+    sh -c "ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone"
 
 addons:
   sonarcloud:
