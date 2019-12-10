@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @SpringBootTest
 public class ArticleUnitTest {
@@ -21,7 +22,8 @@ public class ArticleUnitTest {
     public void testToString() {
         Article article = new Article();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-        String todayDateString = "2019-12-09 17:31:25";
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        String todayDateString = "2019-12-09 18:31:25";
 
         article.setId(0);
         article.setCategory("vêtement");
@@ -40,7 +42,7 @@ public class ArticleUnitTest {
 
         System.out.println(article.toString());
         Assert.assertEquals("Article{id=0, category='vêtement', type='jeans', saleNumber=1, price=10.0," +
-                        " dateRecord=Wed Jan 09 17:31:25 CET 2019, isValidateToSell=false, isSold=false, isStolen=false," +
+                        " dateRecord=Wed Jan 09 17:31:25 UTC 2019, isValidateToSell=false, isSold=false, isStolen=false," +
                         " isReturnOwner=false, user=null, sale=null, clothe=null, toy=null, book=null, object=null}"
                 , article.toString());
     }

@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @SpringBootTest
 public class SaleUnitTest {
@@ -19,8 +20,9 @@ public class SaleUnitTest {
     public void testToString() {
         Sale sale = new Sale();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-        String todayDateString = "2019-12-10 14:48:25";
-        String oneWeekDateString = "2019-12-17 14:48:25";
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        String todayDateString = "2019-12-10 15:48:25";
+        String oneWeekDateString = "2019-12-17 15:48:25";
 
         sale.setType("Bourse de printemps");
         sale.setDescription("Vêtements");
@@ -35,7 +37,7 @@ public class SaleUnitTest {
         }
 
         Assert.assertEquals("Sale{id=0, type='Bourse de printemps', description='Vêtements', " +
-                "dateBegin=Thu Jan 10 14:48:25 CET 2019, dateEnd=Thu Jan 17 14:48:25 CET 2019, address=null}"
+                "dateBegin=Thu Jan 10 14:48:25 UTC 2019, dateEnd=Thu Jan 17 14:48:25 UTC 2019, address=null}"
                 , sale.toString());
 
     }
