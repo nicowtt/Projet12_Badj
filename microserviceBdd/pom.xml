@@ -204,6 +204,13 @@
 						</formats>
 						<check />
 					</configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.ow2.asm</groupId>
+                            <artifactId>asm</artifactId>
+                            <version>5.0.3</version>
+                        </dependency>
+                    </dependencies>
 				</plugin>
 
 				<!-- ===== Test / Reporting ===== -->
