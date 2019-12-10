@@ -2,6 +2,12 @@ language: java
 
 dist: trusty
 
+addons:
+  sonarcloud:
+    organization: "nicowtt"
+    token:
+      secure: "18c28dc86fb5feb419c1fb33519309f37ab6f4f0" # encrypted value of your token
+
 jdk:
   - oraclejdk8
 
@@ -29,8 +35,10 @@ script:
 
 
 after_success:
-  - mvn --file pom.xml cobertura:cobertura
-  - bash <(curl -s https://codecov.io/bash)
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=nicowtt_Projet12_Badj
+#  - mvn --file pom.xml cobertura:cobertura
+#  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email: false

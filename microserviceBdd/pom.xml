@@ -192,27 +192,45 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<!-- ===== cobertura ===== -->
+<!--				&lt;!&ndash; ===== cobertura ===== &ndash;&gt;-->
+<!--				<plugin>-->
+<!--					<groupId>org.codehaus.mojo</groupId>-->
+<!--					<artifactId>cobertura-maven-plugin</artifactId>-->
+<!--					<version>2.7</version>-->
+<!--					<configuration>-->
+<!--						<formats>-->
+<!--							<format>html</format>-->
+<!--							<format>xml</format>-->
+<!--						</formats>-->
+<!--						<check />-->
+<!--					</configuration>-->
+<!--				</plugin>-->
+
+				<!-- ===== jacoco ===== -->
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
-					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>cobertura-maven-plugin</artifactId>
-					<version>2.7</version>
-					<dependencies>
-						<dependency>
-							<groupId>org.ow2.asm</groupId>
-							<artifactId>asm</artifactId>
-							<version>5.0.3</version>
-						</dependency>
-					</dependencies>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.2</version>
+					<executions>
+						<execution>
+							<id>default-prepare-agent</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>default-report</id>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>default-check</id>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 
 				<!-- ===== Test / Reporting ===== -->
