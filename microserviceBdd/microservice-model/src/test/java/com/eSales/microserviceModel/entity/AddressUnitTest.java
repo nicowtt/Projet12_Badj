@@ -3,10 +3,9 @@ package com.eSales.microserviceModel.entity;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = MockitoJUnitRunner.class)
+@SpringBootTest
 public class AddressUnitTest {
 
     @Test

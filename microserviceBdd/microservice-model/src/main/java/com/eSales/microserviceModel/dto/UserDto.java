@@ -110,4 +110,20 @@ public class UserDto {
     public void setToken(String token) {
         this.token = token;
     }
+
+    // to string
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", street='" + street + '\'' +
+                ", postalCode=" + postalCode +
+                ", city='" + city + '\'' +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }
