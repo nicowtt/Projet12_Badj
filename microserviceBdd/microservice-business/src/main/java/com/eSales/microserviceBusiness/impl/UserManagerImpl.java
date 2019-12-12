@@ -15,6 +15,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component
 public class UserManagerImpl implements UserManager {
 
@@ -110,5 +112,14 @@ public class UserManagerImpl implements UserManager {
             return false;
         }
         return true;
+    }
+
+    /**
+     * to get all user from bdd
+     * @return
+     */
+    @Override
+    public List<User> getAllUsers() {
+        return userDao.findAll();
     }
 }
