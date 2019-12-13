@@ -33,7 +33,6 @@ public class User {
 
 
     @OneToOne
-    @JsonManagedReference
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

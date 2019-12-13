@@ -21,19 +21,14 @@ public class Address {
 
     private String city;
 
-    @JsonBackReference
-    @OneToOne(mappedBy = "address")
-    private User user;
-
     // constructor
     public Address() {
     }
 
-    public Address(String street, int postalCode, String city, User user) {
+    public Address(String street, int postalCode, String city) {
         this.street = street;
         this.postalCode = postalCode;
         this.city = city;
-        this.user = user;
     }
 
     // getters and setters
@@ -69,14 +64,6 @@ public class Address {
         this.city = city;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     // to string
     @Override
     public String toString() {
@@ -85,7 +72,6 @@ public class Address {
                 ", street='" + street + '\'' +
                 ", postalCode=" + postalCode +
                 ", city='" + city + '\'' +
-                ", user=" + user +
                 '}';
     }
 }

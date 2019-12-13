@@ -2,7 +2,7 @@ package com.eSales.microserviceWeb;
 
 import java.io.IOException;
 
-import com.eSales.microserviceWeb.controllers.UserController;
+import config.TestContextConf;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = ApiWebMicroserviceBdd.class)
+@SpringBootTest(classes = TestContextConf.class)
 @WebAppConfiguration
 public abstract class AbstractTest {
 
