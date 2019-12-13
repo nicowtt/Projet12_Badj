@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
@@ -60,11 +61,15 @@ public class UserManagerIntegrationTest {
 
     @Test
     public void testAddUser() {
+//
+//        List<User> allUserOnBdd = userManagerImpl.getAllUsers();
+//        System.out.println(allUserOnBdd);
         int countUserOnBdd = 0;
         List<User> listUserOnBdd = userManagerImpl.getAllUsers();
         for (int i = 0; i < listUserOnBdd.size(); i++) {
             countUserOnBdd++;
         }
+        System.out.println(countUserOnBdd);
         // todo ajoute un user
         // todo test si on est a +1 de userOnBdd
         // todo efface ce user de test

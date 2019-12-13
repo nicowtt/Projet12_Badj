@@ -1,5 +1,6 @@
 package com.eSales.microserviceBusiness.config;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,6 +16,7 @@ import javax.sql.DataSource;
 @ComponentScan(basePackages = {"com.eSales"})
 @EntityScan("com.eSales")
 @EnableJpaRepositories("com.eSales")
+@EnableAutoConfiguration
 public class TestContextConf {
 
     @Bean(name = "dataSource")
