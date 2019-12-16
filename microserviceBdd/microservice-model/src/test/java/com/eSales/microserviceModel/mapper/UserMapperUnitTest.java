@@ -82,7 +82,7 @@ public class UserMapperUnitTest {
     public void testfromUserDtoToAddress() {
         Address addressTest = userMapper.fromUserDtoToAddress(userDto);
 
-        Assert.assertEquals("Address{id=0, street='une rue', postalCode=31200, city='Toulouse', user=null}"
+        Assert.assertEquals("Address{id=0, street='une rue', postalCode=31200, city='Toulouse'}"
                 , addressTest.toString());
     }
 
