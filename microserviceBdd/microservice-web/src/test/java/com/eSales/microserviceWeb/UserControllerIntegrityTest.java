@@ -15,10 +15,24 @@ import static org.junit.Assert.assertEquals;
 
 public class UserControllerIntegrityTest extends AbstractTest {
 
+    /** Jeu de données **/
+    private UserDto userDtoTest;
+
     @Override
     @Before
     public void setUp() {
         super.setUp();
+
+        userDtoTest = new UserDto();
+        userDtoTest.setName("nico");
+        userDtoTest.setLastName("bod");
+        userDtoTest.setEmail("bruce.lee@gmail.com");
+        userDtoTest.setPhone("060606006");
+        userDtoTest.setPassword("pass");
+        userDtoTest.setStreet("rue du test");
+        userDtoTest.setPostalCode(31200);
+        userDtoTest.setCity("Toulouse");
+        userDtoTest.setToken("tok");
     }
 
     @Test
@@ -38,18 +52,7 @@ public class UserControllerIntegrityTest extends AbstractTest {
     @Test
     public void testNewUserWhenEmailExist() throws Exception {
         String uri = "/newUser";
-        UserDto userDto = new UserDto();
-        userDto.setName("nico");
-        userDto.setLastName("bod");
-        userDto.setEmail("bruce.lee@gmail.com");
-        userDto.setPhone("060606006");
-        userDto.setPassword("pass");
-        userDto.setStreet("rue du test");
-        userDto.setPostalCode(31200);
-        userDto.setCity("Toulouse");
-        userDto.setToken("tok");
-
-        String inputJson = super.mapToJson(userDto);
+        String inputJson = super.mapToJson(userDtoTest);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson)).andReturn();
@@ -58,5 +61,28 @@ public class UserControllerIntegrityTest extends AbstractTest {
 
         String content = mvcResult.getResponse().getContentAsString();
         assertEquals("email already exist", content);
+    }
+
+    @Test
+    public void testCheckUserLoginPassWrong() throws Exception{
+        String uri = "/checkUserLogIn";
+        String inputJson = super.mapToJson(userDtoTest);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(406, status);
+    }
+
+    @Test
+    public void testCheckUserLoginPassOK() throws Exception{
+        userDtoTest.setPassword("mdp");
+        String uri = "/checkUserLogIn";
+        String inputJson = super.mapToJson(userDtoTest);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
     }
 }

@@ -1,7 +1,5 @@
 package com.eSales.microserviceModel.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -23,7 +21,6 @@ public class Sale {
     private Date dateEnd;
 
     @OneToOne
-    @JsonManagedReference
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

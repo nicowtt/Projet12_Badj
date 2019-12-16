@@ -41,12 +41,10 @@ public class Article {
     private boolean isReturnOwner;
 
     @OneToOne
-    @JsonManagedReference
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @OneToOne
-    @JsonManagedReference
     @JoinColumn(name = "sale_id", referencedColumnName = "id")
     private Sale sale;
 
