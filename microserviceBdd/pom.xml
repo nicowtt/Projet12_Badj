@@ -31,7 +31,7 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.RC2</spring-cloud.version>
 		
-		<!-- Tell sonar where to look for the coverage file. Property inherited by submodules -->
+		<!-- Tell sonar where to look for the coverage file. Property inherited by submodules test-->
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 	</properties>
 
