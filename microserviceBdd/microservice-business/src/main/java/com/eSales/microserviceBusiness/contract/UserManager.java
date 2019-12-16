@@ -13,4 +13,5 @@ public interface UserManager {
     boolean checkIfMailExist(String mail);
     boolean addUser(UserDto userDto) ;
     List<User> getAllUsers();
+    User findUserByMail(String email);
 }

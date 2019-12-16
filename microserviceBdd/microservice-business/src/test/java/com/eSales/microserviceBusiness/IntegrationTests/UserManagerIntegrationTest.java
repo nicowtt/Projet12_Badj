@@ -1,21 +1,23 @@
 package com.eSales.microserviceBusiness.IntegrationTests;
 
 import com.eSales.microserviceBusiness.config.TestContextConf;
+import com.eSales.microserviceBusiness.contract.AddressManager;
+import com.eSales.microserviceBusiness.contract.UserManager;
 import com.eSales.microserviceBusiness.impl.UserManagerImpl;
-import com.eSales.microserviceDao.SaleDao;
-import com.eSales.microserviceDao.UserDao;
+import com.eSales.microserviceModel.dto.UserDto;
 import com.eSales.microserviceModel.entity.Address;
-import com.eSales.microserviceModel.entity.Sale;
 import com.eSales.microserviceModel.entity.User;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @RunWith(SpringRunner.class)
@@ -23,61 +25,67 @@ import java.util.List;
 public class UserManagerIntegrationTest {
 
     @Autowired
-    private UserManagerImpl userManagerImpl;
+    private UserManager userManager;
 
     @Autowired
-    private SaleDao saleDao;
+    private AddressManager addressManager;
 
-    @Autowired
-    private UserDao userDao;
+    static final Log logger = LogFactory.getLog(UserManagerImpl.class);
 
     /** Jeu de données **/
-    private User userTest;
-    private Address addressTest;
+
+    private UserDto userDtoTest;
 
     @Before
     public void setup() {
-//        userManagerImpl = new UserManagerImpl();
+        User oldUserTest;
+        Optional<Address> oldAddressTest;
 
-        userTest = new User();
-        userTest.setName("nico");
-        userTest.setLastName("bod");
-        userTest.setPassword("pass");
-        userTest.setEmail("test@test.com");
-        userTest.setPhone("0612121212");
-        userTest.setVoluntary(false);
-        userTest.setResponsible(false);
+        userDtoTest = new UserDto();
+        userDtoTest.setName("nico");
+        userDtoTest.setLastName("bod");
+        userDtoTest.setPassword("pass");
+        userDtoTest.setEmail("test@test.com");
+        userDtoTest.setPhone("0612121212");
+        userDtoTest.setStreet("rue du test");
+        userDtoTest.setPostalCode(31200);
+        userDtoTest.setCity("Toulouse");
 
-        addressTest = new Address();
-        addressTest.setStreet("rue du test");
-        addressTest.setPostalCode(31200);
-        addressTest.setCity("Toulouse");
-
-        userTest.setAddress(addressTest);
         // check if old test is on bdd
+        List<User> listUserOnBddBeforeTest = userManager.getAllUsers();
+        User result = listUserOnBddBeforeTest.stream()
+                .filter(x -> "test@test.com".equals(x.getEmail()))
+                .findAny()
+                .orElse(null);
+        logger.info(" old user test is present: " + result);
 
-
+        if (result != null) {
+            // deleting address ( + user with CASCADE )
+            oldUserTest = userManager.findUserByMail(userDtoTest.getEmail());
+            oldAddressTest = addressManager.getAddressById(oldUserTest.getAddress().getId());
+            oldAddressTest.ifPresent(address -> addressManager.removeAddress(address));
+            logger.info(" old user test removed ");
+        }
     }
 
     @Test
     public void testAddUser() {
-//
-//        List<User> allUserOnBdd = userManagerImpl.getAllUsers();
-//        System.out.println(allUserOnBdd);
-        int countUserOnBdd = 0;
-        List<User> listUserOnBdd = userManagerImpl.getAllUsers();
-        for (int i = 0; i < listUserOnBdd.size(); i++) {
-            countUserOnBdd++;
-        }
-        System.out.println(countUserOnBdd);
-        // todo ajoute un user
-        // todo test si on est a +1 de userOnBdd
-        // todo efface ce user de test
-    }
+        User userTest;
+        Optional<Address> addressTest;
 
-    @Test
-    public void applicationContextLoads(){
+        List<User> listUserOnBddBeforeTest = userManager.getAllUsers();
+        long countNbrOfUserBeforeTest = listUserOnBddBeforeTest.stream().count();
+        userManager.addUser(userDtoTest);
+        List<User> listUserOnBddAfterTest = userManager.getAllUsers();
+        long countNbrOfUserAfterTest = listUserOnBddAfterTest.stream().count();
 
+        Assert.assertTrue("Add user must return number of user + 1",
+                countNbrOfUserAfterTest == countNbrOfUserBeforeTest + 1);
+
+        // remove test -> address ( + user with CASCADE )
+        userTest = userManager.findUserByMail(userDtoTest.getEmail());
+        addressTest = addressManager.getAddressById(userTest.getAddress().getId());
+        addressTest.ifPresent(address -> addressManager.removeAddress(address));
     }
 
 }

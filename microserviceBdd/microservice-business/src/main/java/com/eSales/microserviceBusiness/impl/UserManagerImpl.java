@@ -122,4 +122,14 @@ public class UserManagerImpl implements UserManager {
     public List<User> getAllUsers() {
         return userDao.findAll();
     }
+
+    /**
+     * to get user bean with one mail
+     * @param email
+     * @return
+     */
+    @Override
+    public User findUserByMail(String email) {
+        return userDao.findByEmail(email);
+    }
 }
