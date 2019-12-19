@@ -3,14 +3,14 @@ package com.eSales.microserviceWeb.controllers;
 import com.eSales.microserviceDao.SaleDao;
 import com.eSales.microserviceModel.entity.Sale;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessResourceFailureException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -18,6 +18,8 @@ public class SaleController {
 
     @Autowired
     private SaleDao saleDao;
+
+    private boolean authIsValid = false;
 
     /**
      * get all sales
@@ -35,5 +37,24 @@ public class SaleController {
     @GetMapping(value = "/AfterTodaySales")
     public List<Sale> getAfterTodaySales() {
         return saleDao.getSalesByDateBeginAfterToday();
+    }
+
+    /**
+     * get one sale
+     * @param saleId -> sale ID
+     * @return
+     */
+    @GetMapping(value = "/OneSale/{saleId}")
+    public Optional<Sale> getOneSale(@PathVariable Integer saleId) {
+        if (authIsValid) {
+            return saleDao.findById(saleId);
+        } else { return Optional.empty();
+        }
+    }
+
+    public void changeStateOfAuth(boolean auth) {
+        if (auth) {
+            authIsValid = true;
+        }
     }
 }

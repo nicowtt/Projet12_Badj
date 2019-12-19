@@ -1,11 +1,11 @@
 import {UserModel} from "../models/User.model";
 import {Subject} from "rxjs";
-import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
+import {ApplicationHttpClientService} from "./ApplicationHttpClient.service";
 
 @Injectable({ providedIn: 'root'})
 export class UserService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: ApplicationHttpClientService) { }
 
   private users: UserModel[] = [];
   userSubject = new Subject<UserModel[]>();
@@ -20,7 +20,7 @@ export class UserService {
    * @constructor
    */
   AddUser(user: UserModel) {
-    return this.http.post(`http://localhost:9001/newUser`, user);
+    return this.http.post(`/newUser`, user);
   }
 
 }

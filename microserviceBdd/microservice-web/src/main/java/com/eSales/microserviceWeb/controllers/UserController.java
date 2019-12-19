@@ -96,4 +96,13 @@ public class UserController {
             return (new ResponseEntity<>("email already exist",HttpStatus.CONFLICT));
         }
     }
+
+    @PostMapping(value = "/userStateChanged", consumes = "application/json")
+    public boolean userStateChanger(@RequestBody UserDto userDto) {
+        User userInput;
+        userInput = userMapper.fromDtoToUserWithoutAddress(userDto);
+        System.out.println(userInput);
+        return true;
+        // todo 2 in progress pour valider si l'utilisateur est toujours valable -> authGuard
+    }
 }

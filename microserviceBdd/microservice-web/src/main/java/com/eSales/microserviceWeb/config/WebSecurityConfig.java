@@ -12,10 +12,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
 @EnableWebSecurity
@@ -67,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // don't need CSRF
         httpSecurity.csrf().disable()
     // dont authenticate this particular request
-                .authorizeRequests().antMatchers( "/AfterTodaySales", "/checkUserLogIn", "/newUser").permitAll().
+                .authorizeRequests().antMatchers( "/AfterTodaySales", "/checkUserLogIn", "/newUser", "/OneSale/{saleId}").permitAll().
     // all other requests need to be authenticated
         anyRequest().authenticated().and().
     // for make sure i use stateless session; session won't be used to store user's state.

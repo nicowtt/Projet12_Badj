@@ -13,21 +13,29 @@ export class SalesListComponent implements OnInit, OnDestroy {
 
   sales: Sale[];
   salesSubscription: Subscription;
+  saleConcerned: Sale;
 
   constructor(private salesService: SalesService, private router: Router) { }
 
   ngOnInit() {
-    this.salesSubscription = this.salesService.saleSubject.subscribe(
+    this.salesSubscription = this.salesService.salesSubject.subscribe(
       (sales: Sale[]) => {
         this.sales = sales;
       }
       );
     this.salesService.getSales();
     this.salesService.emmitSales();
+
+
   }
 
   ngOnDestroy() {
     this.salesSubscription.unsubscribe();
   }
 
+  addArticles(id: number) {
+    this.saleConcerned = this.sales[id];
+    let saleId = this.saleConcerned.id;
+    this.router.navigate(['/addArticles', saleId]);
+  }
 }

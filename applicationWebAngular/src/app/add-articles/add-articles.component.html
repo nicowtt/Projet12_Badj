@@ -1,0 +1,40 @@
+<div class="raw">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <h2>Pré-enregistrement d'articles</h2>
+    <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="category" >Choix catégorie:</label>
+
+        <select *ngIf="childrenSale" class="form-control" id="category" formControlName="category"
+                [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+          <option>Vêtements</option>
+          <option>Puériculture et accessoires</option>
+        </select>
+
+        <select *ngIf="adultSale" class="form-control" id="category2" formControlName="category2"
+                [ngClass]="{ 'is-invalid': submitted && f.category2.errors }">
+          <option>Vêtements</option>
+          <option>linge de maison</option>
+        </select>
+
+        <select *ngIf="playSale" class="form-control" id="category3" formControlName="category3"
+                [ngClass]="{ 'is-invalid': submitted && f.category3.errors }">
+          <option>Jouet</option>
+          <option>Objet de décoration</option>
+        </select>
+
+        <div *ngIf="f.category.errors" class="invalid-feedback">
+          <div class="error" *ngIf="childrenSale && submitted && f.category.errors.required">La catégorie est requise</div>
+          <div class="error" *ngIf="adultSale && submitted && f.category2.errors.required">La catégorie est requise</div>
+          <div class="error" *ngIf="playSale && submitted && f.category3.errors.required">La catégorie est requise</div>
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary" type="submit" >Enregistrement de l'article</button>
+
+    </form>
+  </div>
+</div>
+
