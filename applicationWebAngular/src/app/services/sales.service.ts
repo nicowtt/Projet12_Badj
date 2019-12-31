@@ -1,9 +1,10 @@
-import {Observable, Subject} from "rxjs";
-import {Sale} from "../models/Sale.model";
-import {Injectable} from "@angular/core";
+import {Observable, Subject} from 'rxjs';
+import {Sale} from '../models/Sale.model';
+import {Injectable} from '@angular/core';
 // import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpRequest} from "@angular/common/http";
-import {AlertService} from "./alert.service";
-import {ApplicationHttpClientService} from "./ApplicationHttpClient.service";
+import {AlertService} from './alert.service';
+import {ApplicationHttpClientService} from './ApplicationHttpClient.service';
+import { HttpClient } from '@angular/common/http';
 // import {catchError, map} from "rxjs/operators";
 
 @Injectable({ providedIn: 'root'})
@@ -18,7 +19,7 @@ export class SalesService {
 
   private sale: Sale;
 
-  currentUsertoken : string;
+  // currentUsertoken : string;
 
   constructor(
               private alertService: AlertService,
@@ -47,16 +48,16 @@ export class SalesService {
         },
         (error) => {
           console.log('Erreur de chargement !' + error);
-          this.alertService.error("erreur reseau veuillez recommencer plus tard");
+          this.alertService.error('erreur reseau veuillez recommencer plus tard');
         }
-      )
-  };
+      );
+  }
 
   /**
    * for get only one sale
    * @param saleId
    */
-  getOneSale(saleId){
+  getOneSale(saleId) {
     // this.currentUsertoken = localStorage.getItem('currentUserToken');
     // let header = new HttpHeaders();
     //  header.set("Authorization", "Bearer " + this.currentUsertoken);
@@ -88,9 +89,9 @@ export class SalesService {
         },
       (error) => {
       console.log(error);
-      console.log("token dans header: " + error.headers.get('Authorization'));
-      console.log("Content type dans header: " + error.headers.get('Content-Type'));
+      console.log('token dans header: ' + error.headers.get('Authorization'));
+      console.log('Content type dans header: ' + error.headers.get('Content-Type'));
       }
-      )
-  };
+      );
+  }
 }

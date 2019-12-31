@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="microservice-business" />
+        <module name="microservice-dao" />
         <module name="microservice-web" />
         <module name="microservice-model" />
-        <module name="microservice-dao" />
-        <module name="microservice-business" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
