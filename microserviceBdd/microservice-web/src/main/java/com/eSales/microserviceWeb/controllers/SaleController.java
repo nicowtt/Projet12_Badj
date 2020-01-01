@@ -19,8 +19,6 @@ public class SaleController {
     @Autowired
     private SaleDao saleDao;
 
-    private boolean authIsValid = false;
-
     /**
      * get all sales
      * @return
@@ -46,15 +44,6 @@ public class SaleController {
      */
     @GetMapping(value = "/OneSale/{saleId}")
     public Optional<Sale> getOneSale(@PathVariable Integer saleId) {
-        if (authIsValid) {
-            return saleDao.findById(saleId);
-        } else { return Optional.empty();
-        }
-    }
-
-    public void changeStateOfAuth(boolean auth) {
-        if (auth) {
-            authIsValid = true;
-        }
+        return saleDao.findById(saleId);
     }
 }
