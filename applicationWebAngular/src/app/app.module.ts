@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
   { path: 'auth/signin', component: SigninComponent },
   { path: 'auth/signup', component: SignupComponent },
-  { path: 'addArticles/:id', component: AddArticlesComponent},
+  { path: 'addArticles/:id', canActivate: [AuthGuardService], component: AddArticlesComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];

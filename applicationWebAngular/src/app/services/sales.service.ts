@@ -58,39 +58,15 @@ export class SalesService {
    * @param saleId
    */
   getOneSale(saleId) {
-    // this.currentUsertoken = localStorage.getItem('currentUserToken');
-    // let header = new HttpHeaders();
-    //  header.set("Authorization", "Bearer " + this.currentUsertoken);
-
-    // let header = new HttpHeaders();
-    // let other_header = header.set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJicnVjZS5sZWVAZ21haWwuY29tIiwiZXhwIjoxNTc2NzA1OTUxLCJpYXQiOjE1NzY2ODc5NTF9.tHw_DBJN4PsmJEOonYVpF_jqx3a-ThxFANtokNkBkhcsEOlECN3Xm5rdYeJfWgk8P6r1WMLfHSYMPi9xXCAdwQ');
-    // console.log(other_header.get('Authorization'));
-    // console.log(header.get('Authorization'));
-
-    // let header = new HttpHeaders({
-    //   'Content-Type': 'test',
-    //   'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJicnVjZS5sZWVAZ21haWwuY29tIiwiZXhwIjoxNTc2NzA1OTUxLCJpYXQiOjE1NzY2ODc5NTF9.tHw_DBJN4PsmJEOonYVpF_jqx3a-ThxFANtokNkBkhcsEOlECN3Xm5rdYeJfWgk8P6r1WMLfHSYMPi9xXCAdwQ'
-    // });
-
-    // const header = new HttpHeaders()
-    //   .set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJicnVjZS5sZWVAZ21haWwuY29tIiwiZXhwIjoxNTc2NzA1OTUxLCJpYXQiOjE1NzY2ODc5NTF9.tHw_DBJN4PsmJEOonYVpF_jqx3a-ThxFANtokNkBkhcsEOlECN3Xm5rdYeJfWgk8P6r1WMLfHSYMPi9xXCAdwQ');
-    // console.log(header.get('Authorization'));
-
-    // headers: new HttpHeaders().append("Authorization", "Bearer " + this.currentUsertoken);
-
-    // console.log("le token: " + this.currentUsertoken);
     return this.http
       .get<any>('/OneSale/' + saleId)
       .subscribe(
         (data) => {
           this.sale = data;
-          this.emmitSale();
-          // console.log(this.sale);
+          this.emmitSale()
         },
       (error) => {
       console.log(error);
-      console.log('token dans header: ' + error.headers.get('Authorization'));
-      console.log('Content type dans header: ' + error.headers.get('Content-Type'));
       }
       );
   }

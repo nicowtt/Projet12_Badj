@@ -1,38 +1,46 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {HttpHeaders} from "@angular/common/http";
+import {HttpHeaders, HttpErrorResponse} from "@angular/common/http";
 import {ApplicationHttpClientService} from "./ApplicationHttpClient.service";
+import { AlertService } from './alert.service';
+import { UserModel } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
 
-  currentUsertoken : String;
+  currentUsertoken : string;
+  user : UserModel;
 
   constructor(private router: Router,
-              private http: ApplicationHttpClientService) {  }
+              private http: ApplicationHttpClientService,
+              private alertService: AlertService) {  }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return new Promise(
       (resolve, reject) => {
-        this.currentUsertoken = localStorage.getItem('currentUserToken');
-        const header = new HttpHeaders();
-        header.set("Authorization", "Bearer " + this.currentUsertoken);
+        // find email userInProgress
+        // let userInProgress = JSON.parse(localStorage.getItem('currentUser'));
         this.http
-          .get<any>('/userStateChanged', { headers : header})
+          .get<any>('/userStateChanged')
           .subscribe(
             (data) => {
-              const userStateOK = data;
-              console.log(userStateOK);
-
-            if (data) { // si il y a un objet
-              resolve(true); // il resolve, l'utilisateur a le droit de passer sur cette route
+              const userStillOk = data;
+              console.log('User still authorized ?: ' + userStillOk);
+            if (data) { 
+              resolve(true);
             } else {
-              this.router.navigate(['/auth', 'signin']); // sinon l'utilisateur est re-routé vers signin (attention a l'url en deux partie)
+              this.router.navigate(['/auth', 'signin']);
               resolve(false);
             }
+            },
+            (error) => {
+              if ( error.status === 401) {
+                this.router.navigate(['/auth', 'signin']);
+              }
+              this.alertService.error('Vous devez être connecté pour avoir accés à cette fonction')
             });
       }
     );

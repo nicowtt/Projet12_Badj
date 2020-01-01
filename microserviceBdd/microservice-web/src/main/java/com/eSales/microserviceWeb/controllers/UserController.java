@@ -97,12 +97,12 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/userStateChanged", consumes = "application/json")
-    public boolean userStateChanger(@RequestBody UserDto userDto) {
-        User userInput;
-        userInput = userMapper.fromDtoToUserWithoutAddress(userDto);
-        System.out.println(userInput);
+    /**
+     * For check if user in progress is already valid
+     * @return
+     */
+    @GetMapping(value = "/userStateChanged")
+    public boolean userStateChanger() {
         return true;
-        // todo 2 in progress pour valider si l'utilisateur est toujours valable -> authGuard
     }
 }
