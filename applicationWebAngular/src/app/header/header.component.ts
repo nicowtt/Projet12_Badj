@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
    */
   onSignOut() {
     this.authService.logout();
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserToken');
   }
-
 }
