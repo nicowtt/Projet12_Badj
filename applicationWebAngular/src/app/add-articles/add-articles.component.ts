@@ -13,9 +13,16 @@ import {Subscription} from "rxjs";
 export class AddArticlesComponent implements OnInit {
 
   signForm: FormGroup;
+  // sale types
   childrenSale: boolean;
   adultSale: boolean;
   playSale: boolean;
+
+  // categories types
+  clothe: boolean;
+  object: boolean;
+  book: boolean;
+  toy: boolean;
 
   saleSubscription: Subscription;
   saleConcerned : Sale;
@@ -26,7 +33,6 @@ export class AddArticlesComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private salesService: SalesService) {
-
   }
 
   ngOnInit() {
@@ -46,8 +52,8 @@ export class AddArticlesComponent implements OnInit {
           this.playSale = true;
         } else {
           this.adultSale = false;
-            this.childrenSale = false;
-            this.playSale = false;
+          this.childrenSale = false;
+          this.playSale = false;
         }
       }
     );
@@ -61,6 +67,20 @@ export class AddArticlesComponent implements OnInit {
       category:['', [Validators.required]],
       category2:['', [Validators.required]],
       category3:['', [Validators.required]],
+
+      size:['', [Validators.required]],
+      gender:['', [Validators.required]],
+      material:['', [Validators.required]],
+      clotheColor:['', [Validators.required]],
+      ObjectColor:['', [Validators.required]],
+      ToyColor:['', [Validators.required]],
+      brand:['', [Validators.required]],
+      name:['', [Validators.required]],
+      author:['', [Validators.required]],
+      
+      type:['', [Validators.required]],
+      price:['', [Validators.required, Validators.pattern(/^[1-9]\d{0,4}(?:\.\d{1,2})?|\.\d{1,2}$/)]],
+      comment:['']
     });
 
 
@@ -74,5 +94,36 @@ export class AddArticlesComponent implements OnInit {
       return;
     }
   }
+
+  /**
+   * For adapt form when user choose a category
+   * @param category 
+   */
+  onEditClick(category: any) {
+    if(category == 'Vêtements') {
+      this.clothe = true;
+      this.object= false;
+      this.book= false;
+      this.toy= false;
+    }
+    else if (category == 'Livre') {
+      this.clothe = false;
+      this.object= false;
+      this.book= true;
+      this.toy= false;
+    }
+    else if (category == 'Puériculture et accessoires' || 'Linge de maison' || 'Objet de décoration') {
+      this.clothe = false;
+      this.object= true;
+      this.book= false;
+      this.toy= false;
+    }
+    else if (category == 'Jouet') {
+      this.clothe = false;
+      this.object= false;
+      this.book= false;
+      this.toy= true;
+  }
+}
 
 }

@@ -3,37 +3,178 @@
 
     <h2>Pré-enregistrement d'articles</h2>
     <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
+
       <div class="form-group">
+        <!--Category choice-->
         <label for="category" >Choix catégorie:</label>
 
         <select *ngIf="childrenSale" class="form-control" id="category" formControlName="category"
+                (change)="onEditClick($event.target.value)"
                 [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
           <option>Vêtements</option>
           <option>Puériculture et accessoires</option>
         </select>
 
         <select *ngIf="adultSale" class="form-control" id="category2" formControlName="category2"
+                (change)="onEditClick($event.target.value)"
                 [ngClass]="{ 'is-invalid': submitted && f.category2.errors }">
           <option>Vêtements</option>
-          <option>linge de maison</option>
+          <option>Linge de maison</option>
         </select>
 
         <select *ngIf="playSale" class="form-control" id="category3" formControlName="category3"
+                (change)="onEditClick($event.target.value)"
                 [ngClass]="{ 'is-invalid': submitted && f.category3.errors }">
           <option>Jouet</option>
           <option>Objet de décoration</option>
+          <option>Livre</option>
         </select>
 
         <div *ngIf="f.category.errors" class="invalid-feedback">
           <div class="error" *ngIf="childrenSale && submitted && f.category.errors.required">La catégorie est requise</div>
+        </div>
+        <div *ngIf="f.category2.errors" class="invalid-feedback">
           <div class="error" *ngIf="adultSale && submitted && f.category2.errors.required">La catégorie est requise</div>
+        </div>
+        <div *ngIf="f.category3.errors" class="invalid-feedback">
           <div class="error" *ngIf="playSale && submitted && f.category3.errors.required">La catégorie est requise</div>
         </div>
 
+
+        <!--following categories-->
+
+        <!--!! clothes !! -->
+        <!--*** size ***-->
+        <p></p>
+        <label *ngIf="clothe" for="size">Size:</label>
+        <input *ngIf="clothe" type="text" id="size" class="form-control" formControlName="size"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.size.errors }" />
+        <div *ngIf="f.size.errors" class="invalid-feedback">
+          <div class="error" *ngIf="clothe && submitted && f.size.errors.required">Une taille est requis</div>
+        </div>
+
+        <!--*** gender ***-->
+        <p></p>
+        <label *ngIf="clothe" for="gender">Genre:</label>
+        <select *ngIf="clothe" class="form-control" id="gender" formControlName="gender"
+        [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+          <option>Homme / Garçon </option>
+          <option>Femme / Fille</option>
+        </select>
+        <div *ngIf="f.gender.errors" class="invalid-feedback">
+          <div class="error" *ngIf="clothe && submitted && f.gender.errors.required">Le genre est requis</div>
+        </div>
+
+        <!--*** material ***-->
+        <p></p>
+        <label *ngIf="clothe" for="material">Matière:</label>
+        <input *ngIf="clothe" type="text" id="material" class="form-control" formControlName="material"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.material.errors }" />
+        <div *ngIf="f.material.errors" class="invalid-feedback">
+          <div class="error" *ngIf="clothe && submitted && f.material.errors.required">Une matière est requis</div>
+        </div>
+
+        <!--*** color ***-->
+        <p></p>
+        <label *ngIf="clothe" for="clotheColor">Couleur:</label>
+        <input *ngIf="clothe" type="text" id="clotheColor" class="form-control" formControlName="clotheColor"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.clotheColor.errors }" />
+        <div *ngIf="f.clotheColor.errors" class="invalid-feedback">
+          <div class="error" *ngIf="clothe && submitted && f.clotheColor.errors.required">Une couleur est requise</div>
+        </div>
+
+        <!--!! object !! -->  
+        <!--*** brand ***-->
+        <p></p>
+        <label *ngIf="object" for="brand">Marque:</label>
+        <input *ngIf="object" type="text" id="brand" class="form-control" formControlName="brand"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brand.errors }" />
+        <div *ngIf="f.brand.errors" class="invalid-feedback">
+          <div class="error" *ngIf="object && submitted && f.brand.errors.required">Une marque est requise</div>
+        </div>
+
+        <!--*** color ***-->
+        <p></p>
+        <label *ngIf="object" for="ObjectColor">Couleur:</label>
+        <input *ngIf="object" type="text" id="ObjectColor" class="form-control" formControlName="ObjectColor"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ObjectColor.errors }" />
+        <div *ngIf="f.ObjectColor.errors" class="invalid-feedback">
+          <div class="error" *ngIf="object && submitted && f.ObjectColor.errors.required">Une couleur est requise</div>
+        </div>
+
+        <!--!! book !! -->
+        <!--*** name ***-->
+        <p></p>
+        <label *ngIf="book" for="name">Titre:</label>
+        <input *ngIf="book" type="text" id="name" class="form-control" formControlName="name"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div *ngIf="f.name.errors" class="invalid-feedback">
+          <div class="error" *ngIf="book && submitted && f.name.errors.required">Un titre est requis</div>
+        </div>
+
+        <!--*** author ***-->
+        <p></p>
+        <label *ngIf="book" for="author">Author:</label>
+        <input *ngIf="book" type="text" id="author" class="form-control" formControlName="author"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.author.errors }" />
+        <div *ngIf="f.author.errors" class="invalid-feedback">
+          <div class="error" *ngIf="book && submitted && f.author.errors.required">Un Auteur est requis</div>
+        </div>
+
+        <!--!! toy !! -->
+        <!--*** brand ***-->
+        <p></p>
+        <label *ngIf="toy" for="brand">Marque:</label>
+        <input *ngIf="toy" type="text" id="brand" class="form-control" formControlName="brand"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brand.errors }" />
+        <div *ngIf="f.brand.errors" class="invalid-feedback">
+          <div class="error" *ngIf="toy && submitted && f.brand.errors.required">Une marque est requise</div>
+        </div>
+
+        <!--*** color ***-->
+        <p></p>
+        <label *ngIf="toy" for="ToyColor">Couleur:</label>
+        <input *ngIf="toy" type="text" id="ToyColor" class="form-control" formControlName="ToyColor"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ToyColor.errors }" />
+        <div *ngIf="f.ToyColor.errors" class="invalid-feedback">
+          <div class="error" *ngIf="toy && submitted && f.ToyColor.errors.required">Une couleur est requise</div>
+        </div>
+
+        <!-- >>common for all<< -->
+        <!--Type-->
+        <p></p>
+        <label for="type">Type:</label>
+        <input type="text" id="type" class="form-control" formControlName="type"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" />
+        <div *ngIf="f.type.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.type.errors.required">Un type est requis</div>
+        </div>
+      
+        <!--Price--> 
+        <p></p>
+        <label for="price">Prix:</label>
+        <div class="input-group">
+          <span class="input-group-addon">€</span>
+          <input type="number" id="price" class="form-control" formControlName="price"
+          class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+        </div>  
+          
+        <div *ngIf="f.price.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.price.errors.required">Un prix est requis</div>
+          <div class="error" *ngIf="submitted && f.price.errors.pattern">Exemple: 10.20</div>
+        </div>
+
+        <!-- comment -->
+        <p></p>
+        <label for="comment">Commentaire éventuel:</label>
+        <input type="text" id="comment" class="form-control" formControlName="comment"
+               class="form-control" />
+      
+        <p></p>
+        <button class="btn btn-primary" type="submit" >Enregistrement de l'article</button>
+
       </div>
-
-      <button class="btn btn-primary" type="submit" >Enregistrement de l'article</button>
-
+      
     </form>
   </div>
 </div>

@@ -40,7 +40,7 @@ export class AuthGuardService implements CanActivate {
               if ( error.status === 401) {
                 this.router.navigate(['/auth', 'signin']);
               }
-              this.alertService.error('Erreur, vous devez être connecté pour avoir accés à cette fonction.')
+              this.alertService.error('Ooups, vous devez vous (re)connecter pour avoir accés à cette fonction.')
             });
       }
     );
