@@ -101,29 +101,31 @@ export class AddArticlesComponent implements OnInit {
    */
   onEditClick(category: any) {
     if(category == 'Vêtements') {
+      this.allCategoryToFalse();
       this.clothe = true;
-      this.object= false;
-      this.book= false;
-      this.toy= false;
     }
     else if (category == 'Livre') {
-      this.clothe = false;
-      this.object= false;
+      this.allCategoryToFalse();
       this.book= true;
-      this.toy= false;
+
     }
     else if (category == 'Puériculture et accessoires' || 'Linge de maison' || 'Objet de décoration') {
-      this.clothe = false;
+      this.allCategoryToFalse();
       this.object= true;
-      this.book= false;
-      this.toy= false;
     }
     else if (category == 'Jouet') {
-      this.clothe = false;
-      this.object= false;
-      this.book= false;
+      this.allCategoryToFalse();
       this.toy= true;
+    }
   }
-}
-
+  
+  /**
+   * For put all category to false
+   */
+  allCategoryToFalse() {
+    this.clothe = false;
+    this.object= false;
+    this.book= false;
+    this.toy= false;
+  }
 }
