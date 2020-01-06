@@ -25,8 +25,6 @@ export class SalesListComponent implements OnInit, OnDestroy {
       );
     this.salesService.getSales();
     this.salesService.emmitSales();
-
-
   }
 
   ngOnDestroy() {

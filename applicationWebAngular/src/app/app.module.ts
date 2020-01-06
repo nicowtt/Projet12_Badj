@@ -1,3 +1,4 @@
+import { ArticlesService } from './services/articles.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -55,8 +56,8 @@ const appRoutes: Routes = [
     AlertService,
     UserService,
     HeaderInterceptorService,
-    ApplicationHttpClientService
-
+    ApplicationHttpClientService,
+    ArticlesService
   ],
   bootstrap: [AppComponent]
 })

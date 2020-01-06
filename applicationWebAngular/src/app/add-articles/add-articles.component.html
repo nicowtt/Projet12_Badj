@@ -11,23 +11,19 @@
         <select *ngIf="childrenSale" class="form-control" id="category" formControlName="category"
                 (change)="onEditClick($event.target.value)"
                 [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
-          <option>Vêtements</option>
-          <option>Puériculture et accessoires</option>
+                <option [value] = "category" *ngFor="let category of categories">{{category}}</option>
         </select>
 
         <select *ngIf="adultSale" class="form-control" id="category2" formControlName="category2"
                 (change)="onEditClick($event.target.value)"
                 [ngClass]="{ 'is-invalid': submitted && f.category2.errors }">
-          <option>Vêtements</option>
-          <option>Linge de maison</option>
+                <option [value] = "category2" *ngFor="let category2 of categories2">{{category2}}</option>
         </select>
 
         <select *ngIf="playSale" class="form-control" id="category3" formControlName="category3"
                 (change)="onEditClick($event.target.value)"
                 [ngClass]="{ 'is-invalid': submitted && f.category3.errors }">
-          <option>Jouet</option>
-          <option>Objet de décoration</option>
-          <option>Livre</option>
+                <option [value] = "category3" *ngFor="let category3 of categories3">{{category3}}</option>
         </select>
 
         <div *ngIf="f.category.errors" class="invalid-feedback">
@@ -42,6 +38,15 @@
 
 
         <!--following categories-->
+        <!-- >>common for all<< -->
+        <!--Type-->
+        <p></p>
+        <label for="type">Type:</label>
+        <input type="text" id="type" class="form-control" formControlName="type"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" />
+        <div *ngIf="f.type.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.type.errors.required">Un type est requis</div>
+        </div>
 
         <!--!! clothes !! -->
         <!--*** size ***-->
@@ -58,8 +63,7 @@
         <label *ngIf="clothe" for="gender">Genre:</label>
         <select *ngIf="clothe" class="form-control" id="gender" formControlName="gender"
         [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
-          <option>Homme / Garçon </option>
-          <option>Femme / Fille</option>
+        <option [value] = "gender" *ngFor="let gender of genders">{{gender}}</option>
         </select>
         <div *ngIf="f.gender.errors" class="invalid-feedback">
           <div class="error" *ngIf="clothe && submitted && f.gender.errors.required">Le genre est requis</div>
@@ -140,16 +144,7 @@
           <div class="error" *ngIf="toy && submitted && f.ToyColor.errors.required">Une couleur est requise</div>
         </div>
 
-        <!-- >>common for all<< -->
-        <!--Type-->
-        <p></p>
-        <label for="type">Type:</label>
-        <input type="text" id="type" class="form-control" formControlName="type"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" />
-        <div *ngIf="f.type.errors" class="invalid-feedback">
-          <div class="error" *ngIf="submitted && f.type.errors.required">Un type est requis</div>
-        </div>
-      
+        <!-- >>common for all<< -->     
         <!--Price--> 
         <p></p>
         <label for="price">Prix:</label>
@@ -169,9 +164,11 @@
         <label for="comment">Commentaire éventuel:</label>
         <input type="text" id="comment" class="form-control" formControlName="comment"
                class="form-control" />
-      
+
+               <div class="form-group">
         <p></p>
         <button class="btn btn-primary" type="submit" >Enregistrement de l'article</button>
+               </div>
 
       </div>
       
