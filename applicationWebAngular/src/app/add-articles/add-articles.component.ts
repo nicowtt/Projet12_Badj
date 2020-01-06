@@ -1,5 +1,5 @@
+import { ArticleObjectModel } from './../models/ArticleObject.model';
 import { AlertService } from './../services/alert.service';
-import { ClotheModel } from './../models/Clothe.model';
 import { ArticleClotheModel } from './../models/ArticleClothe.model';
 import { ArticlesService } from './../services/articles.service';
 import { Component, OnInit } from '@angular/core';
@@ -105,55 +105,89 @@ export class AddArticlesComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     // error return
-    // if there is no category choosen
+    // if there is no category choosen -> display form error
     if (this.signForm.get('category').value === null) {
       console.log('formulaire non valide');
       return;
     }
-    // if there is null on one category 'Vêtements' 
+    // if there is null on one category 'Vêtements' -> display form error
     if (this.signForm.get('category').value === 'Vêtements') {
       if (this.signForm.get('size').value === null || this.signForm.get('gender').value === null|| this.signForm.get('material').value === null
        || this.signForm.get('clotheColor').value === null|| this.signForm.get('type').value === null|| this.signForm.get('price').value === null) {
-        console.log('passage erreur category Vêtements ou Puériculture et accessoires')
+        console.log('passage erreur form category Vêtements');
         return;
       }
     }
-    // other
+    // if there is null on one category 'Puériculture et accessoires' -> display form error
+    if (this.signForm.get('category').value === 'Puériculture et accessoires') {
+        if (this.f.type.value === null || this.f.brand.value === null || this.f.ObjectColor.value === null || this.f.price.value === null ) {
+        console.log('passage erreur form Puériculture et accessoires');
+        return;
+      }
+    }
+    // todo other display form error !!!
     
     // get input form
-    const articleClothe = new ArticleClotheModel();
-
-    if (this.childrenSale === true) {
+    if (this.f.category.value === 'Vêtements') {
+      const articleClothe = new ArticleClotheModel();
+      // articleClothe
       articleClothe.category = this.signForm.get('category').value;
+      articleClothe.type = this.signForm.get('type').value;
+      articleClothe.saleNumber = this.saleId;
+      articleClothe.price = this.signForm.get('price').value;
+      articleClothe.size = this.signForm.get('size').value;
+      articleClothe.gender = this.signForm.get('gender').value;
+      articleClothe.material = this.signForm.get('material').value;
+      articleClothe.color = this.signForm.get('clotheColor').value;
+      articleClothe.comment = this.signForm.get('comment').value;
+      // lunch service for add clothe article
+      this.ArticlesService.addArticleClothe(articleClothe)
+      .subscribe(
+        res => {
+          this.alertService.success('article enregistré', true);
+          this.router.navigate(['sales']);
+        },
+        (error: HttpErrorResponse) => {
+          this.alertService.error(error.message)
+        }
+      );
     }
+    else if (this.f.category.value === 'Puériculture et accessoires') {
+      const articleObject = new ArticleObjectModel();
+      // articleObject
+      articleObject.category = this.f.category.value;
+      articleObject.type = this.f.type.value;
+      articleObject.saleNumber = this.saleId;
+      articleObject.price = this.f.price.value;
+      articleObject.brand = this.f.brand.value;
+      articleObject.color = this.f.ObjectColor.value;
+      articleObject.comment = this.f.comment.value;
+      //lunch service for add clothe article
+      this.ArticlesService.addArticleObject(articleObject)
+      .subscribe(
+        res => {
+          this.alertService.success('article enregistré', true);
+          this.router.navigate(['sales']);
+        },
+        (error: HttpErrorResponse) => {
+          this.alertService.error(error.message)
+        }
+      );
+    }
+    // todo pour les autre ventes
+    // todo il reste deux type  -> book et toy -> le reste du factorise
     if (this.adultSale === true) {
-      articleClothe.category = this.signForm.get('category2').value;
+      // articleClothe.category = this.signForm.get('category2').value;
     }
     if (this.playSale === true) {
 
     }
-    articleClothe.type = this.signForm.get('type').value;
-    articleClothe.saleNumber = this.saleId;
-    articleClothe.price = this.signForm.get('price').value;
-    articleClothe.size = this.signForm.get('size').value;
-    articleClothe.gender = this.signForm.get('gender').value;
-    articleClothe.material = this.signForm.get('material').value;
-    articleClothe.color = this.signForm.get('clotheColor').value;
-    articleClothe.comment = this.signForm.get('comment').value;
-
-    console.log('Clothe article to record:' + articleClothe);
     
-    // lunch service for add article
-    this.ArticlesService.addArticleClothe(articleClothe)
-    .subscribe(
-      res => {
-        this.alertService.success('article enregistré', true);
-        this.router.navigate(['sales']);
-      },
-      (error: HttpErrorResponse) => {
-        this.alertService.error(error.message)
-      }
-    );
+    
+   
+    
+    
+    
   }
 
   /**

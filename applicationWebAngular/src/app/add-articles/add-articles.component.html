@@ -41,7 +41,7 @@
         <!-- >>common for all<< -->
         <!--Type-->
         <p></p>
-        <label for="type">Type:</label>
+        <label for="type">Type géneral(exemple: vêtement -> Chemise):</label>
         <input type="text" id="type" class="form-control" formControlName="type"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" />
         <div *ngIf="f.type.errors" class="invalid-feedback">
