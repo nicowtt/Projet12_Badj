@@ -128,7 +128,7 @@
         <!--!! toy !! -->
         <!--*** brand ***-->
         <p></p>
-        <label *ngIf="toy" for="brand">Marque:</label>
+        <label *ngIf="toy" for="brand">Marque / Nom:</label>
         <input *ngIf="toy" type="text" id="brand" class="form-control" formControlName="brand"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brand.errors }" />
         <div *ngIf="f.brand.errors" class="invalid-feedback">

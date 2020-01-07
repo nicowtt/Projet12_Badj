@@ -1,8 +1,10 @@
 package com.eSales.microserviceWeb.controllers;
 
 import com.eSales.microserviceDao.ArticleDao;
+import com.eSales.microserviceModel.dto.ArticleBookDto;
 import com.eSales.microserviceModel.dto.ArticleClotheDto;
 import com.eSales.microserviceModel.dto.ArticleObjectDto;
+import com.eSales.microserviceModel.dto.ArticleToyDto;
 import com.eSales.microserviceModel.entity.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ public class ArticleController {
 
     /**
      * Get all articles
-     * @return
+     * @return all articles
      */
     @GetMapping(value = "/AllArticles")
     public List<Article> getAllArticles() {
@@ -30,20 +32,45 @@ public class ArticleController {
     }
 
     /**
-     * Add new clothe Article
-     * @param newArticleClotheDto
-     * @return
+     * Persist new clothe Article
+     * @param newArticleClotheDto from front
+     * @return httpResponse
      */
     @PostMapping(value = "/NewClotheArticle", consumes = "application/json")
     public ResponseEntity<String> addClotheArticle(@RequestBody ArticleClotheDto newArticleClotheDto) {
-        System.out.println(newArticleClotheDto);
         // todo crée une methode pour ajouter l'article en bdd
         return (new ResponseEntity<>(HttpStatus.CREATED));
     }
 
+    /**
+     * Persist new object article
+     * @param newArticleObjectDto from front
+     * @return httpResponse
+     */
     @PostMapping(value = "/NewObjectArticle", consumes = "application/json")
     public ResponseEntity<String> addObjectArticle(@RequestBody ArticleObjectDto newArticleObjectDto) {
-        System.out.println(newArticleObjectDto);
+        // todo crée une méthode pour ajouter l'article dans la bdd
+        return (new ResponseEntity<>(HttpStatus.CREATED));
+    }
+
+    /**
+     * Persist new Toy article
+     * @param newArticleToyDto from front
+     * @return httpResponse
+     */
+    @PostMapping(value = "/NewToyArticle", consumes = "application/json")
+    public ResponseEntity<String> addToyArticle(@RequestBody ArticleToyDto newArticleToyDto) {
+        // todo crée une méthode pour ajouter l'article dans la bdd
+        return (new ResponseEntity<>(HttpStatus.CREATED));
+    }
+
+    /**
+     * Persist new Book article
+     * @param newArticleBookDto from front
+     * @return httpResponse
+     */
+    @PostMapping(value = "/newBookArticle", consumes = "application/json")
+    public ResponseEntity<String> addBookArticle(@RequestBody ArticleBookDto newArticleBookDto) {
         // todo crée une méthode pour ajouter l'article dans la bdd
         return (new ResponseEntity<>(HttpStatus.CREATED));
     }
