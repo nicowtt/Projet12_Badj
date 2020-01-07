@@ -1,3 +1,5 @@
+import { UserModel } from '../models/User.model';
+import { AuthService } from '../services/auth.service';
 import { ArticleBookModel } from '../models/ArticleBook.model';
 import { ArticleToyModel } from '../models/ArticleToy.model';
 import { ArticleObjectModel } from '../models/ArticleObject.model';
@@ -11,6 +13,7 @@ import {SalesService} from '../services/sales.service';
 import {Sale} from '../models/Sale.model';
 import {Subscription} from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-add-articles',
@@ -20,6 +23,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AddArticlesComponent implements OnInit {
 
   signForm: FormGroup;
+
+  currentUser: UserModel;
+
   // sale types
   childrenSale: boolean; // -> type category
   adultSale: boolean; // -> type category 2
@@ -53,7 +59,10 @@ export class AddArticlesComponent implements OnInit {
               private route: ActivatedRoute,
               private salesService: SalesService,
               private articlesService: ArticlesService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private datePipe: DatePipe,
+              private authService: AuthService) {
+                this.authService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
@@ -159,6 +168,8 @@ export class AddArticlesComponent implements OnInit {
     if (this.f.category.value === 'Vêtements' ||
       this.f.category2.value === 'Vêtements') {
       const articleClothe = new ArticleClotheModel();
+      const dateRecord = new Date;
+      // var dateRecord = this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
       if (this.childrenSale === true) {
         articleClothe.category = this.signForm.get('category').value;
       }
@@ -173,6 +184,13 @@ export class AddArticlesComponent implements OnInit {
       articleClothe.material = this.signForm.get('material').value;
       articleClothe.color = this.signForm.get('clotheColor').value;
       articleClothe.comment = this.signForm.get('comment').value;
+      articleClothe.recordDate = dateRecord;
+      articleClothe.isValidateToSell = false;
+      articleClothe.isSold = false;
+      articleClothe.isStolen = false;
+      articleClothe.isReturnOwner = false;
+      // set user who want to create this article
+      articleClothe.userEmail = this.currentUser.email;
       // lunch service for add clothe article
       this.articlesService.addArticleClothe(articleClothe)
       .subscribe(
@@ -190,6 +208,7 @@ export class AddArticlesComponent implements OnInit {
     if (this.f.category.value === 'Puériculture et accessoires' || this.f.category2.value === 'Linge de maison' ||
     this.f.category3.value === 'Objet de décoration') {
       const articleObject = new ArticleObjectModel();
+      const dateRecord = new Date;
       if (this.childrenSale === true) {
         articleObject.category = this.f.category.value;
       }
@@ -205,6 +224,13 @@ export class AddArticlesComponent implements OnInit {
       articleObject.brand = this.f.brand.value;
       articleObject.color = this.f.ObjectColor.value;
       articleObject.comment = this.f.comment.value;
+      articleObject.recordDate = dateRecord;
+      articleObject.isValidateToSell = false;
+      articleObject.isSold = false;
+      articleObject.isStolen = false;
+      articleObject.isReturnOwner = false;
+      // set user who want to create this article
+      articleObject.userEmail = this.currentUser.email;
       // lunch service for add clothe article
       this.articlesService.addArticleObject(articleObject)
       .subscribe(
@@ -221,12 +247,21 @@ export class AddArticlesComponent implements OnInit {
     // articleToy
     if (this.f.category3.value === 'Jouet') {
       const toyObject = new ArticleToyModel();
+      const dateRecord = new Date;
       toyObject.category = this.f.category3.value;
       toyObject.type = this.f.type.value;
+      toyObject.saleNumber = this.saleId;
       toyObject.brand = this.f.brand.value;
       toyObject.color = this.f.ToyColor.value;
       toyObject.price = this.f.price.value;
       toyObject.comment = this.f.comment.value;
+      toyObject.recordDate = dateRecord;
+      toyObject.isValidateToSell = false;
+      toyObject.isSold = false;
+      toyObject.isStolen = false;
+      toyObject.isReturnOwner = false;
+      // set user who want to create this article
+      toyObject.userEmail = this.currentUser.email;
       // lunch service for add toy article
       this.articlesService.addToyObject(toyObject)
       .subscribe(
@@ -243,12 +278,21 @@ export class AddArticlesComponent implements OnInit {
     // articleBook
     if (this.f.category3.value === 'Livre') {
       const bookObject = new ArticleBookModel();
+      const dateRecord = new Date;
       bookObject.category = this.f.category3.value;
       bookObject.type = this.f.type.value;
+      bookObject.saleNumber = this.saleId;
       bookObject.name = this.f.name.value;
       bookObject.author = this.f.author.value;
       bookObject.price = this.f.price.value;
       bookObject.comment = this.f.comment.value;
+      bookObject.recordDate = dateRecord;
+      bookObject.isValidateToSell = false;
+      bookObject.isSold = false;
+      bookObject.isStolen = false;
+      bookObject.isReturnOwner = false;
+      // set user who want to create this article
+      bookObject.userEmail = this.currentUser.email;
       // lunch service for add book article
       this.articlesService.addBookObject(bookObject)
       .subscribe(

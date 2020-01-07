@@ -20,6 +20,7 @@ import {UserService} from "./services/user.service";
 import { AddArticlesComponent } from './add-articles/add-articles.component';
 import {HeaderInterceptorService} from "./services/header-interceptor.service";
 import {ApplicationHttpClientService} from "./services/ApplicationHttpClient.service";
+import { DatePipe } from '@angular/common';
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     UserService,
     HeaderInterceptorService,
     ApplicationHttpClientService,
-    ArticlesService
+    ArticlesService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

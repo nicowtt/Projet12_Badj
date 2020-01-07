@@ -11,5 +11,13 @@ export class ArticleClotheModel {
     color: string;
     comment: string;
 
+    recordDate: Date;
+    isValidateToSell: boolean;
+    isSold: boolean;
+    isStolen: boolean;
+    isReturnOwner: boolean;
+
+    userEmail: string;
+
     constructor() {} 
 }
