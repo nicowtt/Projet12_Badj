@@ -1,6 +1,7 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../services/auth.service";
-import {UserModel} from "../models/User.model";
+import {AuthService} from '../services/auth.service';
+import {UserModel} from '../models/User.model';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,8 @@ export class HeaderComponent implements OnInit {
 
   currentUser: UserModel;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private router: Router) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -25,5 +27,6 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentUserToken');
+    this.router.navigate(['/sales']);
   }
 }

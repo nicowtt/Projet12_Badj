@@ -148,7 +148,8 @@ export class AddArticlesComponent implements OnInit {
     if (this.signForm.get('category3').value === 'Livre') {
       if (this.f.type.value === null ||
         this.f.name.value === null ||
-        this.f.author.value === null) {
+        this.f.author.value === null ||
+        this.f.price.value === null) {
         console.log('passage error from book (book)');
         return;
       }
@@ -177,7 +178,7 @@ export class AddArticlesComponent implements OnInit {
         articleClothe.category = this.signForm.get('category2').value;
       }
       articleClothe.type = this.signForm.get('type').value;
-      articleClothe.saleNumber = this.saleId;
+      articleClothe.saleId = this.saleId;
       articleClothe.price = this.signForm.get('price').value;
       articleClothe.size = this.signForm.get('size').value;
       articleClothe.gender = this.signForm.get('gender').value;
@@ -219,7 +220,7 @@ export class AddArticlesComponent implements OnInit {
         articleObject.category = this.f.category3.value;
       }
       articleObject.type = this.f.type.value;
-      articleObject.saleNumber = this.saleId;
+      articleObject.saleId = this.saleId;
       articleObject.price = this.f.price.value;
       articleObject.brand = this.f.brand.value;
       articleObject.color = this.f.ObjectColor.value;
@@ -250,7 +251,7 @@ export class AddArticlesComponent implements OnInit {
       const dateRecord = new Date;
       toyObject.category = this.f.category3.value;
       toyObject.type = this.f.type.value;
-      toyObject.saleNumber = this.saleId;
+      toyObject.saleId = this.saleId;
       toyObject.brand = this.f.brand.value;
       toyObject.color = this.f.ToyColor.value;
       toyObject.price = this.f.price.value;
@@ -281,7 +282,7 @@ export class AddArticlesComponent implements OnInit {
       const dateRecord = new Date;
       bookObject.category = this.f.category3.value;
       bookObject.type = this.f.type.value;
-      bookObject.saleNumber = this.saleId;
+      bookObject.saleId = this.saleId;
       bookObject.name = this.f.name.value;
       bookObject.author = this.f.author.value;
       bookObject.price = this.f.price.value;

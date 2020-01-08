@@ -8,7 +8,7 @@ public class ArticleObjectDto {
 
     private String type;
 
-    private int saleNumber;
+    private int saleId;
 
     private double price;
 
@@ -35,10 +35,10 @@ public class ArticleObjectDto {
     public ArticleObjectDto() {
     }
 
-    public ArticleObjectDto(String category, String type, int saleNumber, double price, String brand, String color, String comment, Date recordDate, boolean isValidateToSell, boolean isSold, boolean isStolen, boolean isReturnOwner, String userEmail) {
+    public ArticleObjectDto(String category, String type, int saleId, double price, String brand, String color, String comment, Date recordDate, boolean isValidateToSell, boolean isSold, boolean isStolen, boolean isReturnOwner, String userEmail) {
         this.category = category;
         this.type = type;
-        this.saleNumber = saleNumber;
+        this.saleId = saleId;
         this.price = price;
         this.brand = brand;
         this.color = color;
@@ -68,12 +68,12 @@ public class ArticleObjectDto {
         this.type = type;
     }
 
-    public int getSaleNumber() {
-        return saleNumber;
+    public int getSaleId() {
+        return saleId;
     }
 
-    public void setSaleNumber(int saleNumber) {
-        this.saleNumber = saleNumber;
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
     }
 
     public double getPrice() {

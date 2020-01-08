@@ -1,10 +1,16 @@
 package com.eSales.microserviceBusiness.contract;
 
 import com.eSales.microserviceModel.dto.ArticleBookDto;
+import com.eSales.microserviceModel.dto.ArticleClotheDto;
+import com.eSales.microserviceModel.dto.ArticleObjectDto;
+import com.eSales.microserviceModel.dto.ArticleToyDto;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface ArticleManager {
-    int findNextArticleNumberOnOneSale(int saleId);
+    Integer findNextArticleNumberOnOneSale(int saleId);
     boolean addNewBookArticle(ArticleBookDto articleBookDto, int userId);
+    boolean addNewObjectArticle(ArticleObjectDto articleObjectDto, int userId);
+    boolean addNewClotheArticle(ArticleClotheDto articleClotheDto, int userId);
+    boolean addNewToyArticle(ArticleToyDto articleToyDto, int userId);
 }

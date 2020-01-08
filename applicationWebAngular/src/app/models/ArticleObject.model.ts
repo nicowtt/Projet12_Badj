@@ -1,9 +1,9 @@
 
-export class ArticleObjectModel{
+export class ArticleObjectModel {
 
     category: string;
     type: string;
-    saleNumber: number;
+    saleId: number;
     price: number;
     brand: string;
     color: string;
@@ -16,6 +16,6 @@ export class ArticleObjectModel{
     isReturnOwner: boolean;
 
     userEmail: string;
-    
+
     constructor() {}
 }

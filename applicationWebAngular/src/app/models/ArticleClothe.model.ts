@@ -1,9 +1,8 @@
 
 export class ArticleClotheModel {
-    
     category: string;
     type: string;
-    saleNumber: number;
+    saleId: number;
     price: number;
     size: string;
     gender: string;
@@ -19,5 +18,5 @@ export class ArticleClotheModel {
 
     userEmail: string;
 
-    constructor() {} 
+    constructor() {}
 }

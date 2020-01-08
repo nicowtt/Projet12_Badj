@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -53,9 +51,19 @@ public class ArticleController {
      */
     @PostMapping(value = "/NewClotheArticle", consumes = "application/json")
     public ResponseEntity<String> addClotheArticle(@RequestBody ArticleClotheDto newArticleClotheDto) {
-        // todo crée une methode pour ajouter l'article en bdd
-        Date test = newArticleClotheDto.getRecordDate();
-        return (new ResponseEntity<>(HttpStatus.CREATED));
+        boolean addNewClotheIsOk = false;
+        User userWhoCreate = userDao.findByEmail(newArticleClotheDto.getUserEmail());
+        try {
+            addNewClotheIsOk = articleManager.addNewClotheArticle(newArticleClotheDto, userWhoCreate.getId());
+        } catch (UnexpectedRollbackException e) {
+            logger.warn( "roll back on new clothe article");
+        }
+        if (addNewClotheIsOk) {
+            return (new ResponseEntity<>(HttpStatus.CREATED));
+        } else {
+            return (new ResponseEntity<>("error on clothe article record",HttpStatus.INTERNAL_SERVER_ERROR));
+        }
+
     }
 
     /**
@@ -65,8 +73,18 @@ public class ArticleController {
      */
     @PostMapping(value = "/NewObjectArticle", consumes = "application/json")
     public ResponseEntity<String> addObjectArticle(@RequestBody ArticleObjectDto newArticleObjectDto) {
-        // todo crée une méthode pour ajouter l'article dans la bdd
-        return (new ResponseEntity<>(HttpStatus.CREATED));
+        boolean addNewObjectIsOk = false;
+        User userWhoCreate = userDao.findByEmail(newArticleObjectDto.getUserEmail());
+        try {
+            addNewObjectIsOk = articleManager.addNewObjectArticle(newArticleObjectDto, userWhoCreate.getId());
+        } catch (UnexpectedRollbackException e) {
+            logger.warn( "roll back on new object article");
+        }
+        if (addNewObjectIsOk) {
+            return (new ResponseEntity<>(HttpStatus.CREATED));
+        } else {
+            return (new ResponseEntity<>("error on object article record",HttpStatus.INTERNAL_SERVER_ERROR));
+        }
     }
 
     /**
@@ -76,8 +94,18 @@ public class ArticleController {
      */
     @PostMapping(value = "/NewToyArticle", consumes = "application/json")
     public ResponseEntity<String> addToyArticle(@RequestBody ArticleToyDto newArticleToyDto) {
-        // todo crée une méthode pour ajouter l'article dans la bdd
-        return (new ResponseEntity<>(HttpStatus.CREATED));
+        boolean addNewToyArticleIsOk = false;
+        User userWhoCreate = userDao.findByEmail(newArticleToyDto.getUserEmail());
+        try {
+            addNewToyArticleIsOk = articleManager.addNewToyArticle(newArticleToyDto, userWhoCreate.getId());
+        } catch (UnexpectedRollbackException e) {
+            logger.warn( "roll back on new toy article");
+        }
+        if (addNewToyArticleIsOk) {
+            return (new ResponseEntity<>(HttpStatus.CREATED));
+        } else {
+            return (new ResponseEntity<>("error on toy article record",HttpStatus.INTERNAL_SERVER_ERROR));
+        }
     }
 
     /**
@@ -88,16 +116,16 @@ public class ArticleController {
     @PostMapping(value = "/newBookArticle", consumes = "application/json")
     public ResponseEntity<String> addBookArticle(@RequestBody ArticleBookDto newArticleBookDto) {
         boolean addNewBookArticleIsOk = false;
-        User user = userDao.findByEmail(newArticleBookDto.getUserEmail());
+        User userWhoCreate = userDao.findByEmail(newArticleBookDto.getUserEmail());
         try {
-            addNewBookArticleIsOk = articleManager.addNewBookArticle(newArticleBookDto, user.getId());
+            addNewBookArticleIsOk = articleManager.addNewBookArticle(newArticleBookDto, userWhoCreate.getId());
         } catch (UnexpectedRollbackException e) {
             logger.warn("roll back on new book article");
         }
         if (addNewBookArticleIsOk) {
             return (new ResponseEntity<>(HttpStatus.CREATED));
         } else {
-            return (new ResponseEntity<>("error on article record",HttpStatus.INTERNAL_SERVER_ERROR));
+            return (new ResponseEntity<>("error on book article record",HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
 }

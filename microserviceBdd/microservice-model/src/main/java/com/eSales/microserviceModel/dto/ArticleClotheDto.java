@@ -8,7 +8,7 @@ public class ArticleClotheDto {
 
     private String type;
 
-    private int saleNumber;
+    private int saleId;
 
     private double price;
 
@@ -40,10 +40,10 @@ public class ArticleClotheDto {
     public ArticleClotheDto() {
     }
 
-    public ArticleClotheDto(String category, String type, int saleNumber, double price, String size, String gender, String material, String color, String comment, Date recordDate, boolean isValidateToSell, boolean isSold, boolean isStolen, boolean isReturnOwner, String userEmail) {
+    public ArticleClotheDto(String category, String type, int saleId, double price, String size, String gender, String material, String color, String comment, Date recordDate, boolean isValidateToSell, boolean isSold, boolean isStolen, boolean isReturnOwner, String userEmail) {
         this.category = category;
         this.type = type;
-        this.saleNumber = saleNumber;
+        this.saleId = saleId;
         this.price = price;
         this.size = size;
         this.gender = gender;
@@ -75,12 +75,12 @@ public class ArticleClotheDto {
         this.type = type;
     }
 
-    public int getSaleNumber() {
-        return saleNumber;
+    public int getSaleId() {
+        return saleId;
     }
 
-    public void setSaleNumber(int saleNumber) {
-        this.saleNumber = saleNumber;
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
     }
 
     public double getPrice() {

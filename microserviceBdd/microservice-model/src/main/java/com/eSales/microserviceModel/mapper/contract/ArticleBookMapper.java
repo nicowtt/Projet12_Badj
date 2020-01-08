@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ArticleBookMapper {
 
-    Article fromArticleBookDtoToArticle(ArticleBookDto articleBookDto, int userId, int articleSaleNumber);
+    Article fromArticleBookDtoToArticle(ArticleBookDto articleBookDto, int userId, int nextNumberOfArticlesSale);
     Book fromArticleBookDtoToBook(ArticleBookDto articleBookDto);
 }

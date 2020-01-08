@@ -1,9 +1,8 @@
 
 export class ArticleToyModel {
-    
     category: string;
     type: string;
-    saleNumber: number;
+    saleId: number;
     price: number;
     brand: string;
     color: string;
