@@ -200,7 +200,7 @@ export class AddArticlesComponent implements OnInit {
           this.router.navigate(['sales']);
         },
         (error: HttpErrorResponse) => {
-          this.alertService.error(error.message);
+          this.alertService.error("Erreur, l'article n'as pas été enregistré.");
         }
       );
     }
@@ -240,7 +240,7 @@ export class AddArticlesComponent implements OnInit {
           this.router.navigate(['sales']);
         },
         (error: HttpErrorResponse) => {
-          this.alertService.error(error.message);
+          this.alertService.error("Erreur, l'article n'as pas été enregistré.");
         }
       );
     }
@@ -271,7 +271,7 @@ export class AddArticlesComponent implements OnInit {
           this.router.navigate(['sales']);
         },
         (error: HttpErrorResponse) => {
-          this.alertService.error(error.message);
+          this.alertService.error("Erreur, l'article n'as pas été enregistré.");
         }
       );
     }
@@ -302,7 +302,7 @@ export class AddArticlesComponent implements OnInit {
           this.router.navigate(['sales']);
         },
         (error: HttpErrorResponse) => {
-          this.alertService.error(error.message);
+          this.alertService.error("Erreur, l'article n'as pas été enregistré.");
         }
       );
     }

@@ -53,6 +53,10 @@ CREATE TABLE badj.articles (
                           PRIMARY KEY (id)
 );
 
+CREATE UNIQUE INDEX articles_idx
+ ON badj.articles
+ ( sale_number, sale_id );
+
 
 CREATE TABLE badj.objects (
                          article_id INT NOT NULL,

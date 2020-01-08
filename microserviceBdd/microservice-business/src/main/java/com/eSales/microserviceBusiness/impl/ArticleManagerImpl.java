@@ -12,9 +12,15 @@ import com.eSales.microserviceModel.mapper.contract.ArticleBookMapper;
 import com.eSales.microserviceModel.mapper.contract.ArticleClotheMapper;
 import com.eSales.microserviceModel.mapper.contract.ArticleObjectMapper;
 import com.eSales.microserviceModel.mapper.contract.ArticleToyMapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.SQLDataException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @Component
 public class ArticleManagerImpl implements ArticleManager {
@@ -45,6 +51,8 @@ public class ArticleManagerImpl implements ArticleManager {
 
     @Autowired
     private ToyDao toyDao;
+
+    static final Log logger = LogFactory.getLog(ArticleManagerImpl.class);
 
     /**
      * To get the next article sale number for one sale
@@ -77,13 +85,16 @@ public class ArticleManagerImpl implements ArticleManager {
 
         // new article -> bdd
         articleInputFromDao = articleBookMapper.fromArticleBookDtoToArticle(articleBookDto,userId, nextArticleNumber);
-        newArticle = articleDao.save(articleInputFromDao);
+        try {
+            newArticle = articleDao.save(articleInputFromDao);
 
-        // new book -> bdd
-        newBookFromDto = articleBookMapper.fromArticleBookDtoToBook(articleBookDto);
-        newBookFromDto.setArticle(newArticle);
-        bookDao.save(newBookFromDto);
-
+            // new book -> bdd
+            newBookFromDto = articleBookMapper.fromArticleBookDtoToBook(articleBookDto);
+            newBookFromDto.setArticle(newArticle);
+            bookDao.save(newBookFromDto);
+        } catch (DataIntegrityViolationException e) {
+            logger.warn("SaleId and SaleNumber must be unique.");
+        }
         return true;
     }
 
@@ -103,13 +114,16 @@ public class ArticleManagerImpl implements ArticleManager {
 
         // new article -> bdd
         articleInputFromDao = articleObjectMapper.fromArticleObjectDtoToArticle(articleObjectDto, userId, nextArticleNumber);
-        newArticle = articleDao.save(articleInputFromDao);
+        try {
+            newArticle = articleDao.save(articleInputFromDao);
 
-        // new Object -> bdd
-        newObjectFromDto = articleObjectMapper.fromArticleObjectDtoToObject(articleObjectDto);
-        newObjectFromDto.setArticle(newArticle);
-        objectDao.save(newObjectFromDto);
-
+            // new Object -> bdd
+            newObjectFromDto = articleObjectMapper.fromArticleObjectDtoToObject(articleObjectDto);
+            newObjectFromDto.setArticle(newArticle);
+            objectDao.save(newObjectFromDto);
+        } catch (DataIntegrityViolationException e) {
+            logger.warn("SaleId and SaleNumber must be unique.");
+        }
         return true;
     }
 
@@ -129,13 +143,16 @@ public class ArticleManagerImpl implements ArticleManager {
 
         // new article -> bdd
         articleInputFromDao = articleClotheMapper.fromArticleClotheDtoToArticle(articleClotheDto, userId, nextArticleNumber);
-        newArticle = articleDao.save(articleInputFromDao);
+        try {
+            newArticle = articleDao.save(articleInputFromDao);
 
-        // new object -> bdd
-        newClotheFromDto = articleClotheMapper.fromArticleClotheDtoToClothe(articleClotheDto);
-        newClotheFromDto.setArticle(newArticle);
-        clotheDao.save(newClotheFromDto);
-
+            // new object -> bdd
+            newClotheFromDto = articleClotheMapper.fromArticleClotheDtoToClothe(articleClotheDto);
+            newClotheFromDto.setArticle(newArticle);
+            clotheDao.save(newClotheFromDto);
+        } catch (DataIntegrityViolationException e) {
+            logger.warn("SaleId and SaleNumber must be unique.");
+        }
         return true;
     }
 
@@ -155,13 +172,16 @@ public class ArticleManagerImpl implements ArticleManager {
 
         // new article -> bdd
         articleInputfromDao = articleToyMapper.fromArticleToyDtoToArticle(articleToyDto, userId, nextArticleNumber);
-        newArticle = articleDao.save(articleInputfromDao);
+        try {
+            newArticle = articleDao.save(articleInputfromDao);
 
-        // new object -> bdd
-        newToyfromDto = articleToyMapper.fromArticleToyDtoToToy(articleToyDto);
-        newToyfromDto.setArticle(newArticle);
-        toyDao.save(newToyfromDto);
-
+            // new object -> bdd
+            newToyfromDto = articleToyMapper.fromArticleToyDtoToToy(articleToyDto);
+            newToyfromDto.setArticle(newArticle);
+            toyDao.save(newToyfromDto);
+        } catch (DataIntegrityViolationException e) {
+            logger.warn("SaleId and SaleNumber must be unique.");
+        }
         return true;
     }
 }
