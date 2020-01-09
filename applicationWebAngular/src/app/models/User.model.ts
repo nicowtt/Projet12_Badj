@@ -9,6 +9,8 @@ export class UserModel {
   street: string;
   postalCode: number;
   city: string;
+  voluntary: boolean;
+  responsible: boolean;
   token: Object;
 
   constructor() {}

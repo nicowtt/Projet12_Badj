@@ -4,6 +4,8 @@ package com.eSales.microserviceModel.dto;
 
 public class UserDto {
 
+    private Integer userId;
+
     private String name;
 
     private String lastName;
@@ -20,13 +22,18 @@ public class UserDto {
 
     private String city;
 
+    private boolean isVoluntary;
+
+    private boolean isResponsible;
+
     private String token;
 
     // constructeur
     public UserDto() {
     }
 
-    public UserDto(String name, String lastName, String password, String email, String phone, String street, int postalCode, String city, String token) {
+    public UserDto(Integer userId, String name, String lastName, String password, String email, String phone, String street, int postalCode, String city, boolean isVoluntary, boolean isResponsible, String token) {
+        this.userId = userId;
         this.name = name;
         this.lastName = lastName;
         this.password = password;
@@ -35,10 +42,20 @@ public class UserDto {
         this.street = street;
         this.postalCode = postalCode;
         this.city = city;
+        this.isVoluntary = isVoluntary;
+        this.isResponsible = isResponsible;
         this.token = token;
     }
 
     // getters and setters
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getName() {
         return name;
     }
@@ -103,6 +120,22 @@ public class UserDto {
         this.city = city;
     }
 
+    public boolean isVoluntary() {
+        return isVoluntary;
+    }
+
+    public void setVoluntary(boolean voluntary) {
+        isVoluntary = voluntary;
+    }
+
+    public boolean isResponsible() {
+        return isResponsible;
+    }
+
+    public void setResponsible(boolean responsible) {
+        isResponsible = responsible;
+    }
+
     public String getToken() {
         return token;
     }
@@ -115,7 +148,8 @@ public class UserDto {
     @Override
     public String toString() {
         return "UserDto{" +
-                "name='" + name + '\'' +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -123,6 +157,8 @@ public class UserDto {
                 ", street='" + street + '\'' +
                 ", postalCode=" + postalCode +
                 ", city='" + city + '\'' +
+                ", isVoluntary=" + isVoluntary +
+                ", isResponsible=" + isResponsible +
                 ", token='" + token + '\'' +
                 '}';
     }

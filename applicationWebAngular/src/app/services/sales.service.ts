@@ -1,3 +1,5 @@
+import { AuthService } from './auth.service';
+import { UserModel } from './../models/User.model';
 import {Observable, Subject} from 'rxjs';
 import {Sale} from '../models/Sale.model';
 import {Injectable} from '@angular/core';
@@ -36,11 +38,29 @@ export class SalesService {
   }
 
   /**
-   * for get next sales (after today)
+   * for get next sales (after today) whithout user connected
    */
   getSales() {
     this.http
       .get<any[]>('/AfterTodaySales')
+      .subscribe(
+        (response) => {
+          this.sales = response;
+          this.emmitSales();
+        },
+        (error) => {
+          console.log('Erreur de chargement !' + error);
+          this.alertService.error('erreur reseau veuillez recommencer plus tard');
+        }
+      );
+  }
+
+  /**
+   * for get next sales (after today) when user is connected
+   */
+  getSalesCurrentUserIsPresent(currentUser: string) {
+    return this.http
+      .get<any[]>('/AfterTodaySales/' + currentUser)
       .subscribe(
         (response) => {
           this.sales = response;

@@ -10,6 +10,13 @@
         <h4>{{ sale.description}}</h4>
         <h5>{{ sale.address.street}} {{sale.address.postalCode}} {{sale.address.city}}</h5>
         <button class="btn btn-primary" (click)="addArticles(i)">Pré-enregistrement d'articles</button>
+        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'Vêtements adulte'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForAdultClothe}}.</h6>
+        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'Vêtements adulte'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForAdultClothe}}.</h6>
+        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'Vêtements enfants'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForChildrenClothe}}.</h6>
+        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'Vêtements enfants'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForChildrenClothe}}.</h6>
+        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForBookToyAndObject}}.</h6>
+        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForBookToyAndObject}}.</h6>
+
       </button>
     </div>
   </div>

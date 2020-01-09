@@ -8,5 +8,7 @@ export class Sale {
   dateEnd: Date;
   address: AddressModel;
 
+  nbrArticlesPreRecordForUser: number;
+
   constructor() {}
 }

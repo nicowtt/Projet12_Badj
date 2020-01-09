@@ -45,7 +45,7 @@ VALUES
 INSERT INTO badj.users
 (name, last_name, password, email, phone, is_voluntary, is_responsible, address_id)
 VALUES
-('julia', 'roberts','$2a$10$izLvX7nRBB6qohlBCiGEzOHwlCLRoUwAJ0hChn.JAnhXDZp2MT3P.', 'julia.roberts@gmail.com', '0620202020', false, false, 3);
+('julia', 'roberts','$2a$10$izLvX7nRBB6qohlBCiGEzOHwlCLRoUwAJ0hChn.JAnhXDZp2MT3P.', 'julia.roberts@gmail.com', '0620202020', true, false, 3);
 
 -- 3/bourse(sales) (1-3) ->id1
 

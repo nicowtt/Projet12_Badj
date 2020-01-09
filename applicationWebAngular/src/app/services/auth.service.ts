@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {UserModel} from "../models/User.model";
-import {map} from "rxjs/operators";
-import {ApplicationHttpClientService} from "./ApplicationHttpClient.service";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {UserModel} from '../models/User.model';
+import {map} from 'rxjs/operators';
+import {ApplicationHttpClientService} from './ApplicationHttpClient.service';
 
 
 @Injectable({
@@ -35,12 +35,12 @@ export class AuthService {
       .pipe(map(user => {
         if (user && user.token) {
           this.userInProgress = user;
-          console.log('only token: ' + this.userInProgress.token);
+          // console.log('only token: ' + this.userInProgress.token);
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
           localStorage.setItem('currentUserToken', JSON.stringify(this.userInProgress.token));
           this.currentUserSubject.next(user);
-          console.log('local quand sigIn: ' + localStorage.getItem('currentUser'));
+          // console.log('local quand sigIn: ' + localStorage.getItem('currentUser'));
         }
         return user;
       }));

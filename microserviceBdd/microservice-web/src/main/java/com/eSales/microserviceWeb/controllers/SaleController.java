@@ -1,12 +1,14 @@
 package com.eSales.microserviceWeb.controllers;
 
+import com.eSales.microserviceBusiness.contract.SaleManager;
 import com.eSales.microserviceDao.SaleDao;
+import com.eSales.microserviceDao.UserDao;
+import com.eSales.microserviceModel.dto.SaleDto;
+import com.eSales.microserviceModel.dto.UserDto;
 import com.eSales.microserviceModel.entity.Sale;
+import com.eSales.microserviceModel.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -19,6 +21,12 @@ public class SaleController {
     @Autowired
     private SaleDao saleDao;
 
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private SaleManager saleManager;
+
     /**
      * get all sales
      * @return
@@ -29,15 +37,6 @@ public class SaleController {
     }
 
     /**
-     * get all next sales (next than begin-date!)
-     * @return
-     */
-    @GetMapping(value = "/AfterTodaySales")
-    public List<Sale> getAfterTodaySales() {
-        return saleDao.getSalesByDateBeginAfterToday();
-    }
-
-    /**
      * get one sale
      * @param saleId -> sale ID
      * @return
@@ -45,5 +44,30 @@ public class SaleController {
     @GetMapping(value = "/OneSale/{saleId}")
     public Optional<Sale> getOneSale(@PathVariable Integer saleId) {
         return saleDao.findById(saleId);
+    }
+
+    /**
+     * get all next sales (next than begin-date!) (user not connected)
+     * @return -> list of sale number
+     */
+    @GetMapping(value = "/AfterTodaySales")
+    public List<Sale> getAfterTodaySales() {
+        return saleDao.getSalesByDateBeginAfterToday();
+    }
+
+    /**
+     * get all next sales (next than begin-date!) (user is connected)
+     * @param userEmail -> input from front
+     * @return -> list of sale with number of article pre-record on each sale
+     */
+    @GetMapping(value = "/AfterTodaySales/{userEmail}")
+    public List<SaleDto> getAfterTodaySales(@PathVariable String userEmail) {
+        List<SaleDto> afterTodaySalesDtoList;
+        List<Sale> afterTodaySalesList = saleManager.getSalesByDateBeginAfterToday();
+
+        User user = userDao.findByEmail(userEmail);
+        // pre-record added on sale list
+        afterTodaySalesDtoList = saleManager.getSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord(afterTodaySalesList, user);
+        return afterTodaySalesDtoList;
     }
 }
