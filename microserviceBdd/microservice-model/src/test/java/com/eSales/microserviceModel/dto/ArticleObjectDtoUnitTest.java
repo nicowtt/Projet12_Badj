@@ -8,12 +8,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @SpringBootTest
 public class ArticleObjectDtoUnitTest {
 
     @Test
     public void testArticleObjectDtoToString() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         ArticleObjectDto articleObjectDto = new ArticleObjectDto();
         Date recordDate = new Date();
         DateFormat dateFormated = new SimpleDateFormat("dd/MM/yyyy");
@@ -39,7 +41,7 @@ public class ArticleObjectDtoUnitTest {
 
         Assert.assertEquals("ArticleObjectDto{category='Objet de décoration', type='lit', " +
                 "saleId=1, price=5.0, brand='laCroix', color='/', comment='null', " +
-                "recordDate=Fri Jan 10 00:00:00 CET 2020, isValidateToSell=false, isSold=false, isStolen=false, " +
+                "recordDate=Fri Jan 10 00:00:00 UTC 2020, isValidateToSell=false, isSold=false, isStolen=false, " +
                 "isReturnOwner=false, userEmail='bruce.lee@gmail.com'}", articleObjectDto.toString());
     }
 }

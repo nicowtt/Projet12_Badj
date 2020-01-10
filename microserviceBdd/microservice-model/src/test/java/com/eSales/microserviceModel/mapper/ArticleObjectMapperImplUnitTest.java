@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @SpringBootTest
 public class ArticleObjectMapperImplUnitTest {
@@ -31,6 +32,7 @@ public class ArticleObjectMapperImplUnitTest {
 
     @Before
     public void setUp() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         articleObjectMapperImpl = new ArticleObjectMapperImpl();
         articleObjectDto = new ArticleObjectDto();
         Date recordDate = new Date();
@@ -90,7 +92,7 @@ public class ArticleObjectMapperImplUnitTest {
         Article article = articleObjectMapperImpl.fromArticleObjectDtoToArticle(articleObjectDto, 1,3);
 
         Assert.assertEquals("Article{id=0, category='Objet de décoration', type='lit', saleNumber=3, " +
-                "price=5.0, dateRecord=Fri Jan 10 00:00:00 CET 2020, isValidateToSell=false, isSold=false, " +
+                "price=5.0, dateRecord=Fri Jan 10 00:00:00 UTC 2020, isValidateToSell=false, isSold=false, " +
                 "isStolen=false, isReturnOwner=false, user=User{id=1, name='null', lastName='null', password='null', " +
                 "email='null', phone='null', isVoluntary=false, isResponsible=false, address=null}, " +
                 "sale=Sale{id=1, type='null', description='null', dateBegin=null, dateEnd=null, address=null}, " +

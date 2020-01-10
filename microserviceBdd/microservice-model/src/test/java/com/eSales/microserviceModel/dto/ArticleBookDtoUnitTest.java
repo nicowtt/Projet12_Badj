@@ -8,12 +8,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @SpringBootTest
 public class ArticleBookDtoUnitTest {
 
     @Test
     public void testArticleBookDtoToString() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         ArticleBookDto articleBookDto = new ArticleBookDto();
         Date recordDate = new Date();
         DateFormat dateFormated = new SimpleDateFormat("dd/MM/yyyy");
@@ -38,7 +40,7 @@ public class ArticleBookDtoUnitTest {
         articleBookDto.setUserEmail("bruce.lee@gmail.com");
 
         Assert.assertEquals("ArticleBookDto{category='Livre', type='poche', saleId=1, name='Le signal', " +
-                "author='Maxime Chattam', price=5.0, comment='/', recordDate=Fri Jan 10 00:00:00 CET 2020, " +
+                "author='Maxime Chattam', price=5.0, comment='/', recordDate=Fri Jan 10 00:00:00 UTC 2020, " +
                 "isValidateToSell=false, isSold=false, isStolen=false, isReturnOwner=false, " +
                 "userEmail='bruce.lee@gmail.com'}", articleBookDto.toString());
     }
