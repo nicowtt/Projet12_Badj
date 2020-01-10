@@ -60,7 +60,7 @@ public class UserMapperUnitTest {
 
 
     @Test
-    public void testfromDtoToUserWithoutAddress() {
+    public void testFromDtoToUserWithoutAddress() {
 
         User userTest = userMapper.fromDtoToUserWithoutAddress(userDto);
 
@@ -69,17 +69,17 @@ public class UserMapperUnitTest {
     }
 
     @Test
-    public void testfromUserToDto() {
+    public void testFromUserToDto() {
 
         UserDto userDtoTest = userMapper.fromUserToDto(user);
 
-        Assert.assertEquals("UserDto{name='Jean-claude', lastName='Vandamme', password='secret', " +
-                "email='jean-claude.vandamme@gmail.com', phone='null', street='rue du test', postalCode=31200," +
-                " city='Toulouse', token='null'}", userDtoTest.toString());
+        Assert.assertEquals("UserDto{userId=null, name='Jean-claude', lastName='Vandamme', password='secret'," +
+                " email='jean-claude.vandamme@gmail.com', phone='null', street='rue du test', postalCode=31200," +
+                " city='Toulouse', isVoluntary=false, isResponsible=false, token='null'}", userDtoTest.toString());
     }
 
     @Test
-    public void testfromUserDtoToAddress() {
+    public void testFromUserDtoToAddress() {
         Address addressTest = userMapper.fromUserDtoToAddress(userDto);
 
         Assert.assertEquals("Address{id=0, street='une rue', postalCode=31200, city='Toulouse'}"

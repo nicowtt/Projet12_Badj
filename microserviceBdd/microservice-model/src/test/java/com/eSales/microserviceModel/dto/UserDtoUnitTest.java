@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class UserDtoUnitTest {
 
     @Test
-    public void testToString() {
+    public void testUserDtoToString() {
         UserDto userDto = new UserDto();
         userDto.setName("nico");
         userDto.setLastName("bod");
@@ -20,8 +20,9 @@ public class UserDtoUnitTest {
         userDto.setCity("Toulouse");
         userDto.setToken(null);
 
-        Assert.assertEquals("UserDto{name='nico', lastName='bod', password='test', email='test@test.com', " +
-                "phone='0612121212', street='rue du test', postalCode=31000, city='Toulouse', token='null'}"
+        Assert.assertEquals("UserDto{userId=null, name='nico', lastName='bod', password='test', " +
+                        "email='test@test.com', phone='0612121212', street='rue du test', postalCode=31000, " +
+                        "city='Toulouse', isVoluntary=false, isResponsible=false, token='null'}"
                 , userDto.toString());
     }
 }

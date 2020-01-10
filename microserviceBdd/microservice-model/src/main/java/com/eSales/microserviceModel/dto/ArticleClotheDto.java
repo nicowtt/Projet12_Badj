@@ -178,4 +178,26 @@ public class ArticleClotheDto {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
+
+    // to string
+    @Override
+    public String toString() {
+        return "ArticleClotheDto{" +
+                "category='" + category + '\'' +
+                ", type='" + type + '\'' +
+                ", saleId=" + saleId +
+                ", price=" + price +
+                ", size='" + size + '\'' +
+                ", gender='" + gender + '\'' +
+                ", material='" + material + '\'' +
+                ", color='" + color + '\'' +
+                ", comment='" + comment + '\'' +
+                ", recordDate=" + recordDate +
+                ", isValidateToSell=" + isValidateToSell +
+                ", isSold=" + isSold +
+                ", isStolen=" + isStolen +
+                ", isReturnOwner=" + isReturnOwner +
+                ", userEmail='" + userEmail + '\'' +
+                '}';
+    }
 }

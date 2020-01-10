@@ -154,4 +154,24 @@ public class ArticleToyDto {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
+
+    // to string
+    @Override
+    public String toString() {
+        return "ArticleToyDto{" +
+                "category='" + category + '\'' +
+                ", type='" + type + '\'' +
+                ", saleId=" + saleId +
+                ", brand='" + brand + '\'' +
+                ", color='" + color + '\'' +
+                ", price=" + price +
+                ", comment='" + comment + '\'' +
+                ", recordDate=" + recordDate +
+                ", isValidateToSell=" + isValidateToSell +
+                ", isSold=" + isSold +
+                ", isStolen=" + isStolen +
+                ", isReturnOwner=" + isReturnOwner +
+                ", userEmail='" + userEmail + '\'' +
+                '}';
+    }
 }

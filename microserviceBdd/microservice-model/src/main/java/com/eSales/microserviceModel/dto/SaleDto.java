@@ -90,4 +90,18 @@ public class SaleDto {
     public void setNbrArticlesPreRecordForUser(Integer nbrArticlesPreRecordForUser) {
         this.nbrArticlesPreRecordForUser = nbrArticlesPreRecordForUser;
     }
+
+    // to string
+    @Override
+    public String toString() {
+        return "SaleDto{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                ", dateBegin=" + dateBegin +
+                ", dateEnd=" + dateEnd +
+                ", address=" + address +
+                ", nbrArticlesPreRecordForUser=" + nbrArticlesPreRecordForUser +
+                '}';
+    }
 }
