@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLDataException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 @Component
 public class ArticleManagerImpl implements ArticleManager {
@@ -183,5 +184,15 @@ public class ArticleManagerImpl implements ArticleManager {
             logger.warn("SaleId and SaleNumber must be unique.");
         }
         return true;
+    }
+
+    /**
+     * get All Articles For One User
+     * @param userId -> user concerned
+     * @return -> list of Articles
+     */
+    @Override
+    public List<Article> getAllArticlesForOneUser(int userId) {
+        return articleDao.getAllArticlesByUserId(userId);
     }
 }

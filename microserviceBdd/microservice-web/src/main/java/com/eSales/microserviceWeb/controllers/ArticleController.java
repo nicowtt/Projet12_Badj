@@ -15,10 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.UnexpectedRollbackException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -127,5 +125,17 @@ public class ArticleController {
         } else {
             return (new ResponseEntity<>("error on book article record",HttpStatus.INTERNAL_SERVER_ERROR));
         }
+    }
+
+    /**
+     * get all articles for one user
+     * @param userEmail -> input from front
+     * @return -> list of articles
+     */
+    @GetMapping(value = "/allArticlesForId/{userEmail}")
+    public List<Article> getAllArticleForOneId(@PathVariable String userEmail) {
+        User userConcerned = userDao.findByEmail(userEmail);
+        List<Article> articlesList = articleManager.getAllArticlesForOneUser(userConcerned.getId());
+        return articlesList;
     }
 }

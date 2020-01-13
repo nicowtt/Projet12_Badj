@@ -8,8 +8,13 @@
         <a routerLink="sales">Bourses</a>
       </li>
     </ul>
+    
 
     <ul class="nav navbar-right">
+      <li *ngIf="currentUser" (click)="onPersonalSpace()" style="cursor:pointer"
+         routerLink="#" class="navbar-text navbar-right" id="nameOnNav">{{currentUser.name}} {{currentUser.lastName}}  
+      </li>
+
       <li class="navFunction" routerLinkActive="active" *ngIf="!currentUser"> <!-- user not authenticated-->
         <a routerLink="auth/signup">Créer un compte</a>
       </li>
@@ -18,11 +23,9 @@
       <li class="navFunction" routerLinkActive="active" *ngIf="!currentUser"> <!-- user not authenticated-->
         <a routerLink="auth/signin">Connexion</a>
       </li>
-      <li>
-        <p *ngIf="currentUser" (click)="onSignOut()"
+      <li *ngIf="currentUser" (click)="onSignOut()"
            style="cursor:pointer"
-           class="navbar-text navbar-right"><span id="logoutButton">Deconnexion </span>
-          <a routerLink="#" class="navbar-link" id="nameOnNav">{{currentUser.name}} {{currentUser.lastName}}</a></p>
+           class="navbar-text navbar-right" id="logoutButton">Deconnexion 
       </li>
     </ul>
   </div>

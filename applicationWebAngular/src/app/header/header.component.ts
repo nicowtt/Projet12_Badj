@@ -29,4 +29,8 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('currentUserToken');
     this.router.navigate(['/sales']);
   }
+
+  onPersonalSpace() {
+    this.router.navigate(['/personalSpace']);
+  }
 }
