@@ -72,60 +72,72 @@ export class SalesListComponent implements OnInit, OnDestroy {
       // for adult clothe sale
       // if user isn't voluntary
       console.log(this.saleConcerned.description);
-      if (!this.currentUser.voluntary) {
-        if ( this.saleConcerned.description === 'Vêtements adulte'
+      if (this.saleConcerned.description === 'Vêtements adulte') {
+        if (this.currentUser.voluntary === false
           && this.saleConcerned.nbrArticlesPreRecordForUser < this.userArticleLimitForAdultClothe) {
           this.router.navigate(['/addArticles', saleId]);
         } else {
-          this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          if (this.currentUser.voluntary === false ) {
+            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          }
         }
       }
       // if user is voluntary
-      if (this.currentUser.voluntary) {
-        if (this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForAdultClothe) {
+      if (this.saleConcerned.description === 'Vêtements adulte') {
+        if (this.currentUser.voluntary === true && this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForAdultClothe) {
           this.router.navigate(['/addArticles', saleId]);
         } else {
-          this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          if (this.currentUser.voluntary === true ) {
+            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          }
         }
       }
 
       // for children clothe sale
       // if user isn't voluntary
       console.log(this.saleConcerned.description);
-      if (!this.currentUser.voluntary) {
-        if ( this.saleConcerned.description === 'Vêtements enfants'
+      if (this.saleConcerned.description === 'Vêtements enfants') {
+        if (this.currentUser.voluntary === false
           && this.saleConcerned.nbrArticlesPreRecordForUser < this.userArticleLimitForChildrenClothe) {
           this.router.navigate(['/addArticles', saleId]);
         } else {
-          this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          if (this.currentUser.voluntary === false) {
+            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          }
         }
       }
       // if user is voluntary
-      if (this.currentUser.voluntary) {
-        if (this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForChildrenClothe) {
+      if (this.saleConcerned.description === 'Vêtements enfants') {
+        if (this.currentUser.voluntary === true && this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForChildrenClothe) {
           this.router.navigate(['/addArticles', saleId]);
         } else {
-          this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          if (this.currentUser.voluntary === true) {
+            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          }
         }
       }
 
       // for toy book or object sale
       // if user isn't voluntary
       console.log(this.saleConcerned.description);
-      if (!this.currentUser.voluntary) {
-        if ( this.saleConcerned.description === 'jouets Livres Cadeaux Bijoux'
+      if (this.saleConcerned.description === 'jouets Livres Cadeaux Bijoux') {
+        if (this.currentUser.voluntary === false
           && this.saleConcerned.nbrArticlesPreRecordForUser < this.userArticleLimitForBookToyAndObject) {
           this.router.navigate(['/addArticles', saleId]);
         } else {
-          this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          if (this.currentUser.voluntary === false) {
+            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          }
         }
       }
       // if user is voluntary
-      if (this.currentUser.voluntary) {
-        if (this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForBookToyAndObject) {
+      if (this.saleConcerned.description === 'jouets Livres Cadeaux Bijoux') {
+        if (this.currentUser.voluntary === true && this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForBookToyAndObject) {
           this.router.navigate(['/addArticles', saleId]);
         } else {
-          this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          if (this.currentUser.voluntary === true) {
+            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+          }
         }
       }
     } else {

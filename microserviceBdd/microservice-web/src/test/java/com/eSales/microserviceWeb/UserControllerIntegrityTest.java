@@ -85,4 +85,20 @@ public class UserControllerIntegrityTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
     }
+
+    @Test
+    public void testUserStateChange() throws Exception {
+        userDtoTest.setPassword("mdp");
+        String uri = "/userStateChanged";
+        String inputJson = super.mapToJson(userDtoTest);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        Boolean result = super.mapFromJson(content,Boolean.class);
+        assertEquals(true, result);
+    }
 }

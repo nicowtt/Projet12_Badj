@@ -102,7 +102,7 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/userStateChanged")
-    public boolean userStateChanger() {
+    public boolean userStateChange() {
         return true;
     }
 }
