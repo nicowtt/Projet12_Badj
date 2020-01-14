@@ -5,21 +5,17 @@ import com.eSales.microserviceDao.AddressDao;
 import com.eSales.microserviceDao.ArticleDao;
 import com.eSales.microserviceDao.SaleDao;
 import com.eSales.microserviceModel.dto.SaleDto;
-import com.eSales.microserviceModel.dto.UserDto;
 import com.eSales.microserviceModel.entity.Address;
 import com.eSales.microserviceModel.entity.Sale;
 import com.eSales.microserviceModel.entity.User;
 import com.eSales.microserviceModel.mapper.contract.SaleMapper;
-import jdk.nashorn.internal.ir.IfNode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 

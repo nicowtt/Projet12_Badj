@@ -195,4 +195,25 @@ public class ArticleManagerImpl implements ArticleManager {
     public List<Article> getAllArticlesForOneUser(int userId) {
         return articleDao.getAllArticlesByUserId(userId);
     }
+
+    /**
+     * for delete article
+     * (delete book, object, clothe or toy, automatically on bdd article is deleted (cascade)
+     * @param article to delete
+     */
+    @Override
+    public void removeArticle(Article article) {
+        if (article.getBook() != null) {
+            bookDao.delete(article.getBook());
+        }
+        if (article.getClothe() != null) {
+            clotheDao.delete(article.getClothe());
+        }
+        if (article.getObject() != null) {
+            objectDao.delete(article.getObject());
+        }
+        if (article.getToy() != null) {
+            toyDao.delete(article.getToy());
+        }
+    }
 }

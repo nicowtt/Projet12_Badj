@@ -2,11 +2,7 @@ package com.eSales.microserviceBusiness.IntegrationTests;
 
 import com.eSales.microserviceBusiness.config.TestContextConf;
 import com.eSales.microserviceBusiness.contract.AddressManager;
-import com.eSales.microserviceBusiness.contract.SaleManager;
 import com.eSales.microserviceBusiness.impl.SaleManagerImpl;
-import com.eSales.microserviceBusiness.impl.UserManagerImpl;
-import com.eSales.microserviceDao.AddressDao;
-import com.eSales.microserviceDao.SaleDao;
 import com.eSales.microserviceModel.dto.SaleDto;
 import com.eSales.microserviceModel.entity.Address;
 import com.eSales.microserviceModel.entity.Sale;
@@ -23,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +37,7 @@ public class SaleManagerImplIntegrationTest {
     private Address address;
     private Sale oldSaleTest;
     private Optional<Address> oldAddressTest;
+    private User user;
 
     @Autowired
     private SaleManagerImpl saleManagerImpl;
@@ -49,7 +45,7 @@ public class SaleManagerImplIntegrationTest {
     @Autowired
     private AddressManager addressManager;
 
-    static final Log logger = LogFactory.getLog(SaleMapperImpl.class);
+    static final Log logger = LogFactory.getLog(SaleManagerImplIntegrationTest.class);
 
     @Before
     public void setUp() {
@@ -71,13 +67,16 @@ public class SaleManagerImplIntegrationTest {
             e.printStackTrace();
         }
 
-
         saleDtoTest = new SaleDto();
         saleDtoTest.setDateBegin(testDateBegin);
         saleDtoTest.setDateEnd(testDateEnd);
         saleDtoTest.setType("saleTest");
         saleDtoTest.setDescription("descriptionTest");
         saleDtoTest.setAddress(address);
+
+        user = new User();
+        user.setId(100000);
+        user.setEmail("test@test.com");
 
 
         // check if old test is on bdd
@@ -132,12 +131,29 @@ public class SaleManagerImplIntegrationTest {
         long nbrOfSaleBeforeTest = listOfSaleBeforeTest.stream().count();
         // add saleTest on bdd
         saleManagerImpl.addSale(saleDtoTest);
-        List<Sale> listOfSaleAfter = saleManagerImpl.getSalesByDateBeginAfterToday();
-        long nbrOfSaleAfter = listOfSaleAfter.stream().count();
+        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<SaleDto> listOfSaleAfterAll = saleManagerImpl.getSalesByDateBeginAfterToday(listOfSaleAfterAddTest);
+        long nbrOfSaleAfter = listOfSaleAfterAll.stream().count();
 
         Assert.assertTrue("Add sale must return number of sale + 1",
                 nbrOfSaleAfter == nbrOfSaleBeforeTest + 1);
 
+    }
+
+    @Test
+    public void testGetSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord() {
+        // count how many sale before test
+        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        long nbrOfSaleBeforeTest = listOfSaleBeforeTest.stream().count();
+        // add saleTest on bdd
+        saleManagerImpl.addSale(saleDtoTest);
+        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<SaleDto> listOfSaleAfterAll =
+                saleManagerImpl.getSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord(listOfSaleAfterAddTest, user);
+        long nbrOfSaleAfter = listOfSaleAfterAll.stream().count();
+
+        Assert.assertTrue("Add sale must return number of sale + 1",
+                nbrOfSaleAfter == nbrOfSaleBeforeTest + 1);
     }
 
 }

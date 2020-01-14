@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @SpringBootTest
 public class SaleMapperUnitTest {
@@ -27,6 +28,7 @@ public class SaleMapperUnitTest {
 
     @Before
     public void setUp() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         saleMapperImpl = new SaleMapperImpl();
         saleDto = new SaleDto();
         sale = new Sale();
@@ -64,10 +66,25 @@ public class SaleMapperUnitTest {
     }
 
     @Test
-    public void testfromSaleToSaleDto() {
+    public void testFromSaleToSaleDto() {
         SaleDto saleDtoTest = saleMapperImpl.fromSaleToSaleDto(sale);
 
         Assert.assertEquals("SaleDto{id=0, type='Bourse de printemps', description='Vêtements', dateBegin=null, " +
                 "dateEnd=null, address=null, nbrArticlesPreRecordForUser=null}", saleDtoTest.toString());
+    }
+
+    @Test
+    public void testFromSaleDtoToAddress() {
+        Address address = saleMapperImpl.fromSaleDtoToAddress(saleDto);
+        Assert.assertEquals("Address{id=0, street='2 rue de l'ouest', postalCode=31200, " +
+                "city='Toulouse'}", address.toString());
+    }
+
+    @Test
+    public void testFromSaleDtoToSale() {
+        Sale sale = saleMapperImpl.fromSaleDtoToSale(saleDto);
+        Assert.assertEquals("Sale{id=0, type='Bourse de printemps', description='Vêtement enfants', " +
+                "dateBegin=Mon Mar 09 00:00:00 UTC 2020, dateEnd=Fri Mar 13 00:00:00 UTC 2020, " +
+                "address=null}", sale.toString());
     }
 }
