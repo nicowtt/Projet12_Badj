@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestContextConf.class)
@@ -52,6 +53,7 @@ public class SaleManagerImplIntegrationTest {
 
     @Before
     public void setUp() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         address = new Address();
         address.setStreet("rue du test");
         address.setPostalCode(31200);
@@ -119,6 +121,12 @@ public class SaleManagerImplIntegrationTest {
                 address.setId(oldAddressTest.get().getId());
                 oldAddressTest.ifPresent(address -> addressManager.removeAddress(address));
                 logger.info(" old sale test removed ");
+
+                // deleting address ( + user with CASCADE )
+                oldUserTest = userManager.findUserByMail(userDtoTest.getEmail());
+                oldAddressTest = addressManager.getAddressById(oldUserTest.getAddress().getId());
+                oldAddressTest.ifPresent(address -> addressManager.removeAddress(address));
+                logger.info(" old user test removed ");
             }
         }
     }
