@@ -93,7 +93,7 @@ public class SaleManagerImplIntegrationTest {
                 // deleting adress -> cascade for delete sale
                 oldSaleTest = new Sale();
 
-                oldSaleTest = saleManagerImpl.getSale("2100-01-09");
+                oldSaleTest = saleManagerImpl.getSale("2100-01-10");
                 oldAddressTest = addressManager.getAddressById(oldSaleTest.getAddress().getId());
                 address.setId(oldAddressTest.get().getId());
                 oldAddressTest.ifPresent(address -> addressManager.removeAddress(address));
@@ -116,17 +116,11 @@ public class SaleManagerImplIntegrationTest {
             if (saleResult != null) {
                 // deleting adress -> cascade for delete sale
                 oldSaleTest = new Sale();
-                oldSaleTest = saleManagerImpl.getSale("2100-01-09");
+                oldSaleTest = saleManagerImpl.getSale("2100-01-10");
                 oldAddressTest = addressManager.getAddressById(oldSaleTest.getAddress().getId());
                 address.setId(oldAddressTest.get().getId());
                 oldAddressTest.ifPresent(address -> addressManager.removeAddress(address));
                 logger.info(" old sale test removed ");
-
-                // deleting address ( + user with CASCADE )
-                oldUserTest = userManager.findUserByMail(userDtoTest.getEmail());
-                oldAddressTest = addressManager.getAddressById(oldUserTest.getAddress().getId());
-                oldAddressTest.ifPresent(address -> addressManager.removeAddress(address));
-                logger.info(" old user test removed ");
             }
         }
     }
