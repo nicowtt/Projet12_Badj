@@ -1,10 +1,12 @@
 package com.eSales.microserviceBusiness.impl;
 
 import com.eSales.microserviceBusiness.contract.SaleManager;
+import com.eSales.microserviceDao.AddressDao;
 import com.eSales.microserviceDao.ArticleDao;
 import com.eSales.microserviceDao.SaleDao;
 import com.eSales.microserviceModel.dto.SaleDto;
 import com.eSales.microserviceModel.dto.UserDto;
+import com.eSales.microserviceModel.entity.Address;
 import com.eSales.microserviceModel.entity.Sale;
 import com.eSales.microserviceModel.entity.User;
 import com.eSales.microserviceModel.mapper.contract.SaleMapper;
@@ -12,9 +14,12 @@ import jdk.nashorn.internal.ir.IfNode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -30,6 +35,9 @@ public class SaleManagerImpl implements SaleManager {
     @Autowired
     private SaleMapper saleMapper;
 
+    @Autowired
+    private AddressDao addressDao;
+
     static final Log logger = LogFactory.getLog(SaleManagerImpl.class);
 
     @Override
@@ -37,6 +45,12 @@ public class SaleManagerImpl implements SaleManager {
         return saleDao.getSalesByDateBeginAfterToday();
     }
 
+    /**
+     * get Sales By DateBegin After Today With Nbr Of PreArticle Record
+     * @param saleList
+     * @param user
+     * @return
+     */
     @Override
     public List<SaleDto> getSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord(List<Sale> saleList, User user) {
         List<SaleDto> saleDtoList = new ArrayList<>();
@@ -54,6 +68,11 @@ public class SaleManagerImpl implements SaleManager {
         return  saleDtoList;
     }
 
+    /**
+     * get Sales By Date Begin After Today
+     * @param saleList
+     * @return
+     */
     @Override
     public List<SaleDto> getSalesByDateBeginAfterToday(List<Sale> saleList) {
         List<SaleDto> saleDtoList = new ArrayList<>();
@@ -66,5 +85,38 @@ public class SaleManagerImpl implements SaleManager {
         return saleDtoList;
     }
 
+    /**
+     * For add sale on bdd
+     * @param saleDto
+     * @return
+     */
+    @Override
+    @Transactional
+    public Sale addSale(SaleDto saleDto) {
+        Address addressInputFromSaleDto;
+        Address newAddress;
+        Sale newSaleFromDto;
 
+        // new address -> bdd
+        addressInputFromSaleDto =saleMapper.fromSaleDtoToAddress(saleDto);
+
+        newAddress = addressDao.save(addressInputFromSaleDto);
+
+        // new sale -> bdd
+        newSaleFromDto = saleMapper.fromSaleDtoToSale(saleDto);
+        newSaleFromDto.setAddress(newAddress);
+        Sale sale = saleDao.save(newSaleFromDto);
+
+        return sale;
+    }
+
+    /**
+     * get sale
+     * @param dateBegin
+     * @return
+     */
+    @Override
+    public Sale getSale(String dateBegin) {
+        return saleDao.getSale(dateBegin);
+    }
 }

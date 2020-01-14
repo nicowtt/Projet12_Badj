@@ -105,7 +105,7 @@ ALTER TABLE badj.users ADD CONSTRAINT addresses_users_fk
 ALTER TABLE badj.sales ADD CONSTRAINT addresses_sales_fk
     FOREIGN KEY (address_id)
         REFERENCES addresses (id)
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION;
 
 ALTER TABLE badj.articles ADD CONSTRAINT sales_articles_fk

@@ -14,4 +14,8 @@ public interface SaleDao extends JpaRepository<Sale, Integer> {
     List<Sale> getSalesByDateBeginAfterToday();
 
     Sale findById(int id);
+
+    @Query(value = "SELECT * FROM sales WHERE date_begin = ?1", nativeQuery = true)
+    Sale getSale(String date);
+
 }
