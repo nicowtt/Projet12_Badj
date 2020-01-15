@@ -139,7 +139,7 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     }
 
     @Test
-    public void testaddObjectArticle() throws Exception {
+    public void testAddObjectArticle() throws Exception {
         String uri = "/NewObjectArticle";
         //wrong add
         articleObjectDto.setCategory(null);
@@ -154,7 +154,7 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     }
 
     @Test
-    public void testaddToyArticle() throws Exception {
+    public void testAddToyArticle() throws Exception {
         String uri = "/NewToyArticle";
         // wrong add
         articleToyDto.setCategory(null);
@@ -169,8 +169,8 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     }
 
     @Test
-    public void testaddBookArticle() throws Exception {
-        String uri = "/newBookArticle";
+    public void testAddBookArticle() throws Exception {
+        String uri = "/NewBookArticle";
         // wrong add
         articleBookDto.setCategory(null);
 
