@@ -198,7 +198,6 @@ public class ArticleManagerImpl implements ArticleManager {
 
     /**
      * for delete article
-     * (delete book, object, clothe or toy, automatically on bdd article is deleted (cascade)
      * @param article to delete
      */
     @Override
@@ -215,5 +214,6 @@ public class ArticleManagerImpl implements ArticleManager {
         if (article.getToy() != null) {
             toyDao.delete(article.getToy());
         }
+        articleDao.delete(article);
     }
 }

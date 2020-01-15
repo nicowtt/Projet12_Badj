@@ -1,3 +1,4 @@
+import { ArticleModel } from './../models/Article.model';
 import { AlertService } from './alert.service';
 import { ArticleToyModel } from '../models/ArticleToy.model';
 import { ArticleObjectModel } from '../models/ArticleObject.model';
@@ -50,7 +51,7 @@ export class ArticlesService {
      * @param bookArticle (book)
      */
     addBookObject(bookArticle: ArticleBookModel) {
-        return this.http.post('/newBookArticle', bookArticle);
+        return this.http.post('/NewBookArticle', bookArticle);
     }
 
     /**
@@ -59,7 +60,7 @@ export class ArticlesService {
      */
     getAllArticlesForOneUser(userEmail: string) {
         return this.http
-        .get<any[]>('/allArticlesForId/' + userEmail)
+        .get<any[]>('/AllArticlesForId/' + userEmail)
         .subscribe(
             (response) => {
                 this.articles = response;
@@ -70,5 +71,19 @@ export class ArticlesService {
                 this.alertService.error('erreur reseau veuillez recommencer plus tard');
             }
         );
+    }
+
+    /**
+     * remove article
+     * @param article 
+     */
+    removeObjectAndGetNewList(article: ArticleModel, userEmail: string) {
+        return this.http.post<any>('/RemoveArticleAndGetNewList/'+ userEmail, article)
+        .subscribe(
+            (response) => {
+                this.articles = response;
+                this.emitArticles();
+            }
+        )
     }
 }

@@ -111,7 +111,7 @@ public class ArticleController {
      * @param newArticleBookDto from front
      * @return httpResponse
      */
-    @PostMapping(value = "/newBookArticle", consumes = "application/json")
+    @PostMapping(value = "/NewBookArticle", consumes = "application/json")
     public ResponseEntity<String> addBookArticle(@RequestBody ArticleBookDto newArticleBookDto) {
         boolean addNewBookArticleIsOk = false;
         User userWhoCreate = userDao.findByEmail(newArticleBookDto.getUserEmail());
@@ -132,10 +132,25 @@ public class ArticleController {
      * @param userEmail -> input from front
      * @return -> list of articles
      */
-    @GetMapping(value = "/allArticlesForId/{userEmail}")
+    @GetMapping(value = "/AllArticlesForId/{userEmail}")
     public List<Article> getAllArticleForOneId(@PathVariable String userEmail) {
         User userConcerned = userDao.findByEmail(userEmail);
         List<Article> articlesList = articleManager.getAllArticlesForOneUser(userConcerned.getId());
         return articlesList;
     }
+
+    /**
+     * For remove article and get a new user article list
+     * @param article -> to delete
+     * @param userEmail -> user who want the new article list
+     * @return -> article list updated
+     */
+    @PostMapping(value = "/RemoveArticleAndGetNewList/{userEmail}")
+    public List<Article> removeArticleAndGetNewList(@RequestBody Article article, @PathVariable String userEmail) {
+        articleManager.removeArticle(article);
+        User userConcerned = userDao.findByEmail(userEmail);
+        List<Article> articlesList = articleManager.getAllArticlesForOneUser(userConcerned.getId());
+        return articlesList;
+    }
+
 }

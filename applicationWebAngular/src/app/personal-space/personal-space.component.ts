@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ArticleModel } from './../models/Article.model';
 import { ArticleObjectModel } from './../models/ArticleObject.model';
 import { ArticleToyModel } from './../models/ArticleToy.model';
@@ -25,7 +26,8 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
 
   constructor(private articlesService: ArticlesService,
               private alertService: AlertService,
-              private authService: AuthService) { 
+              private authService: AuthService,
+              private router: Router) { 
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
               }
 
@@ -49,6 +51,12 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
   onDeleteArticle(id: number) {
     this.articleConcerned = this.articles[id];
     console.log('article concerné: ' + this.articleConcerned.id);
+    this.articlesService.removeObjectAndGetNewList(this.articleConcerned, this.currentUser.email);
+    this.articlesService.emitArticles();
+    this.router.navigate(['/personalSpace']);
+    this.alertService.success('L\'article a bien été supprimé', true);
+    setTimeout(() => {
+      this.alertService.clear();
+    }, 3000);
   }
-
 }
