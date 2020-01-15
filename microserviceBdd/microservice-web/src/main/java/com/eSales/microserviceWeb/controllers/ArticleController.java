@@ -3,12 +3,10 @@ package com.eSales.microserviceWeb.controllers;
 import com.eSales.microserviceBusiness.contract.ArticleManager;
 import com.eSales.microserviceDao.ArticleDao;
 import com.eSales.microserviceDao.UserDao;
-import com.eSales.microserviceModel.dto.ArticleBookDto;
-import com.eSales.microserviceModel.dto.ArticleClotheDto;
-import com.eSales.microserviceModel.dto.ArticleObjectDto;
-import com.eSales.microserviceModel.dto.ArticleToyDto;
+import com.eSales.microserviceModel.dto.*;
 import com.eSales.microserviceModel.entity.Article;
 import com.eSales.microserviceModel.entity.User;
+import com.eSales.microserviceModel.mapper.contract.ArticleMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,9 @@ public class ArticleController {
 
     @Autowired
     private ArticleManager articleManager;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     static final Log logger = LogFactory.getLog(ArticleController.class);
 
@@ -139,15 +140,17 @@ public class ArticleController {
         return articlesList;
     }
 
+
     /**
      * For remove article and get a new user article list
-     * @param article -> to delete
+     * @param articleDto -> to delete
      * @param userEmail -> user who want the new article list
      * @return -> article list updated
      */
     @PostMapping(value = "/RemoveArticleAndGetNewList/{userEmail}")
-    public List<Article> removeArticleAndGetNewList(@RequestBody Article article, @PathVariable String userEmail) {
-        articleManager.removeArticle(article);
+    public List<Article> removeArticleAndGetNewList(@RequestBody ArticleDto articleDto, @PathVariable String userEmail) {
+        Article articleToRemove = articleMapper.fromArticleDtoToArticle(articleDto);
+        articleManager.removeArticle(articleToRemove);
         User userConcerned = userDao.findByEmail(userEmail);
         List<Article> articlesList = articleManager.getAllArticlesForOneUser(userConcerned.getId());
         return articlesList;

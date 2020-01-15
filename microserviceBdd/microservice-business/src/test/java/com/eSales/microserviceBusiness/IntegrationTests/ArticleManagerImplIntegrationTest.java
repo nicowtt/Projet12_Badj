@@ -294,4 +294,6 @@ public class ArticleManagerImplIntegrationTest {
         Assert.assertTrue(nbrOfArticle == 1);
     }
 
+    //todo test delete article
+
 }

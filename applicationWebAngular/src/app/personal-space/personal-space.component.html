@@ -25,6 +25,8 @@
             <h5 *ngIf="article.toy"><span id="articleCategory">Couleur:</span> {{article.toy.color}}</h5>
             <h5 *ngIf="article.toy"><span id="articleCategory">Commentaire:</span> {{article.toy.comment}}</h5>
 
+            <h5><span id="articleCategory">Prix: </span>{{article.price}} €</h5>
+
             <a (click)="onDeleteArticle(i)" class="btn btn-info ">
                 <span class="glyphicon glyphicon-trash"></span> Supprimer
               </a> 

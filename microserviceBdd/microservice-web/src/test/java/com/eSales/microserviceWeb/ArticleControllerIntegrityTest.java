@@ -1,10 +1,8 @@
 package com.eSales.microserviceWeb;
 
-import com.eSales.microserviceModel.dto.ArticleBookDto;
-import com.eSales.microserviceModel.dto.ArticleClotheDto;
-import com.eSales.microserviceModel.dto.ArticleObjectDto;
-import com.eSales.microserviceModel.dto.ArticleToyDto;
+import com.eSales.microserviceModel.dto.*;
 import com.eSales.microserviceModel.entity.Article;
+import com.eSales.microserviceModel.entity.Clothe;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -28,6 +26,8 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     private ArticleBookDto articleBookDto;
     private ArticleObjectDto articleObjectDto;
     private ArticleToyDto articleToyDto;
+    private ArticleDto articleDto;
+    private Clothe clothe;
 
     @Override
     @Before
@@ -44,13 +44,13 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
             e.printStackTrace();
         }
         articleClotheDto.setCategory("Vêtements");
-        articleClotheDto.setType("pantalon");
+        articleClotheDto.setType("chemise");
         articleClotheDto.setSaleId(1);
         articleClotheDto.setPrice(5);
-        articleClotheDto.setSize("32");
+        articleClotheDto.setSize("L");
         articleClotheDto.setGender("Homme");
-        articleClotheDto.setMaterial("jeans");
-        articleClotheDto.setColor("blue");
+        articleClotheDto.setMaterial("lin");
+        articleClotheDto.setColor("blanche");
         articleClotheDto.setComment("marque levis");
         articleClotheDto.setRecordDate(recordDate);
         articleClotheDto.setValidateToSell(false);
@@ -107,6 +107,35 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
         articleToyDto.setStolen(false);
         articleToyDto.setUserEmail("bruce.lee@gmail.com");
         articleToyDto.setValidateToSell(false);
+
+        articleDto = new ArticleDto();
+//        articleDto.setId(4); // todo bleme
+        articleDto.setCategory("Vêtement");
+        articleDto.setType("chemise");
+        articleDto.setSaleNumber(1);
+        articleDto.setPrice(5);
+        articleDto.setDateRecord(null);
+        articleDto.setValidateToSell(false);
+        articleDto.setSold(false);
+        articleDto.setStolen(false);
+        articleDto.setReturnOwner(false);
+        articleDto.setUser(null);
+        articleDto.setSale(null);
+        articleDto.setClothe(null);
+        clothe = new Clothe();
+//        clothe.setArticleId(4); // todo bleme
+        clothe.setSize("L");
+        clothe.setColor("blanche");
+        clothe.setGender("homme");
+        clothe.setMaterial("lin");
+        clothe.setComment("marque levis");
+        articleDto.setClothe(clothe);
+
+        articleDto.setToy(null);
+        articleDto.setBook(null);
+        articleDto.setObject(null);
+
+
     }
 
     @Test
@@ -124,7 +153,7 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     }
 
     @Test
-    public void testAddClotheArticle() throws Exception {
+    public void testAddClotheArticleWrongAdd() throws Exception {
         String uri = "/NewClotheArticle";
         // wrong add
         articleClotheDto.setCategory(null);
@@ -154,7 +183,7 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     }
 
     @Test
-    public void testAddToyArticle() throws Exception {
+    public void testAddToyArticleWrongAdd() throws Exception {
         String uri = "/NewToyArticle";
         // wrong add
         articleToyDto.setCategory(null);
@@ -182,4 +211,63 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
         int status = mvcResult.getResponse().getStatus();
         assertEquals(500, status);
     }
+
+    @Test
+    public void testGetAllArticleForOneId() throws Exception {
+        String uri = "/AllArticlesForId/jason.statam@gmail.com";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        Article[] articleslist = super.mapFromJson(content, Article[].class);
+        assertTrue(articleslist.length > 0);
+    }
+
+//    @Test
+//    public void testRemoveArticleAndGetNewList() throws Exception {
+//        // remove new toy
+//        String uriRemove = "/RemoveArticleAndGetNewList/bruce.lee@gmail.com";
+//        String inputJson = super.mapToJson(articleDto);
+//        MvcResult mvcResultRemove = mvc.perform(MockMvcRequestBuilders.post(uriRemove)
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                .content(inputJson)).andReturn();
+//
+//        int status = mvcResultRemove.getResponse().getStatus();
+////        assertEquals(200, status);
+//
+//        String content = mvcResultRemove.getResponse().getContentAsString();
+//        Article[] articleslist = super.mapFromJson(content, Article[].class);
+//        long nbrArticlesList = Arrays.stream(articleslist).count();
+//
+//        assertTrue(nbrArticlesList == 0);
+//    }
+
+//    @Test
+//    public void testAddToyArticle() throws Exception {
+//        String uri = "/NewToyArticle";
+//
+//        String inputJson = super.mapToJson(articleToyDto);
+//        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                .content(inputJson)).andReturn();
+//
+//        int status = mvcResult.getResponse().getStatus();
+//        assertEquals(201, status);
+//    }
+
+//    @Test
+//    public void testAddClotheArticle() throws Exception {
+//        String uri = "/NewClotheArticle";
+//
+//        String inputJson = super.mapToJson(articleClotheDto);
+//        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                .content(inputJson)).andReturn();
+//
+//        int status = mvcResult.getResponse().getStatus();
+//        assertEquals(201, status);
+//    }
 }
