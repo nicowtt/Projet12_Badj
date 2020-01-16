@@ -12,15 +12,14 @@ public class PasswordEncoderImpl implements PasswordEncoder {
     /**
      * For hashing password
      *
-     * @param password_plaintext
+     * @param passwordPlaintext
      * @return -> hashed password
      */
     @Override
-    public String hashPassword(String password_plaintext) {
+    public String hashPassword(String passwordPlaintext) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        String hashedPassword = passwordEncoder.encode(password_plaintext);
-        return hashedPassword;
+        return passwordEncoder.encode(passwordPlaintext);
     }
 
     /**

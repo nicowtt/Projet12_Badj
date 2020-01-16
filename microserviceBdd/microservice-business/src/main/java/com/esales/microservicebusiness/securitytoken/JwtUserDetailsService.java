@@ -1,4 +1,4 @@
-package com.esales.microservicebusiness.SecurityToken;
+package com.esales.microservicebusiness.securitytoken;
 
 
 import java.util.ArrayList;

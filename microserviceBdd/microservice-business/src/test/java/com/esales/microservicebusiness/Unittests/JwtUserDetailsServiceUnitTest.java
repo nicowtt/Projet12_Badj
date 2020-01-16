@@ -1,6 +1,6 @@
 package com.esales.microservicebusiness.Unittests;
 
-import com.esales.microservicebusiness.SecurityToken.JwtUserDetailsService;
+import com.esales.microservicebusiness.securitytoken.JwtUserDetailsService;
 import com.esales.microservicedao.UserDao;
 import com.esales.microservicemodel.entity.User;
 import org.junit.Assert;

@@ -1,6 +1,6 @@
 package com.esales.microserviceweb.controllers;
 
-import com.esales.microservicebusiness.SecurityToken.JwtUserDetailsService;
+import com.esales.microservicebusiness.securitytoken.JwtUserDetailsService;
 import com.esales.microservicebusiness.contract.UserManager;
 import com.esales.microservicedao.UserDao;
 import com.esales.microservicemodel.entity.User;
