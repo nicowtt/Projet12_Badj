@@ -1,10 +1,18 @@
 package com.eSales.microserviceModel.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Table(name = "clothes")
 public class Clothe {
 
@@ -26,89 +34,4 @@ public class Clothe {
     @JsonBackReference
     @MapsId
     private Article article;
-
-    // constructor
-    public Clothe() {
-    }
-
-    public Clothe(int articleId, String size, String gender, String material, String color, String comment, Article article) {
-        this.articleId = articleId;
-        this.size = size;
-        this.gender = gender;
-        this.material = material;
-        this.color = color;
-        this.comment = comment;
-        this.article = article;
-    }
-
-    // getters and setters
-    public int getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
-    }
-
-    // to string
-    @Override
-    public String toString() {
-        return "Clothe{" +
-                "articleId=" + articleId +
-                ", size='" + size + '\'' +
-                ", gender='" + gender + '\'' +
-                ", material='" + material + '\'' +
-                ", color='" + color + '\'' +
-                ", comment='" + comment + '\'' +
-                ", article=" + article +
-                '}';
-    }
 }

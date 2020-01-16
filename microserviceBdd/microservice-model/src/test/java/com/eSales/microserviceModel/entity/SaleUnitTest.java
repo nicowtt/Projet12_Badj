@@ -18,8 +18,8 @@ public class SaleUnitTest {
         sale.setDateEnd(null);
         sale.setDateBegin(null);
 
-        Assert.assertEquals("Sale{id=0, type='Bourse de printemps', description='Vêtements', dateBegin=null, " +
-                        "dateEnd=null, address=null}"
+        Assert.assertEquals("Sale(id=0, type=Bourse de printemps, description=Vêtements, dateBegin=null, " +
+                        "dateEnd=null, address=null)"
                 , sale.toString());
 
     }

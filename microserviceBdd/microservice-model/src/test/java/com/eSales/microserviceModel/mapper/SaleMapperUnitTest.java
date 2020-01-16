@@ -69,22 +69,21 @@ public class SaleMapperUnitTest {
     public void testFromSaleToSaleDto() {
         SaleDto saleDtoTest = saleMapperImpl.fromSaleToSaleDto(sale);
 
-        Assert.assertEquals("SaleDto{id=0, type='Bourse de printemps', description='Vêtements', dateBegin=null, " +
-                "dateEnd=null, address=null, nbrArticlesPreRecordForUser=null}", saleDtoTest.toString());
+        Assert.assertEquals("SaleDto(id=0, type=Bourse de printemps, description=Vêtements, " +
+                "dateBegin=null, dateEnd=null, address=null, nbrArticlesPreRecordForUser=null)", saleDtoTest.toString());
     }
 
     @Test
     public void testFromSaleDtoToAddress() {
         Address address = saleMapperImpl.fromSaleDtoToAddress(saleDto);
-        Assert.assertEquals("Address{id=0, street='2 rue de l'ouest', postalCode=31200, " +
-                "city='Toulouse'}", address.toString());
+        Assert.assertEquals("Address(id=0, street=2 rue de l'ouest, postalCode=31200, " +
+                "city=Toulouse)", address.toString());
     }
 
     @Test
     public void testFromSaleDtoToSale() {
         Sale sale = saleMapperImpl.fromSaleDtoToSale(saleDto);
-        Assert.assertEquals("Sale{id=0, type='Bourse de printemps', description='Vêtement enfants', " +
-                "dateBegin=Mon Mar 09 00:00:00 UTC 2020, dateEnd=Fri Mar 13 00:00:00 UTC 2020, " +
-                "address=null}", sale.toString());
+        Assert.assertEquals("Sale(id=0, type=Bourse de printemps, description=Vêtement enfants, " +
+                "dateBegin=Mon Mar 09 00:00:00 UTC 2020, dateEnd=Fri Mar 13 00:00:00 UTC 2020, address=null)", sale.toString());
     }
 }

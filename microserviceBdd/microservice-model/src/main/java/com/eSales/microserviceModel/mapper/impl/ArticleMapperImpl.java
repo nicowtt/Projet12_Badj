@@ -6,7 +6,7 @@ import com.eSales.microserviceModel.mapper.contract.ArticleMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ArticleMapperImp implements ArticleMapper {
+public class ArticleMapperImpl implements ArticleMapper {
 
 
     /**

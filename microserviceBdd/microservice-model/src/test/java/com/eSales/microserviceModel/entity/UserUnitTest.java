@@ -18,8 +18,8 @@ public class UserUnitTest {
         user.setVoluntary(false);
         user.setResponsible(false);
 
-        Assert.assertEquals("User{id=0, name='nico', lastName='bod', password='test', email='nico.bod@gmail.com', " +
-                "phone='0612452154', isVoluntary=false, isResponsible=false, address=null}"
+        Assert.assertEquals("User(id=0, name=nico, lastName=bod, password=test, email=nico.bod@gmail.com, " +
+                        "phone=0612452154, isVoluntary=false, isResponsible=false, address=null)"
                 , user.toString());
     }
 }

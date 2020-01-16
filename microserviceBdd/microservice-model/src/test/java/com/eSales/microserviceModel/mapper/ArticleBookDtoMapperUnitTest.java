@@ -92,18 +92,17 @@ public class ArticleBookDtoMapperUnitTest {
 
         Assert.assertEquals("Article(id=0, category=Livre, type=poche, saleNumber=3, price=5.0, " +
                 "dateRecord=Fri Jan 10 00:00:00 UTC 2020, isValidateToSell=false, isSold=false, isStolen=false, " +
-                "isReturnOwner=false, user=User{id=1, name='null', lastName='null', password='null', " +
-                "email='null', phone='null', isVoluntary=false, isResponsible=false, address=null}, " +
-                "sale=Sale{id=1, type='null', description='null', dateBegin=null, dateEnd=null, address=null}, " +
-                "clothe=null, toy=null, book=null, object=null)", article.toString());
+                "isReturnOwner=false, user=User(id=1, name=null, lastName=null, password=null, email=null, phone=null, " +
+                "isVoluntary=false, isResponsible=false, address=null), sale=Sale(id=1, type=null, description=null, " +
+                "dateBegin=null, dateEnd=null, address=null), clothe=null, toy=null, book=null, object=null)", article.toString());
     }
 
     @Test
     public void testFromArticleBookDtoToBook() {
         Book book = articleBookMapperImpl.fromArticleBookDtoToBook(articleBookDto);
 
-        Assert.assertEquals("Book{articleId=0, name='Le signal', author='Maxime Chattam', " +
-                "comment='/', article=null}", book.toString());
+        Assert.assertEquals("Book(articleId=0, name=Le signal, author=Maxime Chattam, comment=/, " +
+                "article=null)", book.toString());
     }
 
 

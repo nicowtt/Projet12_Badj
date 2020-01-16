@@ -44,10 +44,10 @@ public class SaleDtoUnitTest {
         saleDto.setNbrArticlesPreRecordForUser(3);
         saleDto.setAddress(address);
 
-        Assert.assertEquals("SaleDto{id=1, type='Bourse de printemps', description='Vêtement enfants', " +
-                "dateBegin=Mon Mar 09 00:00:00 UTC 2020, dateEnd=Fri Mar 13 00:00:00 UTC 2020, address=Address{id=1, " +
-                "street='2 rue de l'ouest', postalCode=31200, city='Toulouse'}, " +
-                "nbrArticlesPreRecordForUser=3}", saleDto.toString());
+        Assert.assertEquals("SaleDto(id=1, type=Bourse de printemps, description=Vêtement enfants, " +
+                "dateBegin=Mon Mar 09 00:00:00 UTC 2020, dateEnd=Fri Mar 13 00:00:00 UTC 2020, " +
+                "address=Address(id=1, street=2 rue de l'ouest, postalCode=31200, city=Toulouse), " +
+                "nbrArticlesPreRecordForUser=3)", saleDto.toString());
 
     }
 }

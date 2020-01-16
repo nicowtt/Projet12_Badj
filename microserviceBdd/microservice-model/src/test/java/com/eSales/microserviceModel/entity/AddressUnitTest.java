@@ -16,7 +16,7 @@ public class AddressUnitTest {
         address.setPostalCode(31000);
         address.setCity("Toulouse");
 
-        Assert.assertEquals("Address{id=0, street='2 rue du test', postalCode=31000, city='Toulouse'}",
+        Assert.assertEquals("Address(id=0, street=2 rue du test, postalCode=31000, city=Toulouse)",
                 address.toString());
     }
 

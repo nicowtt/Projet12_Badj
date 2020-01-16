@@ -14,7 +14,7 @@ public class ObjectUnitTest {
         object.setColor("noir");
         object.setComment(null);
 
-        Assert.assertEquals("Object{articleId=0, brand='Seiko', color='noir', comment='null', article=null}", object.toString());
+        Assert.assertEquals("Object(articleId=0, brand=Seiko, color=noir, comment=null, article=null)", object.toString());
 
     }
 }

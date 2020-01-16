@@ -39,9 +39,9 @@ public class ArticleBookDtoUnitTest {
         articleBookDto.setReturnOwner(false);
         articleBookDto.setUserEmail("bruce.lee@gmail.com");
 
-        Assert.assertEquals("ArticleBookDto{category='Livre', type='poche', saleId=1, name='Le signal', " +
-                "author='Maxime Chattam', price=5.0, comment='/', recordDate=Fri Jan 10 00:00:00 UTC 2020, " +
+        Assert.assertEquals("ArticleBookDto(category=Livre, type=poche, saleId=1, name=Le signal, " +
+                "author=Maxime Chattam, price=5.0, comment=/, recordDate=Fri Jan 10 00:00:00 UTC 2020, " +
                 "isValidateToSell=false, isSold=false, isStolen=false, isReturnOwner=false, " +
-                "userEmail='bruce.lee@gmail.com'}", articleBookDto.toString());
+                "userEmail=bruce.lee@gmail.com)", articleBookDto.toString());
     }
 }

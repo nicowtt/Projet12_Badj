@@ -92,19 +92,18 @@ public class ArticleClotheMapperImplUnitTest {
     public void testFromArticleClotheDtoToArticle() {
         Article article = articleClotheMapperImpl.fromArticleClotheDtoToArticle(articleClotheDto, 1, 3);
 
-        Assert.assertEquals("Article(id=0, category=Vêtements, type=pantalon, saleNumber=3, " +
-                "price=5.0, dateRecord=Fri Jan 10 00:00:00 UTC 2020, isValidateToSell=false, isSold=false, " +
-                "isStolen=false, isReturnOwner=false, user=User{id=1, name='null', lastName='null', " +
-                "password='null', email='null', phone='null', isVoluntary=false, isResponsible=false, " +
-                "address=null}, sale=Sale{id=1, type='null', description='null', dateBegin=null, " +
-                "dateEnd=null, address=null}, clothe=null, toy=null, book=null, object=null)", article.toString());
+        Assert.assertEquals("Article(id=0, category=Vêtements, type=pantalon, saleNumber=3, price=5.0, " +
+                "dateRecord=Fri Jan 10 00:00:00 UTC 2020, isValidateToSell=false, isSold=false, isStolen=false, " +
+                "isReturnOwner=false, user=User(id=1, name=null, lastName=null, password=null, email=null, phone=null, " +
+                "isVoluntary=false, isResponsible=false, address=null), sale=Sale(id=1, type=null, description=null, " +
+                "dateBegin=null, dateEnd=null, address=null), clothe=null, toy=null, book=null, object=null)", article.toString());
     }
 
     @Test
     public void testFromArticleClotheDtoToClothe() {
         Clothe clothe = articleClotheMapperImpl.fromArticleClotheDtoToClothe(articleClotheDto);
 
-        Assert.assertEquals("Clothe{articleId=0, size='32', gender='Homme', material='jeans', color='bleu', " +
-                "comment='marque levis', article=null}", clothe.toString());
+        Assert.assertEquals("Clothe(articleId=0, size=32, gender=Homme, material=jeans, color=bleu, " +
+                "comment=marque levis, article=null)", clothe.toString());
     }
 }

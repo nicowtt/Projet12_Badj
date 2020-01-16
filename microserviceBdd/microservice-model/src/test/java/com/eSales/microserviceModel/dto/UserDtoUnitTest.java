@@ -20,9 +20,9 @@ public class UserDtoUnitTest {
         userDto.setCity("Toulouse");
         userDto.setToken(null);
 
-        Assert.assertEquals("UserDto{userId=null, name='nico', lastName='bod', password='test', " +
-                        "email='test@test.com', phone='0612121212', street='rue du test', postalCode=31000, " +
-                        "city='Toulouse', isVoluntary=false, isResponsible=false, token='null'}"
+        Assert.assertEquals("UserDto(userId=null, name=nico, lastName=bod, password=test, " +
+                        "email=test@test.com, phone=0612121212, street=rue du test, postalCode=31000, " +
+                        "city=Toulouse, isVoluntary=false, isResponsible=false, token=null)"
                 , userDto.toString());
     }
 }

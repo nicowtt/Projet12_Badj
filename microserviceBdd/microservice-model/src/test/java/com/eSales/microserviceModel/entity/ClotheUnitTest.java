@@ -16,7 +16,7 @@ public class ClotheUnitTest {
         clothe.setColor("blue");
         clothe.setComment(null);
 
-        Assert.assertEquals("Clothe{articleId=0, size='32', gender='homme', material='jean', color='blue'," +
-                " comment='null', article=null}", clothe.toString());
+        Assert.assertEquals("Clothe(articleId=0, size=32, gender=homme, material=jean, color=blue, " +
+                "comment=null, article=null)", clothe.toString());
     }
 }
