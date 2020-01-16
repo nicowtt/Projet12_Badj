@@ -37,6 +37,12 @@
 			<artifactId>jackson-annotations</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- ===== Dependencies Test ===== -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

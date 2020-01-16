@@ -25,9 +25,9 @@ public class ArticleUnitTest {
         article.setReturnOwner(false);
 
         System.out.println(article.toString());
-        Assert.assertEquals("Article{id=0, category='vêtement', type='jeans', saleNumber=1, price=10.0, " +
+        Assert.assertEquals("Article(id=0, category=vêtement, type=jeans, saleNumber=1, price=10.0, " +
                         "dateRecord=null, isValidateToSell=false, isSold=false, isStolen=false, isReturnOwner=false, " +
-                        "user=null, sale=null, clothe=null, toy=null, book=null, object=null}"
+                        "user=null, sale=null, clothe=null, toy=null, book=null, object=null)"
                 , article.toString());
     }
 }
