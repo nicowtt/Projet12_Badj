@@ -5,33 +5,55 @@
           class="list-group-item"
           *ngFor="let article of articles; let i = index">
       <h4 id="articleTypeBourse">Bourse: {{article.sale.description}} du {{article.sale.dateBegin | date: 'shortDate' }}</h4>
-            <h5><span id="articleCategory">Article: </span>{{article.type}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">
+              <span id="articleCategory">Article: </span>{{article.type}}</h5>
             
-            <h5 *ngIf="article.clothe"><span id="articleCategory">Taille: </span>{{article.clothe.size}}</h5>
-            <h5 *ngIf="article.clothe"><span id="articleCategory">Genre: </span> {{article.clothe.gender}}</h5>
-            <h5 *ngIf="article.clothe"><span id="articleCategory">Matière:</span> {{article.clothe.material}}</h5>
-            <h5 *ngIf="article.clothe"><span id="articleCategory">Couleur:</span> {{article.clothe.color}}</h5>
-            <h5 *ngIf="article.clothe"><span id="articleCategory">Commentaire:</span> {{article.clothe.comment}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe">
+              <span id="articleCategory">Taille: </span>{{article.clothe.size}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe">
+              <span id="articleCategory">Genre: </span> {{article.clothe.gender}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe">
+              <span id="articleCategory">Matière:</span> {{article.clothe.material}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe">
+              <span id="articleCategory">Couleur:</span> {{article.clothe.color}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe">
+              <span id="articleCategory">Commentaire:</span> {{article.clothe.comment}}</h5>
 
-            <h5 *ngIf="article.book"><span id="articleCategory">Titre:</span> {{article.book.name}}</h5>
-            <h5 *ngIf="article.book"><span id="articleCategory">Autheur:</span> {{article.book.author}}</h5>
-            <h5 *ngIf="article.book"><span id="articleCategory">Commentaire:</span> {{article.book.comment}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book">
+              <span id="articleCategory">Titre:</span> {{article.book.name}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book">
+              <span id="articleCategory">Autheur:</span> {{article.book.author}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book">
+              <span id="articleCategory">Commentaire:</span> {{article.book.comment}}</h5>
 
-            <h5 *ngIf="article.object "><span id="articleCategory">Marque:</span> {{article.object.brand}}</h5>
-            <h5 *ngIf="article.object "><span id="articleCategory">Couleur:</span> {{article.object.color}}</h5>
-            <h5 *ngIf="article.object "><span id="articleCategory">Commentaire:</span> {{article.object.comment}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object ">
+              <span id="articleCategory">Marque:</span> {{article.object.brand}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object ">
+              <span id="articleCategory">Couleur:</span> {{article.object.color}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object ">
+              <span id="articleCategory">Commentaire:</span> {{article.object.comment}}</h5>
 
-            <h5 *ngIf="article.toy"><span id="articleCategory">Marque: </span>{{article.toy.brand}}</h5>
-            <h5 *ngIf="article.toy"><span id="articleCategory">Couleur:</span> {{article.toy.color}}</h5>
-            <h5 *ngIf="article.toy"><span id="articleCategory">Commentaire:</span> {{article.toy.comment}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy">
+              <span id="articleCategory">Marque: </span>{{article.toy.brand}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy">
+              <span id="articleCategory">Couleur:</span> {{article.toy.color}}</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy">
+              <span id="articleCategory">Commentaire:</span> {{article.toy.comment}}</h5>
 
-            <h5><span id="articleCategory">Prix: </span>{{article.price}} €</h5>
+            <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">
+              <span id="articleCategory">Prix: </span>{{article.price}} €</h5>
 
-            <a (click)="onDeleteArticle(i)" class="btn btn-info ">
-                <span class="glyphicon glyphicon-trash"></span> Supprimer
-              </a> 
+            <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+              (click)="onDeleteArticle(i)" class="btn btn-info ">
+              <span class="glyphicon glyphicon-trash"></span> Supprimer
+            </a>
+            <h4>
+              <a *ngIf="article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+                class="label label-success" aria-disabled="true">
+                <span class="glyphicon glyphicon-thumbs-up"></span> Validé
+              </a>
+            </h4>
           
-          <!-- <button class="btn btn-primary" (click)="#">Pré-enregistrement d'articles</button> -->
         </button>
       </div>
     </div>
