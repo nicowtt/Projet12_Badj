@@ -1,17 +1,22 @@
-package config;
+package com.esales.microservicebusiness.config;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
 
+
 @Configuration
 @ComponentScan(basePackages = {"com.esales"})
 @EntityScan("com.esales")
+@EnableJpaRepositories("com.esales")
+@EnableAutoConfiguration
 public class TestContextConf {
 
     @Bean(name = "dataSource")
@@ -23,7 +28,4 @@ public class TestContextConf {
         ds.setPassword("nicotine");
         return ds;
     }
-
-
-
 }
