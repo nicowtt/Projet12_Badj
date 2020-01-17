@@ -150,7 +150,11 @@ public class ArticleController {
     @PostMapping(value = "/RemoveArticleAndGetNewList/{userEmail}")
     public List<Article> removeArticleAndGetNewList(@RequestBody ArticleDto articleDto, @PathVariable String userEmail) {
         Article articleToRemove = articleMapper.fromArticleDtoToArticle(articleDto);
-        articleManager.removeArticle(articleToRemove);
+        try {
+            articleManager.removeArticle(articleToRemove);
+        } catch (UnexpectedRollbackException e) {
+            logger.warn( "roll back on remove article");
+        }
         User userConcerned = userDao.findByEmail(userEmail);
         List<Article> articlesList = articleManager.getAllArticlesForOneUser(userConcerned.getId());
         return articlesList;
@@ -161,7 +165,22 @@ public class ArticleController {
      * @return all articles
      */
     @GetMapping(value = "/AllArticlesForSale/{saleId}")
-    public List<Article> getAllArticles(@PathVariable int saleId) {
+    public List<Article> getAllArticlesForOneSale(@PathVariable int saleId) {
         return articleManager.getAllArticlesForOneSale(saleId);
+    }
+
+    /**
+     * For update any sort of articles
+     * @param articleDto -> input
+     * @return 200 if article is updated
+     */
+    @PostMapping(value = "/UpdateArticle", consumes = "application/json")
+    public ResponseEntity<String> updateArticle(@RequestBody ArticleDto articleDto) {
+        boolean articleIsUpdated = articleManager.updateArticle(articleDto);
+        if (articleIsUpdated) {
+            return (new ResponseEntity<>(HttpStatus.OK));
+        } else {
+            return (new ResponseEntity<>("error on article update",HttpStatus.INTERNAL_SERVER_ERROR));
+        }
     }
 }

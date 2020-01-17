@@ -9,7 +9,7 @@ export class ArticleModel {
     saleNumber: number;
     price: number;
     dateRecord: Date;
-    isValidateToSell: boolean;
+    validateToSell: boolean;
     isSold: boolean;
     isStolen: boolean;
     isReturnOwner: boolean;

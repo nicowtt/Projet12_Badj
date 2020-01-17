@@ -1,7 +1,9 @@
 package com.esales.microservicemodel.mapper.impl;
 
-import com.esales.microservicemodel.dto.ArticleDto;
+import com.esales.microservicemodel.dto.*;
 import com.esales.microservicemodel.entity.Article;
+import com.esales.microservicemodel.entity.Sale;
+import com.esales.microservicemodel.entity.User;
 import com.esales.microservicemodel.mapper.contract.ArticleMapper;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +32,14 @@ public class ArticleMapperImpl implements ArticleMapper {
         article.setObject(articleDto.getObject());
         article.setBook(articleDto.getBook());
         article.setToy(articleDto.getToy());
+
+        User user = new User();
+        user.setId(articleDto.getUser().getId());
+        article.setUser(user);
+
+        Sale sale = new Sale();
+        sale.setId(articleDto.getSale().getId());
+        article.setSale(sale);
 
         return article;
     }

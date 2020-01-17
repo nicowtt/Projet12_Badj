@@ -105,4 +105,19 @@ export class ArticlesService {
             }
         ); 
     }
+
+    /**
+     * to update article
+     * @param article 
+     */
+    validateArticle(article: ArticleModel) {
+        return this.http
+        .post('/UpdateArticle', article)
+        .subscribe(
+            (response) => {},
+            (error) => {
+                this.alertService.error('erreur reseau veuillez recommencer plus tard')
+            }
+        )
+    }
 }

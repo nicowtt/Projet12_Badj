@@ -172,6 +172,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
     this.saleId = this.saleConcerned.id;
     this.articlesService.getAllArticlesForOneSale(this.saleId);
     this.articlesService.emitArticles();
+    setTimeout(() => {}, 3000);
     this.router.navigate(['/articlesValidation', this.saleId]);
   }
 }

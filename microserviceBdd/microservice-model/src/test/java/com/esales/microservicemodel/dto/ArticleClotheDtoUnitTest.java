@@ -41,8 +41,8 @@ public class ArticleClotheDtoUnitTest {
         articleClotheDto.setReturnOwner(false);
         articleClotheDto.setUserEmail("bruce.lee@gmail.com");
 
-        Assert.assertEquals("ArticleClotheDto(category=Vêtements, type=pantalon, saleId=1, price=5.0, " +
-                "size=32, gender=Homme, material=jeans, color=blue, comment=marque levis, " +
+        Assert.assertEquals("ArticleClotheDto(ArticleId=0, category=Vêtements, type=pantalon, saleId=1, " +
+                "price=5.0, size=32, gender=Homme, material=jeans, color=blue, comment=marque levis, " +
                 "recordDate=Fri Jan 10 00:00:00 UTC 2020, isValidateToSell=false, isSold=false, isStolen=false, " +
                 "isReturnOwner=false, userEmail=bruce.lee@gmail.com)", articleClotheDto.toString());
     }
