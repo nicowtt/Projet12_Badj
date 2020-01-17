@@ -1,0 +1,19 @@
+package com.esales.microserviceweb;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+@SpringBootApplication
+@ComponentScan(basePackages = {"com.esales"})
+@EnableJpaRepositories("com.esales")
+@EntityScan("com.esales")
+public class ApiWebMicroserviceBdd {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ApiWebMicroserviceBdd.class, args);
+	}
+
+}

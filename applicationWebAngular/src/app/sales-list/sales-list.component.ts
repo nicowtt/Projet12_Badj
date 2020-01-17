@@ -79,6 +79,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
         } else {
           if (this.currentUser.voluntary === false ) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+            setTimeout(() => {
+              this.alertService.clear();
+            }, 3000);
           }
         }
       }
@@ -89,6 +92,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
         } else {
           if (this.currentUser.voluntary === true ) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+            setTimeout(() => {
+              this.alertService.clear();
+            }, 3000);
           }
         }
       }
@@ -103,6 +109,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
         } else {
           if (this.currentUser.voluntary === false) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+            setTimeout(() => {
+              this.alertService.clear();
+            }, 3000);
           }
         }
       }
@@ -113,6 +122,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
         } else {
           if (this.currentUser.voluntary === true) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+            setTimeout(() => {
+              this.alertService.clear();
+            }, 3000);
           }
         }
       }
@@ -127,6 +139,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
         } else {
           if (this.currentUser.voluntary === false) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+            setTimeout(() => {
+              this.alertService.clear();
+            }, 3000);
           }
         }
       }
@@ -137,6 +152,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
         } else {
           if (this.currentUser.voluntary === true) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+            setTimeout(() => {
+              this.alertService.clear();
+            }, 3000);
           }
         }
       }

@@ -197,6 +197,9 @@ export class AddArticlesComponent implements OnInit {
       .subscribe(
         res => {
           this.alertService.success('article enregistré', true);
+          setTimeout(() => {
+            this.alertService.clear();
+          }, 5000);
           this.router.navigate(['sales']);
         },
         (error: HttpErrorResponse) => {
@@ -237,6 +240,9 @@ export class AddArticlesComponent implements OnInit {
       .subscribe(
         res => {
           this.alertService.success('article enregistré', true);
+          setTimeout(() => {
+            this.alertService.clear();
+          }, 5000);
           this.router.navigate(['sales']);
         },
         (error: HttpErrorResponse) => {
@@ -268,6 +274,9 @@ export class AddArticlesComponent implements OnInit {
       .subscribe(
         res => {
           this.alertService.success('article enregistré', true);
+          setTimeout(() => {
+            this.alertService.clear();
+          }, 5000);
           this.router.navigate(['sales']);
         },
         (error: HttpErrorResponse) => {
@@ -299,6 +308,9 @@ export class AddArticlesComponent implements OnInit {
       .subscribe(
         res => {
           this.alertService.success('article enregistré', true);
+          setTimeout(() => {
+            this.alertService.clear();
+          }, 5000);
           this.router.navigate(['sales']);
         },
         (error: HttpErrorResponse) => {

@@ -86,7 +86,7 @@ VALUES
 INSERT INTO badj.articles
 (category, type, sale_number, price, date_record, is_validate_to_sell, is_sold, is_stolen, is_return_owner, user_id, sale_id)
 VALUES
-('chaussure', 'basket', 2, 10, '2019-11-25 15:30:32', true, false, false, false, 2, 1);
+('chaussure', 'basket', 2, 10, '2019-11-25 15:30:32', false, false, false, false, 2, 1);
 
 -- 4-2-2/vetement () ->id2 (un benevole d'id 2 enregistre un article de type vetement dans la bourse d'id 1)
 
@@ -100,7 +100,7 @@ VALUES
 INSERT INTO badj.articles
 (category, type, sale_number, price, date_record, is_validate_to_sell, is_sold, is_stolen, is_return_owner, user_id, sale_id)
 VALUES
-('jouet', 'cheval à bascule', 1, 50, '2019-11-27 18:30:32', true, false, false, false, 2, 3);
+('jouet', 'cheval à bascule', 1, 50, '2019-11-27 18:30:32', false, false, false, false, 2, 3);
 
 -- 4-2-2/vetement () ->id2 (un benevole d'id 2 enregistre un article de type vetement dans la bourse d'id 1)
 

@@ -1,3 +1,5 @@
+import { ArticleModel } from './../models/Article.model';
+import { AlertService } from './alert.service';
 import { ArticleToyModel } from '../models/ArticleToy.model';
 import { ArticleObjectModel } from '../models/ArticleObject.model';
 import { ArticleClotheModel } from '../models/ArticleClothe.model';
@@ -9,14 +11,15 @@ import {Injectable} from '@angular/core';
 @Injectable({ providedIn: 'root'})
 export class ArticlesService {
 
-    constructor(private http: ApplicationHttpClientService) {}
+    constructor(private http: ApplicationHttpClientService,
+                private alertService: AlertService) {}
 
     private articles: any[] = [];
 
     articleSubject = new Subject<any[]>();
 
-    emitArticle() {
-        this.articleSubject.next(this.articles.slice());
+    emitArticles() {
+        this.articleSubject.next(this.articles);
       }
 
     /**
@@ -48,6 +51,39 @@ export class ArticlesService {
      * @param bookArticle (book)
      */
     addBookObject(bookArticle: ArticleBookModel) {
-        return this.http.post('/newBookArticle', bookArticle);
+        return this.http.post('/NewBookArticle', bookArticle);
+    }
+
+    /**
+     * get all articles for one user
+     * @param userEmail (current user email)
+     */
+    getAllArticlesForOneUser(userEmail: string) {
+        return this.http
+        .get<any[]>('/AllArticlesForId/' + userEmail)
+        .subscribe(
+            (response) => {
+                this.articles = response;
+                this.emitArticles();
+            },
+            (error) => {
+                console.log('Erreur de chargement !' + error);
+                this.alertService.error('erreur reseau veuillez recommencer plus tard');
+            }
+        );
+    }
+
+    /**
+     * remove article
+     * @param article 
+     */
+    removeObjectAndGetNewList(article: ArticleModel, userEmail: string) {
+        return this.http.post<any>('/RemoveArticleAndGetNewList/'+ userEmail, article)
+        .subscribe(
+            (response) => {
+                this.articles = response;
+                this.emitArticles();
+            }
+        )
     }
 }

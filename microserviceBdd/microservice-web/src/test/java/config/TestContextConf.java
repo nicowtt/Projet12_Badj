@@ -10,8 +10,8 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@ComponentScan(basePackages = {"com.eSales"})
-@EntityScan("com.eSales")
+@ComponentScan(basePackages = {"com.esales"})
+@EntityScan("com.esales")
 public class TestContextConf {
 
     @Bean(name = "dataSource")
