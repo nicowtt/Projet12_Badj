@@ -16,7 +16,11 @@
         <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'Vêtements enfants'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForChildrenClothe}}.</h6>
         <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForBookToyAndObject}}.</h6>
         <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForBookToyAndObject}}.</h6>
+        
+        <span *ngIf="currentUser">
 
+        <button *ngIf="currentUser.voluntary" class="btn btn-success" (click)="articlesValidation(i)">Validation d'articles</button>
+        </span>
       </button>
     </div>
   </div>

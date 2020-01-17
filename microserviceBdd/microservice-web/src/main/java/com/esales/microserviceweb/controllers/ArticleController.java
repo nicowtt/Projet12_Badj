@@ -156,4 +156,12 @@ public class ArticleController {
         return articlesList;
     }
 
+    /**
+     * Get all articles for one sale
+     * @return all articles
+     */
+    @GetMapping(value = "/AllArticlesForSale/{saleId}")
+    public List<Article> getAllArticles(@PathVariable int saleId) {
+        return articleManager.getAllArticlesForOneSale(saleId);
+    }
 }

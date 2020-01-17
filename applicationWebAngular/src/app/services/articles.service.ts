@@ -86,4 +86,23 @@ export class ArticlesService {
             }
         )
     }
+
+    /**
+     * get all articles for one sale
+     * @param saleId 
+     */
+    getAllArticlesForOneSale(saleId: number) {
+        return this.http
+        .get<any[]>('/AllArticlesForSale/' + saleId)
+        .subscribe(
+            (response) => {
+                this.articles = response;
+                this.emitArticles();
+            },
+            (error) => {
+                console.log('Erreur de chargement !' + error);
+                this.alertService.error('erreur reseau veuillez recommencer plus tard');
+            }
+        ); 
+    }
 }

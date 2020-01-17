@@ -214,4 +214,14 @@ public class ArticleManagerImpl implements ArticleManager {
         }
         articleDao.delete(article);
     }
+
+    /**
+     * get All Articles For One Sale
+     * @param saleId for articles
+     * @return list of articles
+     */
+    @Override
+    public List<Article> getAllArticlesForOneSale(int saleId) {
+        return articleDao.getAllArticlesBySaleId(saleId);
+    }
 }

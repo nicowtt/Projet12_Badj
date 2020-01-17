@@ -18,4 +18,5 @@ public interface ArticleManager {
     boolean addNewToyArticle(ArticleToyDto articleToyDto, int userId);
     List<Article> getAllArticlesForOneUser(int userId);
     void removeArticle(Article article);
+    List<Article> getAllArticlesForOneSale(int saleId);
 }

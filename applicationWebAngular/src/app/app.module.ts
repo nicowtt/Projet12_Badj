@@ -22,6 +22,7 @@ import {HeaderInterceptorService} from './services/header-interceptor.service';
 import {ApplicationHttpClientService} from './services/ApplicationHttpClient.service';
 import { DatePipe } from '@angular/common';
 import { PersonalSpaceComponent } from './personal-space/personal-space.component';
+import { ArticleValidationComponent } from './article-validation/article-validation.component';
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
   { path: 'auth/signup', component: SignupComponent },
   { path: 'addArticles/:id', canActivate: [AuthGuardService], component: AddArticlesComponent},
   { path: 'personalSpace', component: PersonalSpaceComponent},
+  { path: 'articlesValidation/:id', component: ArticleValidationComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     AlertComponent,
     SigninComponent,
     AddArticlesComponent,
-    PersonalSpaceComponent
+    PersonalSpaceComponent,
+    ArticleValidationComponent
 
   ],
   imports: [

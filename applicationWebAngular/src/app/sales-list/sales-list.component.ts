@@ -1,3 +1,4 @@
+import { ArticlesService } from './../services/articles.service';
 import { AlertService } from './../services/alert.service';
 import { AuthService } from './../services/auth.service';
 import { UserModel } from './../models/User.model';
@@ -18,6 +19,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
   salesSubscription: Subscription;
   saleConcerned: Sale;
   currentUser: UserModel;
+  saleId: number;
 
   // -pre-record article limits
 
@@ -33,7 +35,8 @@ export class SalesListComponent implements OnInit, OnDestroy {
   constructor(private salesService: SalesService,
               private router: Router,
               private authService:AuthService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private articlesService: ArticlesService) {
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
                }
 
@@ -66,7 +69,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
   addArticles(id: number) {
     // find sale Id
     this.saleConcerned = this.sales[id];
-    let saleId = this.saleConcerned.id;
+    this.saleId = this.saleConcerned.id;
     // if user is connected
     if (this.authService.currentUserValue) {
       // for adult clothe sale
@@ -75,7 +78,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
       if (this.saleConcerned.description === 'Vêtements adulte') {
         if (this.currentUser.voluntary === false
           && this.saleConcerned.nbrArticlesPreRecordForUser < this.userArticleLimitForAdultClothe) {
-          this.router.navigate(['/addArticles', saleId]);
+          this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === false ) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
@@ -88,7 +91,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
       // if user is voluntary
       if (this.saleConcerned.description === 'Vêtements adulte') {
         if (this.currentUser.voluntary === true && this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForAdultClothe) {
-          this.router.navigate(['/addArticles', saleId]);
+          this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === true ) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
@@ -105,7 +108,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
       if (this.saleConcerned.description === 'Vêtements enfants') {
         if (this.currentUser.voluntary === false
           && this.saleConcerned.nbrArticlesPreRecordForUser < this.userArticleLimitForChildrenClothe) {
-          this.router.navigate(['/addArticles', saleId]);
+          this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === false) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
@@ -118,7 +121,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
       // if user is voluntary
       if (this.saleConcerned.description === 'Vêtements enfants') {
         if (this.currentUser.voluntary === true && this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForChildrenClothe) {
-          this.router.navigate(['/addArticles', saleId]);
+          this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === true) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
@@ -135,7 +138,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
       if (this.saleConcerned.description === 'jouets Livres Cadeaux Bijoux') {
         if (this.currentUser.voluntary === false
           && this.saleConcerned.nbrArticlesPreRecordForUser < this.userArticleLimitForBookToyAndObject) {
-          this.router.navigate(['/addArticles', saleId]);
+          this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === false) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
@@ -148,7 +151,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
       // if user is voluntary
       if (this.saleConcerned.description === 'jouets Livres Cadeaux Bijoux') {
         if (this.currentUser.voluntary === true && this.saleConcerned.nbrArticlesPreRecordForUser < this.userVoluntaryArticleLimitForBookToyAndObject) {
-          this.router.navigate(['/addArticles', saleId]);
+          this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === true) {
             this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
@@ -159,7 +162,16 @@ export class SalesListComponent implements OnInit, OnDestroy {
         }
       }
     } else {
-      this.router.navigate(['/addArticles', saleId]);
+      this.router.navigate(['/addArticles', this.saleId]);
     }
+  }
+
+  articlesValidation(id: number) {
+    // find sale Id
+    this.saleConcerned = this.sales[id];
+    this.saleId = this.saleConcerned.id;
+    this.articlesService.getAllArticlesForOneSale(this.saleId);
+    this.articlesService.emitArticles();
+    this.router.navigate(['/articlesValidation', this.saleId]);
   }
 }
