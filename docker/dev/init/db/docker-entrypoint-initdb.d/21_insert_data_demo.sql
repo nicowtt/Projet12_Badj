@@ -72,35 +72,35 @@ VALUES
 INSERT INTO badj.articles
 (category, type, sale_number, price, date_record, is_validate_to_sell, is_sold, is_stolen, is_return_owner, user_id, sale_id)
 VALUES
-('vêtement', 'jean', 1, 15, '2019-11-25 15:16:25', true, false, false, false, 2, 1);
+('Vêtement', 'jean', 1, 15, '2019-11-25 15:16:25', true, false, false, false, 2, 1);
 
 -- 4-1-2/vetement () ->id1 (un benevole d'id 2 enregistre un article de type vetement dans la bourse d'id 1)
 
 INSERT INTO badj.clothes
 (article_id, size, gender, material, color, comment)
 VALUES
-(1, '9 ans', 'garçons', 'jean', 'bleu', null);
+(1, '9 ans', 'Homme / Garçon', 'jean', 'bleu', null);
 
 -- 4-2-1/Article () ->id2 (un benevole d'id 2 enregistre un autre article de type vetement dans la bourse d'id 1)
 
 INSERT INTO badj.articles
 (category, type, sale_number, price, date_record, is_validate_to_sell, is_sold, is_stolen, is_return_owner, user_id, sale_id)
 VALUES
-('chaussure', 'basket', 2, 10, '2019-11-25 15:30:32', false, false, false, false, 2, 1);
+('Vêtement', 'basket', 2, 10, '2019-11-25 15:30:32', false, false, false, false, 2, 1);
 
 -- 4-2-2/vetement () ->id2 (un benevole d'id 2 enregistre un article de type vetement dans la bourse d'id 1)
 
 INSERT INTO badj.clothes
 (article_id, size, gender, material, color, comment)
 VALUES
-(2, '9 ans', 'garçons', 'cuir', 'rouge', null);
+(2, '9 ans', 'Homme / Garçon', 'cuir', 'rouge', null);
 
 -- 4-3-1/Article () ->id3 (un benevole d'id 2 enregistre un autre article de type jouet dans la bourse d'id 3)
 
 INSERT INTO badj.articles
 (category, type, sale_number, price, date_record, is_validate_to_sell, is_sold, is_stolen, is_return_owner, user_id, sale_id)
 VALUES
-('jouet', 'cheval à bascule', 1, 50, '2019-11-27 18:30:32', false, false, false, false, 2, 3);
+('Jouet', 'cheval à bascule', 1, 50, '2019-11-27 18:30:32', false, false, false, false, 2, 3);
 
 -- 4-2-2/vetement () ->id2 (un benevole d'id 2 enregistre un article de type vetement dans la bourse d'id 1)
 

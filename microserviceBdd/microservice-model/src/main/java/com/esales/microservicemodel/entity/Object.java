@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"article"})
 @Table(name = "objects")
 public class Object {
 

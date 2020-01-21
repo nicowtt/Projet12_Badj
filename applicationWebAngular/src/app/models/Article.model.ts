@@ -1,3 +1,5 @@
+import { ArticleToyModel } from './ArticleToy.model';
+import { ArticleObjectModel } from './ArticleObject.model';
 import { ArticleBookModel } from './ArticleBook.model';
 import { ArticleClotheModel } from './ArticleClothe.model';
 import { Sale } from './Sale.model';
@@ -16,10 +18,9 @@ export class ArticleModel {
     user: UserModel;
     sale: Sale;
     clothe: ArticleClotheModel;
-    toy: ArticleClotheModel;
+    toy: ArticleToyModel;
     book: ArticleBookModel;
-    object: ArticleBookModel;
+    object: ArticleObjectModel;
 
     constructor() {}
-
 }

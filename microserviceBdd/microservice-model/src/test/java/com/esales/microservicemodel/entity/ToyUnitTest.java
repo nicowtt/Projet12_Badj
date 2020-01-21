@@ -14,7 +14,7 @@ public class ToyUnitTest {
         toy.setBrand("rouge");
         toy.setComment(null);
 
-        Assert.assertEquals("Toy(articleId=0, brand=rouge, color=null, comment=null, article=null)"
+        Assert.assertEquals("Toy(articleId=0, brand=rouge, color=null, comment=null)"
                 , toy.toString());
 
     }

@@ -101,7 +101,6 @@ public class ArticleToyMapperUnitTest {
     public void testFromArticleToyDtoToToy() {
         Toy toy = articleToyMapperImpl.fromArticleToyDtoToToy(articleToyDto);
 
-        Assert.assertEquals("Toy(articleId=0, brand=bandai, color=bleu, comment=Rayure derrière, " +
-                "article=null)", toy.toString());
+        Assert.assertEquals("Toy(articleId=0, brand=bandai, color=bleu, comment=Rayure derrière)", toy.toString());
     }
 }

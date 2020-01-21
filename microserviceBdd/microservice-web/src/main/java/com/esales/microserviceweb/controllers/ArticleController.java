@@ -183,4 +183,16 @@ public class ArticleController {
             return (new ResponseEntity<>("error on article update",HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
+
+    /**
+     * for get one article with his id
+     * @param articleId -> from front
+     * @return article
+     */
+    @GetMapping(value = "/getOneArticle/{articleId}")
+    public Article getOneArticleWithArticleId(@PathVariable int articleId) {
+        Article article = articleDao.getArticlesById(articleId);
+        System.out.println(article.toString());
+        return article;
+    }
 }

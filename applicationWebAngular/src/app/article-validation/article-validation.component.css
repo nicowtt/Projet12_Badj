@@ -6,3 +6,10 @@
 #articleCategory {
     color: #A58EB7
 }
+
+.ng-autocomplete {
+    width:60%;
+    max-width: 600px;
+    display: table;
+    margin: 0 auto;
+  }

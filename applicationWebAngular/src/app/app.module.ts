@@ -8,12 +8,12 @@ import { HeaderComponent } from './header/header.component';
 import { SalesListComponent } from './sales-list/sales-list.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SalesService} from './services/sales.service';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import {AuthService} from './services/auth.service';
 import {AuthGuardService} from './services/auth-guard.service';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import {AlertService} from './services/alert.service';
 import {UserService} from './services/user.service';
@@ -23,6 +23,8 @@ import {ApplicationHttpClientService} from './services/ApplicationHttpClient.ser
 import { DatePipe } from '@angular/common';
 import { PersonalSpaceComponent } from './personal-space/personal-space.component';
 import { ArticleValidationComponent } from './article-validation/article-validation.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { ArticleModificationComponent } from './article-modification/article-modification.component';
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
@@ -31,6 +33,7 @@ const appRoutes: Routes = [
   { path: 'addArticles/:id', canActivate: [AuthGuardService], component: AddArticlesComponent},
   { path: 'personalSpace', component: PersonalSpaceComponent},
   { path: 'articlesValidation/:id', component: ArticleValidationComponent},
+  { path: 'articleModification/:id/:change', component: ArticleModificationComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -45,7 +48,8 @@ const appRoutes: Routes = [
     SigninComponent,
     AddArticlesComponent,
     PersonalSpaceComponent,
-    ArticleValidationComponent
+    ArticleValidationComponent,
+    ArticleModificationComponent
 
   ],
   imports: [
@@ -53,7 +57,8 @@ const appRoutes: Routes = [
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AutocompleteLibModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptorService, multi: true },

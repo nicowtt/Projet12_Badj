@@ -1,4 +1,4 @@
-import { ArticleModel } from './../models/Article.model';
+import { ArticleModel } from '../models/Article.model';
 import { AlertService } from './alert.service';
 import { ArticleToyModel } from '../models/ArticleToy.model';
 import { ArticleObjectModel } from '../models/ArticleObject.model';
@@ -15,11 +15,14 @@ export class ArticlesService {
                 private alertService: AlertService) {}
 
     private articles: any[] = [];
+    private article: ArticleModel;
 
     articleSubject = new Subject<any[]>();
+    articleOneSubject = new Subject<ArticleModel>();
 
     emitArticles() {
         this.articleSubject.next(this.articles);
+        this.articleOneSubject.next(this.article);
       }
 
     /**
@@ -27,7 +30,20 @@ export class ArticlesService {
      * @param clotheArticle (clothe)
      */
     addArticleClothe(clotheArticle: ArticleClotheModel) {
-        return this.http.post('/NewClotheArticle', clotheArticle);
+        return this.http
+        .post('/NewClotheArticle', clotheArticle)
+        .subscribe(
+            (response) => {
+              this.alertService.success('article enregistré', true);
+              setTimeout(() => {
+                this.alertService.clear();
+              }, 5000);
+            },
+            (error) => {
+              this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
+              console.log(error);
+            }
+          );
     }
 
     /**
@@ -35,7 +51,20 @@ export class ArticlesService {
      * @param objectArticle (object)
      */
     addArticleObject(objectArticle: ArticleObjectModel) {
-        return this.http.post('/NewObjectArticle', objectArticle);
+        return this.http
+        .post('/NewObjectArticle', objectArticle)
+        .subscribe(
+            (response) => {
+              this.alertService.success('article enregistré', true);
+              setTimeout(() => {
+                this.alertService.clear();
+              }, 5000);
+            },
+            (error) => {
+              this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
+              console.log(error);
+            }
+          );
     }
 
     /**
@@ -43,7 +72,20 @@ export class ArticlesService {
      * @param toyArticle (toy)
      */
     addToyObject(toyArticle: ArticleToyModel) {
-        return this.http.post('/NewToyArticle', toyArticle);
+        return this.http
+        .post('/NewToyArticle', toyArticle)
+        .subscribe(
+            (response) => {
+              this.alertService.success('article enregistré', true);
+              setTimeout(() => {
+                this.alertService.clear();
+              }, 5000);
+            },
+            (error) => {
+              this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
+              console.log(error);
+            }
+          );
     }
 
     /**
@@ -51,7 +93,20 @@ export class ArticlesService {
      * @param bookArticle (book)
      */
     addBookObject(bookArticle: ArticleBookModel) {
-        return this.http.post('/NewBookArticle', bookArticle);
+        return this.http
+        .post('/NewBookArticle', bookArticle)
+        .subscribe(
+            (response) => {
+              this.alertService.success('article enregistré', true);
+              setTimeout(() => {
+                this.alertService.clear();
+              }, 5000);
+            },
+            (error) => {
+              this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
+              console.log(error);
+            }
+          );
     }
 
     /**
@@ -73,23 +128,24 @@ export class ArticlesService {
         );
     }
 
-    /**
-     * remove article
-     * @param article 
-     */
+  /**
+   * to remove object and get new list
+   * @param article -> article to remove
+   * @param userEmail (current user email)
+   */
     removeObjectAndGetNewList(article: ArticleModel, userEmail: string) {
-        return this.http.post<any>('/RemoveArticleAndGetNewList/'+ userEmail, article)
+        return this.http.post<any>('/RemoveArticleAndGetNewList/' + userEmail, article)
         .subscribe(
             (response) => {
                 this.articles = response;
                 this.emitArticles();
             }
-        )
+        );
     }
 
     /**
      * get all articles for one sale
-     * @param saleId 
+     * @param saleId -> input
      */
     getAllArticlesForOneSale(saleId: number) {
         return this.http
@@ -103,21 +159,41 @@ export class ArticlesService {
                 console.log('Erreur de chargement !' + error);
                 this.alertService.error('erreur reseau veuillez recommencer plus tard');
             }
-        ); 
+        );
     }
 
     /**
      * to update article
-     * @param article 
+     * @param article -> input
      */
-    validateArticle(article: ArticleModel) {
+    updateArticle(article: ArticleModel) {
         return this.http
         .post('/UpdateArticle', article)
         .subscribe(
             (response) => {},
             (error) => {
-                this.alertService.error('erreur reseau veuillez recommencer plus tard')
+                this.alertService.error('erreur reseau veuillez recommencer plus tard');
+                console.log(error);
             }
-        )
+        );
+    }
+
+    /**
+     * to update article
+     * @param articleId -> input
+     */
+    getOneArticle(articleId: number) {
+        return this.http
+        .get<ArticleModel>('/getOneArticle/' + articleId)
+        .subscribe(
+            (response) => {
+                this.article = response;
+                this.emitArticles();
+            },
+            (error) => {
+                this.alertService.error('erreur reseau veuillez recommencer plus tard');
+                console.log(error);
+            }
+        );
     }
 }

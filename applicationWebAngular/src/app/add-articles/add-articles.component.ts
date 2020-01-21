@@ -6,7 +6,7 @@ import { ArticleObjectModel } from '../models/ArticleObject.model';
 import { AlertService } from '../services/alert.service';
 import { ArticleClotheModel } from '../models/ArticleClothe.model';
 import { ArticlesService } from '../services/articles.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SalesService} from '../services/sales.service';
@@ -20,7 +20,7 @@ import {DatePipe} from '@angular/common';
   templateUrl: './add-articles.component.html',
   styleUrls: ['./add-articles.component.css']
 })
-export class AddArticlesComponent implements OnInit {
+export class AddArticlesComponent implements OnInit, OnDestroy {
 
   signForm: FormGroup;
 
@@ -88,6 +88,10 @@ export class AddArticlesComponent implements OnInit {
         }
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.saleSubscription.unsubscribe();
   }
 
   // easy access to form fields
@@ -193,19 +197,8 @@ export class AddArticlesComponent implements OnInit {
       // set user who want to create this article
       articleClothe.userEmail = this.currentUser.email;
       // lunch service for add clothe article
-      this.articlesService.addArticleClothe(articleClothe)
-      .subscribe(
-        res => {
-          this.alertService.success('article enregistré', true);
-          setTimeout(() => {
-            this.alertService.clear();
-          }, 5000);
-          this.router.navigate(['sales']);
-        },
-        (error: HttpErrorResponse) => {
-          this.alertService.error("Erreur, l'article n'as pas été enregistré.");
-        }
-      );
+      this.articlesService.addArticleClothe(articleClothe);
+      this.router.navigate(['sales']);
     }
 
     // articleObject
@@ -236,19 +229,8 @@ export class AddArticlesComponent implements OnInit {
       // set user who want to create this article
       articleObject.userEmail = this.currentUser.email;
       // lunch service for add clothe article
-      this.articlesService.addArticleObject(articleObject)
-      .subscribe(
-        res => {
-          this.alertService.success('article enregistré', true);
-          setTimeout(() => {
-            this.alertService.clear();
-          }, 5000);
-          this.router.navigate(['sales']);
-        },
-        (error: HttpErrorResponse) => {
-          this.alertService.error("Erreur, l'article n'as pas été enregistré.");
-        }
-      );
+      this.articlesService.addArticleObject(articleObject);
+      this.router.navigate(['sales']);
     }
 
     // articleToy
@@ -270,19 +252,8 @@ export class AddArticlesComponent implements OnInit {
       // set user who want to create this article
       toyObject.userEmail = this.currentUser.email;
       // lunch service for add toy article
-      this.articlesService.addToyObject(toyObject)
-      .subscribe(
-        res => {
-          this.alertService.success('article enregistré', true);
-          setTimeout(() => {
-            this.alertService.clear();
-          }, 5000);
-          this.router.navigate(['sales']);
-        },
-        (error: HttpErrorResponse) => {
-          this.alertService.error("Erreur, l'article n'as pas été enregistré.");
-        }
-      );
+      this.articlesService.addToyObject(toyObject);
+      this.router.navigate(['sales']);
     }
 
     // articleBook
@@ -304,19 +275,8 @@ export class AddArticlesComponent implements OnInit {
       // set user who want to create this article
       bookObject.userEmail = this.currentUser.email;
       // lunch service for add book article
-      this.articlesService.addBookObject(bookObject)
-      .subscribe(
-        res => {
-          this.alertService.success('article enregistré', true);
-          setTimeout(() => {
-            this.alertService.clear();
-          }, 5000);
-          this.router.navigate(['sales']);
-        },
-        (error: HttpErrorResponse) => {
-          this.alertService.error("Erreur, l'article n'as pas été enregistré.");
-        }
-      );
+      this.articlesService.addBookObject(bookObject);
+      this.router.navigate(['sales']);
     }
   }
 

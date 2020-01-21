@@ -18,7 +18,7 @@ public class ArticleDto {
     private String category;
     private String type;
     private int saleNumber;
-    private int price;
+    private double price;
     private Date dateRecord;
     private boolean isValidateToSell;
     private boolean isSold;

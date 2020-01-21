@@ -104,6 +104,6 @@ public class ArticleClotheMapperImplUnitTest {
         Clothe clothe = articleClotheMapperImpl.fromArticleClotheDtoToClothe(articleClotheDto);
 
         Assert.assertEquals("Clothe(articleId=0, size=32, gender=Homme, material=jeans, color=bleu, " +
-                "comment=marque levis, article=null)", clothe.toString());
+                "comment=marque levis)", clothe.toString());
     }
 }
