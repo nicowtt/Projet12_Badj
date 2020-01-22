@@ -93,7 +93,7 @@
         </h5>
 
         <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner" (click)="changeCharacteristics(i,'price')">
-          <span id="articleCategory">Prix: </span>{{article.price}} €
+          <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
         </h5>
 
         <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
@@ -176,7 +176,7 @@
         </h5>
 
         <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner" (click)="changeCharacteristics(i,'price')">
-          <span id="articleCategory">Prix: </span>{{article.price}} €
+          <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
         </h5>
 
         <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
