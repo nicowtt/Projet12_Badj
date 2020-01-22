@@ -96,6 +96,7 @@
           <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
         </h5>
 
+        <!-- validation -->
         <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
           (click)="validateArticle(i)" class="btn btn-info ">
           <span class="glyphicon glyphicon-save"></span> Valider
@@ -106,6 +107,12 @@
             <span class="glyphicon glyphicon-thumbs-up"></span> Validé
           </a>
         </h4>
+
+        <!-- for remove article -->
+        <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+          (click)="onDeleteArticle(article.id)" class="btn btn-danger ">
+          <span class="glyphicon glyphicon-trash"></span> Supprimer
+        </a>
       </button>
     </div>
 
@@ -179,6 +186,7 @@
           <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
         </h5>
 
+        <!-- validation -->
         <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
           (click)="validateArticle(i)" class="btn btn-info ">
           <span class="glyphicon glyphicon-save"></span> Valider
@@ -189,6 +197,12 @@
             <span class="glyphicon glyphicon-thumbs-up"></span> Validé
           </a>
         </h4>
+
+        <!-- for remove article -->
+        <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+          (click)="onDeleteArticle(article.id)" class="btn btn-danger ">
+          <span class="glyphicon glyphicon-trash"></span> Supprimer
+        </a>
       </button>
     </div>
   </div>

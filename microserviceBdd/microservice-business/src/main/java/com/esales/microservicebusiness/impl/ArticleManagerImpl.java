@@ -231,19 +231,24 @@ public class ArticleManagerImpl implements ArticleManager {
     @Override
     public boolean updateArticle(ArticleDto articleDto) {
         Article articleToUpdate = articleMapper.fromArticleDtoToArticle(articleDto);
-        articleDao.save(articleToUpdate);
-        if (articleDto.getBook() != null) {
-            bookDao.save(articleToUpdate.getBook());
+        try {
+            articleDao.save(articleToUpdate);
+            if (articleDto.getBook() != null) {
+                bookDao.save(articleToUpdate.getBook());
+            }
+            if (articleDto.getClothe() != null) {
+                clotheDao.save(articleDto.getClothe());
+            }
+            if (articleDto.getObject() != null) {
+                objectDao.save(articleDto.getObject());
+            }
+            if ((articleDto.getToy() != null)) {
+                toyDao.save(articleDto.getToy());
+            }
+            return true;
+        } catch (DataIntegrityViolationException e) {
+            logger.warn("write error on update article");
+            return false;
         }
-        if (articleDto.getClothe() != null) {
-            clotheDao.save(articleDto.getClothe());
-        }
-        if (articleDto.getObject() != null) {
-            objectDao.save(articleDto.getObject());
-        }
-        if ((articleDto.getToy() != null)) {
-            toyDao.save(articleDto.getToy());
-        }
-        return true;
     }
 }

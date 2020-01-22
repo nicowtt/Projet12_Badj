@@ -123,23 +123,23 @@ ALTER TABLE badj.articles ADD CONSTRAINT users_articles_fk
 ALTER TABLE badj.clothes ADD CONSTRAINT articles_clothes_fk
     FOREIGN KEY (article_id)
         REFERENCES articles (id)
-        ON DELETE CASCADE
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION;
 
 ALTER TABLE badj.toys ADD CONSTRAINT articles_toys_fk
     FOREIGN KEY (article_id)
         REFERENCES articles (id)
-        ON DELETE CASCADE
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION;
 
 ALTER TABLE badj.books ADD CONSTRAINT articles_books_fk
     FOREIGN KEY (article_id)
         REFERENCES articles (id)
-        ON DELETE CASCADE
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION;
 
 ALTER TABLE badj.objects ADD CONSTRAINT articles_objects_fk
     FOREIGN KEY (article_id)
         REFERENCES articles (id)
-        ON DELETE CASCADE
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION;

@@ -129,16 +129,23 @@ export class ArticlesService {
     }
 
   /**
-   * to remove object and get new list
-   * @param article -> article to remove
-   * @param userEmail (current user email)
+   * 
+   * @param article To remove article
    */
-    removeObjectAndGetNewList(article: ArticleModel, userEmail: string) {
-        return this.http.post<any>('/RemoveArticleAndGetNewList/' + userEmail, article)
+    removeArticle(article: ArticleModel) {
+        return this.http.post<any>('/RemoveArticle', article)
         .subscribe(
             (response) => {
-                this.articles = response;
-                this.emitArticles();
+                this.alertService.success('Article effacé')
+                setTimeout(() => {
+                  this.alertService.clear();
+                }, 3000);
+            },
+            (error) => {
+              this.alertService.error('erreur lors de la suppression de l\'article');
+              setTimeout(() => {
+                this.alertService.clear();
+              }, 3000);
             }
         );
     }

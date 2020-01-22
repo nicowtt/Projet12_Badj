@@ -142,22 +142,25 @@ public class ArticleController {
 
 
     /**
-     * For remove article and get a new user article list
-     * @param articleDto -> to delete
-     * @param userEmail -> user who want the new article list
-     * @return -> article list updated
+     * for remove article
+     * @param articleDto -> to remove
+     * @return ok if removed
      */
-    @PostMapping(value = "/RemoveArticleAndGetNewList/{userEmail}")
-    public List<Article> removeArticleAndGetNewList(@RequestBody ArticleDto articleDto, @PathVariable String userEmail) {
+    @PostMapping(value = "/RemoveArticle")
+    public ResponseEntity<String> removeArticle(@RequestBody ArticleDto articleDto) {
+        boolean articleRemoved = false;
         Article articleToRemove = articleMapper.fromArticleDtoToArticle(articleDto);
         try {
             articleManager.removeArticle(articleToRemove);
+            articleRemoved = true;
         } catch (UnexpectedRollbackException e) {
             logger.warn( "roll back on remove article");
         }
-        User userConcerned = userDao.findByEmail(userEmail);
-        List<Article> articlesList = articleManager.getAllArticlesForOneUser(userConcerned.getId());
-        return articlesList;
+        if (articleRemoved) {
+            return (new ResponseEntity<>(HttpStatus.OK));
+        } else {
+            return (new ResponseEntity<>("error on removed article",HttpStatus.INTERNAL_SERVER_ERROR));
+        }
     }
 
     /**

@@ -120,4 +120,17 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
       if (characteristic === 'bookAuthor') { this.router.navigate(['/articleModification/'+ this.articleConcerned.id + '/bookAuthor']); }
     }
   }
+
+  onDeleteArticle(articleId: number) {
+    this.articles.forEach(article => {
+      if (article.id === articleId) { this.articleConcerned = article; }
+    });
+    this.articlesService.removeArticle(this.articleConcerned);
+    // refresh articles list and windows
+    setTimeout(() => {
+      this.articlesService.getAllArticlesForOneSale(this.saleId);
+      this.articlesService.emitArticles();
+      window.location.reload();
+    }, 1000);
+  }
 }

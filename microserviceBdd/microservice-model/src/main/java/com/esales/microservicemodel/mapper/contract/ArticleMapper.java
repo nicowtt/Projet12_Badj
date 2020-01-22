@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 public interface ArticleMapper {
 
     Article fromArticleDtoToArticle(ArticleDto articleDto);
+    ArticleDto fromArticleToArticleDto(Article article);
 }

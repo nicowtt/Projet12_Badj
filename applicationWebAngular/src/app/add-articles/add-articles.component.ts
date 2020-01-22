@@ -276,7 +276,9 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       bookObject.userEmail = this.currentUser.email;
       // lunch service for add book article
       this.articlesService.addBookObject(bookObject);
-      this.router.navigate(['sales']);
+      setTimeout(() => {
+        this.router.navigate(['sales']);
+      }, 500);
     }
   }
 
