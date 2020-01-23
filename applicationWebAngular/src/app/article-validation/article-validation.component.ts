@@ -41,8 +41,9 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
         this.articles = articles;
       }
     );
-    this.articlesService.getAllArticlesForOneSale(this.saleId);
-    this.articlesService.emitArticles();
+    this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
+      // this.articlesService.emitArticles();
+    });
     // get emails for autocompletion
     setTimeout(() => {
       let doublon = 0;
@@ -52,13 +53,9 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
       } else {
         // avoid doublon
         for (let i = 0; i < this.autocompletionEmails.length; i++) {
-          if (this.autocompletionEmails[i] === article.user.email) {
-            doublon++;
-          }
+          if (this.autocompletionEmails[i] === article.user.email) { doublon++; }
         }
-        if (doublon === 0) {
-          this.autocompletionEmails.push(article.user.email);
-        }
+        if (doublon === 0) { this.autocompletionEmails.push(article.user.email); }
         doublon = 0;
       }
     });
@@ -72,11 +69,11 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
   validateArticle(id: number) {
     this.articleConcerned = this.articles[id];
     this.articleConcerned.validateToSell = true;
-    this.articlesService.updateArticle(this.articleConcerned);
-    // update list of article for this sale
-    setTimeout(() => {
-      this.articlesService.getAllArticlesForOneSale(this.saleId);
-    }, 1000);
+    this.articlesService.updateArticle(this.articleConcerned, () => {
+      this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
+        this.articlesService.emitArticles();
+      });
+    });
   }
 
   selectEvent(item: any) {
@@ -125,12 +122,11 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
     this.articles.forEach(article => {
       if (article.id === articleId) { this.articleConcerned = article; }
     });
-    this.articlesService.removeArticle(this.articleConcerned);
-    // refresh articles list and windows
-    setTimeout(() => {
-      this.articlesService.getAllArticlesForOneSale(this.saleId);
-      this.articlesService.emitArticles();
+    this.articlesService.removeArticle(this.articleConcerned, () => {
+      this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
+        // this.articlesService.emitArticles();
+      });
       window.location.reload();
-    }, 1000);
+    });
   }
 }

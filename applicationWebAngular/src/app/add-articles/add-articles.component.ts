@@ -197,8 +197,9 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       // set user who want to create this article
       articleClothe.userEmail = this.currentUser.email;
       // lunch service for add clothe article
-      this.articlesService.addArticleClothe(articleClothe);
-      this.router.navigate(['sales']);
+      this.articlesService.addArticleClothe(articleClothe, () => {
+        this.router.navigate(['sales']);
+      });
     }
 
     // articleObject
@@ -229,8 +230,9 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       // set user who want to create this article
       articleObject.userEmail = this.currentUser.email;
       // lunch service for add clothe article
-      this.articlesService.addArticleObject(articleObject);
-      this.router.navigate(['sales']);
+      this.articlesService.addArticleObject(articleObject, () => {
+        this.router.navigate(['sales']);
+      });
     }
 
     // articleToy
@@ -252,8 +254,9 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       // set user who want to create this article
       toyObject.userEmail = this.currentUser.email;
       // lunch service for add toy article
-      this.articlesService.addToyObject(toyObject);
-      this.router.navigate(['sales']);
+      this.articlesService.addToyObject(toyObject, () => {
+        this.router.navigate(['sales']);
+      }); 
     }
 
     // articleBook
@@ -275,10 +278,9 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       // set user who want to create this article
       bookObject.userEmail = this.currentUser.email;
       // lunch service for add book article
-      this.articlesService.addBookObject(bookObject);
-      setTimeout(() => {
+      this.articlesService.addBookObject(bookObject, () => {
         this.router.navigate(['sales']);
-      }, 500);
+      });
     }
   }
 

@@ -63,26 +63,11 @@ export class SignupComponent implements OnInit {
     }
 
     this.loading = true;
-    this.userService.AddUser(this.signUpForm.value)
-      // .pipe(first())
-      .subscribe(
-        res => {
-          this.alertService.success('Utilisateur enregistré', true);
-          this.router.navigate(['auth/signin']);
-        },
-        (error: HttpErrorResponse) => {
-          // console.log(error.error);
-          // console.log(error.name);
-          // console.log(error.message);
-          // console.log(error.status);
-          if (error.error === "email already exist") {
-            this.alertService.error("Erreur, l'email existe déjà");
-          } else {
-            this.alertService.error(error.message);
-          }
-          this.loading = false;
-        }
-      );
+    this.userService.AddUser(this.signUpForm.value, () => {
+      this.router.navigate(['auth/signin']);
+    }, () => {
+      this.loading = false;
+    })
   }
 
 }

@@ -81,10 +81,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
           this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === false ) {
-            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
-            setTimeout(() => {
-              this.alertService.clear();
-            }, 3000);
+            this.alertArticleMax();
           }
         }
       }
@@ -94,10 +91,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
           this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === true ) {
-            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
-            setTimeout(() => {
-              this.alertService.clear();
-            }, 3000);
+            this.alertArticleMax();
           }
         }
       }
@@ -111,10 +105,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
           this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === false) {
-            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
-            setTimeout(() => {
-              this.alertService.clear();
-            }, 3000);
+            this.alertArticleMax();
           }
         }
       }
@@ -124,10 +115,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
           this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === true) {
-            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
-            setTimeout(() => {
-              this.alertService.clear();
-            }, 3000);
+            this.alertArticleMax();
           }
         }
       }
@@ -141,10 +129,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
           this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === false) {
-            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
-            setTimeout(() => {
-              this.alertService.clear();
-            }, 3000);
+            this.alertArticleMax();
           }
         }
       }
@@ -154,10 +139,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
           this.router.navigate(['/addArticles', this.saleId]);
         } else {
           if (this.currentUser.voluntary === true) {
-            this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
-            setTimeout(() => {
-              this.alertService.clear();
-            }, 3000);
+            this.alertArticleMax();
           }
         }
       }
@@ -170,8 +152,16 @@ export class SalesListComponent implements OnInit, OnDestroy {
     // find sale Id
     this.saleConcerned = this.sales[id];
     this.saleId = this.saleConcerned.id;
-    this.articlesService.getAllArticlesForOneSale(this.saleId);
-    this.articlesService.emitArticles();
-    this.router.navigate(['/articlesValidation', this.saleId]);
+    this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
+      // this.articlesService.emitArticles();
+      this.router.navigate(['/articlesValidation', this.saleId]);
+    });
+  }
+
+  alertArticleMax() {
+    this.alertService.error("Vous avez atteint la limite max d'articles pour cette vente.");
+            setTimeout(() => {
+              this.alertService.clear();
+            }, 3000);
   }
 }

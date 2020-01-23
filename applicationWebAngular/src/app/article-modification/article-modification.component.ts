@@ -45,25 +45,23 @@ export class ArticleModificationComponent implements OnInit, OnDestroy {
         this.articleConcerned = article;
       }
     )
-    this.articlesService.getOneArticle(id);
-    this.articlesService.emitArticles();
-    setTimeout(() => {
+    this.articlesService.getOneArticle(id, () => {
+      this.articlesService.emitArticles();
       this.toChange = this.route.snapshot.params['change'];
-      console.log('to change:' + this.toChange);
       // find type of article
-    if (this.articleConcerned.book !== null ) {
-      this.book = true;
-    }
-    if (this.articleConcerned.object !== null ) {
-      this.object = true;
-    }
-    if (this.articleConcerned.clothe !== null ) {
-      this.clothe = true;
-    }
-    if (this.articleConcerned.toy !== null ) {
-      this.toy = true;
-    }
-    }, 500);
+      if (this.articleConcerned.book !== null ) {
+        this.book = true;
+      }
+      if (this.articleConcerned.object !== null ) {
+        this.object = true;
+      }
+      if (this.articleConcerned.clothe !== null ) {
+        this.clothe = true;
+      }
+      if (this.articleConcerned.toy !== null ) {
+        this.toy = true;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -204,9 +202,8 @@ export class ArticleModificationComponent implements OnInit, OnDestroy {
   }
 
   updateArticle() {
-    this.articlesService.updateArticle(this.articleConcerned);
-    setTimeout(() => {
-    this.router.navigate(['articlesValidation/'+ this.articleConcerned.sale.id]);
-    },500);
+    this.articlesService.updateArticle(this.articleConcerned, () => {
+      this.router.navigate(['articlesValidation/'+ this.articleConcerned.sale.id]);
+    });
   }
 }

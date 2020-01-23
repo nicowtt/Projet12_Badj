@@ -29,84 +29,66 @@ export class ArticlesService {
      * for persist clothe article
      * @param clotheArticle (clothe)
      */
-    addArticleClothe(clotheArticle: ArticleClotheModel) {
+    addArticleClothe(clotheArticle: ArticleClotheModel, onSuccess: Function) {
         return this.http
         .post('/NewClotheArticle', clotheArticle)
-        .subscribe(
-            (response) => {
-              this.alertService.success('article enregistré', true);
-              setTimeout(() => {
-                this.alertService.clear();
-              }, 5000);
-            },
-            (error) => {
-              this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
-              console.log(error);
-            }
-          );
+        .subscribe((response) => {
+          this.recordArticleAlertOk(response);
+          onSuccess();
+        },
+        (error) => {
+          this.recordArticleAlertNok(error);
+        });
     }
 
     /**
      * for persist object article
      * @param objectArticle (object)
      */
-    addArticleObject(objectArticle: ArticleObjectModel) {
+    addArticleObject(objectArticle: ArticleObjectModel, onSuccess: Function) {
         return this.http
         .post('/NewObjectArticle', objectArticle)
-        .subscribe(
-            (response) => {
-              this.alertService.success('article enregistré', true);
-              setTimeout(() => {
-                this.alertService.clear();
-              }, 5000);
-            },
-            (error) => {
-              this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
-              console.log(error);
-            }
-          );
+        .subscribe((response) => {
+          this.recordArticleAlertOk(response);
+          onSuccess();
+        },
+        (error) => {
+          this.recordArticleAlertNok(error);
+        });
     }
 
     /**
      * for persist toy article
      * @param toyArticle (toy)
      */
-    addToyObject(toyArticle: ArticleToyModel) {
+    addToyObject(toyArticle: ArticleToyModel, onSuccess: Function) {
         return this.http
         .post('/NewToyArticle', toyArticle)
         .subscribe(
-            (response) => {
-              this.alertService.success('article enregistré', true);
-              setTimeout(() => {
-                this.alertService.clear();
-              }, 5000);
-            },
-            (error) => {
-              this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
-              console.log(error);
-            }
-          );
+          (response) => {
+            this.recordArticleAlertOk(response);
+            onSuccess();
+          },
+          (error) => {
+            this.recordArticleAlertNok(error);
+          });
     }
 
     /**
      * for persist book article
      * @param bookArticle (book)
      */
-    addBookObject(bookArticle: ArticleBookModel) {
+    addBookObject(bookArticle: ArticleBookModel, onSuccess: Function) {
         return this.http
         .post('/NewBookArticle', bookArticle)
         .subscribe(
-            (response) => {
-              this.alertService.success('article enregistré', true);
-              setTimeout(() => {
-                this.alertService.clear();
-              }, 5000);
-            },
-            (error) => {
-              this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
-              console.log(error);
-            }
-          );
+          (response) => {
+            this.recordArticleAlertOk(response);
+            onSuccess();
+          },
+          (error) => {
+            this.recordArticleAlertNok(error);
+          });
     }
 
     /**
@@ -132,20 +114,15 @@ export class ArticlesService {
    * 
    * @param article To remove article
    */
-    removeArticle(article: ArticleModel) {
+    removeArticle(article: ArticleModel, onSuccess: Function) {
         return this.http.post<any>('/RemoveArticle', article)
         .subscribe(
             (response) => {
-                this.alertService.success('Article effacé')
-                setTimeout(() => {
-                  this.alertService.clear();
-                }, 3000);
+                this.removeArticleAlertOk(response);
+                onSuccess();
             },
             (error) => {
-              this.alertService.error('erreur lors de la suppression de l\'article');
-              setTimeout(() => {
-                this.alertService.clear();
-              }, 3000);
+              this.recordArticleAlertNok(error);
             }
         );
     }
@@ -154,17 +131,17 @@ export class ArticlesService {
      * get all articles for one sale
      * @param saleId -> input
      */
-    getAllArticlesForOneSale(saleId: number) {
+    getAllArticlesForOneSale(saleId: number, onSuccess: Function) {
         return this.http
         .get<any[]>('/AllArticlesForSale/' + saleId)
         .subscribe(
             (response) => {
                 this.articles = response;
                 this.emitArticles();
+                onSuccess();
             },
             (error) => {
-                console.log('Erreur de chargement !' + error);
-                this.alertService.error('erreur reseau veuillez recommencer plus tard');
+              this.alertNetworkOff(error);
             }
         );
     }
@@ -173,14 +150,15 @@ export class ArticlesService {
      * to update article
      * @param article -> input
      */
-    updateArticle(article: ArticleModel) {
+    updateArticle(article: ArticleModel, onSuccess: Function) {
         return this.http
         .post('/UpdateArticle', article)
         .subscribe(
-            (response) => {},
+            (response) => {
+              onSuccess();
+            },
             (error) => {
-                this.alertService.error('erreur reseau veuillez recommencer plus tard');
-                console.log(error);
+              this.alertNetworkOff(error);
             }
         );
     }
@@ -189,18 +167,53 @@ export class ArticlesService {
      * to update article
      * @param articleId -> input
      */
-    getOneArticle(articleId: number) {
+    getOneArticle(articleId: number, onSuccess: Function) {
         return this.http
         .get<ArticleModel>('/getOneArticle/' + articleId)
         .subscribe(
             (response) => {
                 this.article = response;
                 this.emitArticles();
+                onSuccess();
             },
             (error) => {
-                this.alertService.error('erreur reseau veuillez recommencer plus tard');
-                console.log(error);
+              this.alertNetworkOff(error);
             }
         );
     }
+
+    recordArticleAlertOk(response: any) {
+      this.alertService.success('article enregistré', true);
+      setTimeout(() => {
+        this.alertService.clear();
+      }, 5000);
+    }
+
+    recordArticleAlertNok(error: any) {
+      this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
+      setTimeout(() => {
+        this.alertService.clear();
+      }, 5000);
+    }
+
+    removeArticleAlertOk(response: any) {
+      this.alertService.success('Article effacé.');
+                setTimeout(() => {
+                  this.alertService.clear();
+                }, 3000);
+    }
+
+  removeArticleAlertNok(error: any) {
+    this.alertService.error('erreur lors de la suppression de l\'article.');
+    setTimeout(() => {
+      this.alertService.clear();
+    }, 3000);
+  }
+
+  alertNetworkOff(error: any) {
+    this.alertService.error('erreur reseau veuillez recommencer plus tard.');
+    setTimeout(() => {
+      this.alertService.clear();
+    }, 5000);
+  }
 }

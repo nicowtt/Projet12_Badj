@@ -47,11 +47,9 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
   onDeleteArticle(id: number) {
     this.articleConcerned = this.articles[id];
     console.log('article concerné: ' + this.articleConcerned.id);
-    this.articlesService.removeArticle(this.articleConcerned);
-    // refresh articles list
-    setTimeout(() => {
+    this.articlesService.removeArticle(this.articleConcerned, () => {
       this.articlesService.getAllArticlesForOneUser(this.currentUser.email);
       this.articlesService.emitArticles();
-    }, 500);
+    });
   }
 }
