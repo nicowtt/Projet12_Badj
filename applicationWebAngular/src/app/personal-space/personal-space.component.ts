@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 import { Router } from '@angular/router';
 import { ArticleModel } from './../models/Article.model';
 import { AuthService } from './../services/auth.service';
@@ -23,7 +24,8 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
   constructor(private articlesService: ArticlesService,
               private alertService: AlertService,
               private authService: AuthService,
-              private router: Router) { 
+              private router: Router,
+              private userService: UserService) { 
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
               }
 
@@ -35,8 +37,11 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
     )
     console.log('current user email: ' + this.currentUser.email);
     if (this.authService.currentUserValue) {
+      // check token is valid
+      this.userService.isTokenAlreadyValid(() => {
       this.articlesService.getAllArticlesForOneUser(this.currentUser.email);
       this.articlesService.emitArticles();
+      })
     }
   }
 

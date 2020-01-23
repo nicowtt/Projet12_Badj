@@ -1,12 +1,14 @@
+import { UserService } from './../services/user.service';
 import { ArticlesService } from './../services/articles.service';
 import { AlertService } from './../services/alert.service';
 import { AuthService } from './../services/auth.service';
 import { UserModel } from './../models/User.model';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {Sale} from '../models/Sale.model';
 import {Subscription} from 'rxjs';
 import {SalesService} from '../services/sales.service';
 import {Router} from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-sales-list',
@@ -21,8 +23,14 @@ export class SalesListComponent implements OnInit, OnDestroy {
   currentUser: UserModel;
   saleId: number;
 
-  // -pre-record article limits
+  // modal searchEmail
+  modalRef: BsModalRef;
+  userEmailsSubscription: Subscription;
+  // autocompletion
+  userEmailsListForAutocompletion: string[ ];
+  keyword = 'email';
 
+  // -pre-record article limits
   userArticleLimitForAdultClothe = 4;
   userVoluntaryArticleLimitForAdultClothe = this.userArticleLimitForAdultClothe * 2;
 
@@ -34,24 +42,42 @@ export class SalesListComponent implements OnInit, OnDestroy {
   
   constructor(private salesService: SalesService,
               private router: Router,
-              private authService:AuthService,
+              private authService: AuthService,
               private alertService: AlertService,
-              private articlesService: ArticlesService) {
+              private articlesService: ArticlesService,
+              private modalService: BsModalService,
+              private userService: UserService) {
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
                }
 
   ngOnInit() {
+    // subscription
     this.salesSubscription = this.salesService.salesSubject.subscribe(
       (sales: Sale[]) => {
         this.sales = sales;
       }
       );
+    this.userEmailsSubscription = this.userService.listEmailsSubject.subscribe(
+      (userEmails: string[]) => {
+        this.userEmailsListForAutocompletion = userEmails;
+      }
+    );
     // if user is connected
     if (this.authService.currentUserValue) {
       console.log('user connected is voluntary: ' + this.currentUser.voluntary);
       console.log('user connected is responsible: ' + this.currentUser.responsible);
+      //check token
+      this.userService.isTokenAlreadyValid( () => {
+      //get list of sales with nbr of article already record
       this.salesService.getSalesCurrentUserIsPresent(this.currentUser.email);
       this.salesService.emmitSales();
+      // if voluntary -> get allUserEmails for validation (autocompletion)
+      if (this.authService.currentUserValue.voluntary) {
+        this.userService.getAllUserEmail(() => {
+          this.userService.emitUserEmail();
+        })
+      }
+      });
     } else {
       this.salesService.getSales();
       this.salesService.emmitSales();
@@ -147,7 +173,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
       this.router.navigate(['/addArticles', this.saleId]);
     }
   }
-
+  /**
+   * For validate article
+   */
   articlesValidation(id: number) {
     // find sale Id
     this.saleConcerned = this.sales[id];
@@ -164,4 +192,23 @@ export class SalesListComponent implements OnInit, OnDestroy {
               this.alertService.clear();
             }, 3000);
   }
+  /**
+   * show email modal
+   * @param findEmailModal 
+   */
+  findEmailWithModal(findEmailModal: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(findEmailModal);
+  }
+
+  /**
+   * get email for create new article 
+   * @param emailIn -> from email modal
+   * @param saleId 
+   */
+  selectedEmailOnModal(emailIn: any, saleId: number) {
+    // do something with selected emailIn
+    console.log('email de la personne pour enregistrer l\'article: ' + emailIn);
+    console.log('bourse id concernée: ' + saleId);
+    this.router.navigate(['addArticles/' + saleId + '/' + emailIn]);
+    }
 }

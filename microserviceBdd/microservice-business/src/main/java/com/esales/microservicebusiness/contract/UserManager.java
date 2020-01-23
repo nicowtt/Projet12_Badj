@@ -14,4 +14,5 @@ public interface UserManager {
     boolean addUser(UserDto userDto) ;
     List<User> getAllUsers();
     User findUserByMail(String email);
+    List<String> getAllUsersEmails();
 }

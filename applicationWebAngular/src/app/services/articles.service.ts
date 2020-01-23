@@ -105,7 +105,7 @@ export class ArticlesService {
             },
             (error) => {
                 console.log('Erreur de chargement !' + error);
-                this.alertService.error('erreur reseau veuillez recommencer plus tard');
+                this.alertNetworkOff(error);
             }
         );
     }
@@ -188,26 +188,26 @@ export class ArticlesService {
     }
 
     recordArticleAlertNok(error: any) {
-      this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
+      this.alertService.error('Erreur, l\'article n\'as pas été enregistré.', true);
       this.timeOutOffAlert5000();
     }
 
     removeArticleAlertOk(response: any) {
-      this.alertService.success('Article effacé.');
+      this.alertService.success('Article effacé.', true);
       setTimeout(() => {
         this.alertService.clear();
       }, 3000);        
     }
 
   removeArticleAlertNok(error: any) {
-    this.alertService.error('erreur lors de la suppression de l\'article.');
+    this.alertService.error('erreur lors de la suppression de l\'article.', true);
     setTimeout(() => {
       this.alertService.clear();
     }, 3000);
   }
 
   alertNetworkOff(error: any) {
-    this.alertService.error('erreur reseau veuillez recommencer plus tard.');
+    this.alertService.error('erreur reseau veuillez recommencer plus tard.', true);
     this.timeOutOffAlert5000();
   }
 

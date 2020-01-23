@@ -54,6 +54,8 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
   returnUrl: any;
   loading: boolean;
 
+  emailforCreateArticle: string;
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute,
@@ -69,6 +71,7 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
     this.initForm();
     const id = this.route.snapshot.params['id'];
     this.saleId = id;
+    this.emailforCreateArticle = this.route.snapshot.params['email'];
 
     this.salesService.getOneSale(id);
 
@@ -195,7 +198,11 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       articleClothe.isStolen = false;
       articleClothe.isReturnOwner = false;
       // set user who want to create this article
-      articleClothe.userEmail = this.currentUser.email;
+      if (this.emailforCreateArticle != null) {
+        articleClothe.userEmail = this.emailforCreateArticle;
+      } else {
+        articleClothe.userEmail = this.currentUser.email;
+      }
       // lunch service for add clothe article
       this.articlesService.addArticleClothe(articleClothe, () => {
         this.router.navigate(['sales']);
@@ -228,7 +235,11 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       articleObject.isStolen = false;
       articleObject.isReturnOwner = false;
       // set user who want to create this article
-      articleObject.userEmail = this.currentUser.email;
+      if (this.emailforCreateArticle != null) {
+        articleObject.userEmail = this.emailforCreateArticle;
+      } else {
+        articleObject.userEmail = this.currentUser.email;
+      }
       // lunch service for add clothe article
       this.articlesService.addArticleObject(articleObject, () => {
         this.router.navigate(['sales']);
@@ -252,7 +263,11 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       toyObject.isStolen = false;
       toyObject.isReturnOwner = false;
       // set user who want to create this article
-      toyObject.userEmail = this.currentUser.email;
+      if (this.emailforCreateArticle != null) {
+        toyObject.userEmail = this.emailforCreateArticle;
+      } else {
+        toyObject.userEmail = this.currentUser.email;
+      }
       // lunch service for add toy article
       this.articlesService.addToyObject(toyObject, () => {
         this.router.navigate(['sales']);
@@ -276,7 +291,11 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
       bookObject.isStolen = false;
       bookObject.isReturnOwner = false;
       // set user who want to create this article
-      bookObject.userEmail = this.currentUser.email;
+      if (this.emailforCreateArticle != null) {
+        bookObject.userEmail = this.emailforCreateArticle;
+      } else {
+        bookObject.userEmail = this.currentUser.email;
+      }
       // lunch service for add book article
       this.articlesService.addBookObject(bookObject, () => {
         this.router.navigate(['sales']);

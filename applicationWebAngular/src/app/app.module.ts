@@ -25,15 +25,17 @@ import { PersonalSpaceComponent } from './personal-space/personal-space.componen
 import { ArticleValidationComponent } from './article-validation/article-validation.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { ArticleModificationComponent } from './article-modification/article-modification.component';
+import {ModalModule} from 'ngx-bootstrap';
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
   { path: 'auth/signin', component: SigninComponent },
   { path: 'auth/signup', component: SignupComponent },
   { path: 'addArticles/:id', canActivate: [AuthGuardService], component: AddArticlesComponent},
-  { path: 'personalSpace', component: PersonalSpaceComponent},
-  { path: 'articlesValidation/:id', component: ArticleValidationComponent},
-  { path: 'articleModification/:id/:change', component: ArticleModificationComponent},
+  { path: 'addArticles/:id/:email', canActivate: [AuthGuardService], component: AddArticlesComponent},
+  { path: 'personalSpace',canActivate: [AuthGuardService], component: PersonalSpaceComponent},
+  { path: 'articlesValidation/:id',canActivate: [AuthGuardService], component: ArticleValidationComponent},
+  { path: 'articleModification/:id/:change',canActivate: [AuthGuardService], component: ArticleModificationComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -58,7 +60,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptorService, multi: true },

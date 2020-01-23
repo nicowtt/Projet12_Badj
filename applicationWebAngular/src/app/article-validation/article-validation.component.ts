@@ -18,15 +18,15 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
   articles: any[];
   article: ArticleModel;
   articleConcerned: ArticleModel;
-
-  keyword = 'email';
-  autocompletionEmails = [ ];
   searchForm: FormGroup;
   searchEmail: string;
   submitted = false;
   articlesFilteredByMail: Array<any> = [];
-
   toChange: string;
+
+  // autocompletion
+  keyword = 'email';
+  autocompletionEmails = [ ];
 
   constructor(private route: ActivatedRoute,
               private articlesService: ArticlesService,
@@ -43,9 +43,7 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
     );
     this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
       // this.articlesService.emitArticles();
-    });
-    // get emails for autocompletion
-    setTimeout(() => {
+      // get emails for autocompletion
       let doublon = 0;
       this.articles.forEach(article => {
       if (this.autocompletionEmails.length === 0) {
@@ -59,7 +57,7 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
         doublon = 0;
       }
     });
-    }, 500);
+    });
   }
 
   ngOnDestroy() {
@@ -78,16 +76,21 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectEvent(item: any) {
-    // do something with selected item
-    this.submitted = true;
-    this.articlesFilteredByMail = [];
-    this.searchEmail = item;
-    this.articles.forEach(article => {
-      if (article.user.email === this.searchEmail) {
-        this.articlesFilteredByMail.push(article);
-      }
-    });
+  selectEvent(emailIn: any) {
+    // do something with selected emailIn
+    if ( emailIn === null) {
+      this.articlesFilteredByMail = this.articles;
+    } else {
+      this.submitted = true;
+      this.articlesFilteredByMail = [];
+      this.searchEmail = emailIn;
+      this.articles.forEach(article => {
+        if (article.user.email === this.searchEmail) {
+          this.articlesFilteredByMail.push(article);
+        }
+      });
+    }
+    
   }
 
   onChangeSearch(search: string) {
@@ -128,9 +131,8 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
     });
     this.articlesService.removeArticle(this.articleConcerned, () => {
       this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
-        // this.articlesService.emitArticles();
+        window.location.reload();
       });
-      window.location.reload();
     });
   }
 }

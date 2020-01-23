@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
+    <h4 id="frontTitle">Voici la liste des articles:</h4>
 
     <!-- autocomplétion for filter by email -->
     <div class="searchByMail">
@@ -96,11 +97,17 @@
           <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
         </h5>
 
-        <!-- validation -->
+        <!-- validation action-->
         <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
           (click)="validateArticle(article.id)" class="btn btn-info ">
           <span class="glyphicon glyphicon-save"></span> Valider
         </a>
+        <!-- for remove article -->
+        <a id="deleteArticleButton" *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+          (click)="onDeleteArticle(article.id)" class="btn btn-danger ">
+          <span class="glyphicon glyphicon-trash"></span> Supprimer
+        </a>
+        <!-- validation ok-->
         <h4>
           <a *ngIf="article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
             class="label label-success" aria-disabled="true">
@@ -108,11 +115,7 @@
           </a>
         </h4>
 
-        <!-- for remove article -->
-        <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
-          (click)="onDeleteArticle(article.id)" class="btn btn-danger ">
-          <span class="glyphicon glyphicon-trash"></span> Supprimer
-        </a>
+        
       </button>
     </div>
 
@@ -186,11 +189,17 @@
           <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
         </h5>
 
-        <!-- validation -->
+        <!-- validation action-->
         <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
           (click)="validateArticle(article.id)" class="btn btn-info ">
           <span class="glyphicon glyphicon-save"></span> Valider
         </a>
+        <!-- for remove article -->
+        <a id="deleteArticleButton" *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+          (click)="onDeleteArticle(article.id)" class="btn btn-danger ">
+          <span class="glyphicon glyphicon-trash"></span> Supprimer
+        </a>
+        <!-- validation ok-->
         <h4>
           <a *ngIf="article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
             class="label label-success" aria-disabled="true">
@@ -198,11 +207,7 @@
           </a>
         </h4>
 
-        <!-- for remove article -->
-        <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
-          (click)="onDeleteArticle(article.id)" class="btn btn-danger ">
-          <span class="glyphicon glyphicon-trash"></span> Supprimer
-        </a>
+        
       </button>
     </div>
   </div>

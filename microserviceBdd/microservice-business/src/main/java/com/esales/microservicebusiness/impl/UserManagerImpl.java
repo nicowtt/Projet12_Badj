@@ -132,4 +132,13 @@ public class UserManagerImpl implements UserManager {
     public User findUserByMail(String email) {
         return userDao.findByEmail(email);
     }
+
+    /**
+     * to get all users Emails
+     * @return list
+     */
+    @Override
+    public List<String> getAllUsersEmails() {
+        return userDao.getAllUsersEmails();
+    }
 }
