@@ -66,8 +66,10 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
     this.articlesSubscription.unsubscribe();
   }
 
-  validateArticle(id: number) {
-    this.articleConcerned = this.articles[id];
+  validateArticle(articleId: number) {
+    this.articles.forEach(article => {
+      if (article.id === articleId) { this.articleConcerned = article; }
+    });
     this.articleConcerned.validateToSell = true;
     this.articlesService.updateArticle(this.articleConcerned, () => {
       this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
@@ -97,8 +99,10 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
     // do something
   }
 
-  changeCharacteristics(id: number, characteristic: string) {
-    this.articleConcerned = this.articles[id];
+  changeCharacteristics(articleId: number, characteristic: string) {
+    this.articles.forEach(article => {
+      if (article.id === articleId) { this.articleConcerned = article; }
+    });
     if (this.articleConcerned.validateToSell) {
       this.arlertService.error('L\'article à été validé, il n\'est plus modifiable!');
       setTimeout(() => {
