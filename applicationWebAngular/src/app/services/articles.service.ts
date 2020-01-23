@@ -184,23 +184,19 @@ export class ArticlesService {
 
     recordArticleAlertOk(response: any) {
       this.alertService.success('article enregistré', true);
-      setTimeout(() => {
-        this.alertService.clear();
-      }, 5000);
+      this.timeOutOffAlert5000();
     }
 
     recordArticleAlertNok(error: any) {
       this.alertService.error('Erreur, l\'article n\'as pas été enregistré.');
-      setTimeout(() => {
-        this.alertService.clear();
-      }, 5000);
+      this.timeOutOffAlert5000();
     }
 
     removeArticleAlertOk(response: any) {
       this.alertService.success('Article effacé.');
-                setTimeout(() => {
-                  this.alertService.clear();
-                }, 3000);
+      setTimeout(() => {
+        this.alertService.clear();
+      }, 3000);        
     }
 
   removeArticleAlertNok(error: any) {
@@ -212,6 +208,10 @@ export class ArticlesService {
 
   alertNetworkOff(error: any) {
     this.alertService.error('erreur reseau veuillez recommencer plus tard.');
+    this.timeOutOffAlert5000();
+  }
+
+  timeOutOffAlert5000() {
     setTimeout(() => {
       this.alertService.clear();
     }, 5000);
