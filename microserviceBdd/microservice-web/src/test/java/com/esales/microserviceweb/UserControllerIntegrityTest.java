@@ -101,4 +101,18 @@ public class UserControllerIntegrityTest extends AbstractTest {
         Boolean result = super.mapFromJson(content,Boolean.class);
         assertEquals(true, result);
     }
+
+    @Test
+    public void testAllUsersEmails() throws Exception {
+        String uri = "/allUserEmails";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        String[] emailList = super.mapFromJson(content, String[].class);
+        assertTrue(emailList.length > 0);
+    }
 }

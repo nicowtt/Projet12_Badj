@@ -127,7 +127,7 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
         articleDto.setSale(null);
         articleDto.setClothe(null);
         clothe = new Clothe();
-        //clothe.setArticleId(0); // todo bleme
+        //clothe.setArticleId(0); 
         clothe.setSize("L");
         clothe.setColor("blanche");
         clothe.setGender("homme");
@@ -278,7 +278,6 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     @Test
     public void testRemoveArticle() throws Exception {
         String uri = "/RemoveArticle";
-        // wrong update
         String inputJson = super.mapToJson(articleDto);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

@@ -19,7 +19,7 @@
         
         <span *ngIf="currentUser">
         <!-- functions for voluntary   -->
-        <h5 id="voluntaryFonction">Fonctions pour les bénévoles:</h5>
+        <h5 *ngIf="currentUser.voluntary" id="voluntaryFonction">Fonctions pour les bénévoles:</h5>
         <button *ngIf="currentUser.voluntary" class="btn btn-info" (click)="articlesValidation(i)">Validation</button>
         <span *ngIf="currentUser.voluntary">|</span>
         <button *ngIf="currentUser.voluntary" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal)">Nouvel article</button>
