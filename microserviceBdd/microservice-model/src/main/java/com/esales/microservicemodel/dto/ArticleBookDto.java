@@ -13,29 +13,18 @@ import java.util.Date;
 @ToString
 public class ArticleBookDto {
 
+    private int articleId;
     private String category;
-
     private String type;
-
     private int saleId;
-
     private String name;
-
     private String author;
-
     private double price;
-
     private String comment;
-
     private Date recordDate;
-
     private boolean isValidateToSell;
-
     private boolean isSold;
-
     private boolean isStolen;
-
     private boolean isReturnOwner;
-
     private String userEmail;
 }

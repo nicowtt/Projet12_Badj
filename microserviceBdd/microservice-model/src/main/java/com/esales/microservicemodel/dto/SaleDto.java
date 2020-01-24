@@ -15,16 +15,10 @@ import java.util.Date;
 public class SaleDto {
 
     private int id;
-
     private String type;
-
     private String description;
-
     private Date dateBegin;
-
     private Date dateEnd;
-
     private Address address;
-
     private Integer nbrArticlesPreRecordForUser;
 }

@@ -99,8 +99,7 @@ public class ArticleBookDtoMapperUnitTest {
     public void testFromArticleBookDtoToBook() {
         Book book = articleBookMapperImpl.fromArticleBookDtoToBook(articleBookDto);
 
-        Assert.assertEquals("Book(articleId=0, name=Le signal, author=Maxime Chattam, comment=/, " +
-                "article=null)", book.toString());
+        Assert.assertEquals("Book(articleId=0, name=Le signal, author=Maxime Chattam, comment=/)", book.toString());
     }
 
 

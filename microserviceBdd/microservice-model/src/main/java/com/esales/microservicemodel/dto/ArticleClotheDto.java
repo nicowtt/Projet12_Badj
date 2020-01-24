@@ -13,33 +13,20 @@ import java.util.Date;
 @ToString
 public class ArticleClotheDto {
 
+    private int ArticleId;
     private String category;
-
     private String type;
-
     private int saleId;
-
     private double price;
-
     private String size;
-
     private String gender;
-
     private String material;
-
     private String color;
-
     private String comment;
-
     private Date recordDate;
-
     private boolean isValidateToSell;
-
     private boolean isSold;
-
     private boolean isStolen;
-
     private boolean isReturnOwner;
-
     private String userEmail;
 }

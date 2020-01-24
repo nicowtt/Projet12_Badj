@@ -102,6 +102,6 @@ public class ArticleObjectMapperImplUnitTest {
     public void testFromArticleObjectDtoToObject() {
         Object object = articleObjectMapperImpl.fromArticleObjectDtoToObject(articleObjectDto);
 
-        Assert.assertEquals("Object(articleId=0, brand=laCroix, color=blanc, comment=/, article=null)", object.toString());
+        Assert.assertEquals("Object(articleId=0, brand=laCroix, color=blanc, comment=/)", object.toString());
     }
 }

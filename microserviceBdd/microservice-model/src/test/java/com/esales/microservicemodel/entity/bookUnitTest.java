@@ -17,7 +17,7 @@ public class bookUnitTest {
         book.setComment("erraflures sur tranche");
 
         Assert.assertEquals("Book(articleId=0, name=Le signal, author=Maxime Chattam, " +
-                "comment=erraflures sur tranche, article=null)", book.toString());
+                "comment=erraflures sur tranche)", book.toString());
     }
 
 }

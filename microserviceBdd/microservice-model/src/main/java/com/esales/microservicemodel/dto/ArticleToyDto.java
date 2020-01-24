@@ -12,29 +12,18 @@ import java.util.Date;
 @ToString
 public class ArticleToyDto {
 
+    private int articleId;
     private String category;
-
     private String type;
-
     private int saleId;
-
     private String brand;
-
     private String color;
-
     private double price;
-
     private String comment;
-
     private Date recordDate;
-
     private boolean isValidateToSell;
-
     private boolean isSold;
-
     private boolean isStolen;
-
     private boolean isReturnOwner;
-
     private String userEmail;
 }

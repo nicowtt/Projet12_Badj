@@ -27,7 +27,7 @@ public class ArticleDtoUnitTest {
         articleDto.setBook(null);
         articleDto.setObject(null);
 
-        Assert.assertEquals("ArticleDto(id=10000, category=Vêtement, type=pantalon, saleNumber=1, price=5, " +
+        Assert.assertEquals("ArticleDto(id=10000, category=Vêtement, type=pantalon, saleNumber=1, price=5.0, " +
                 "dateRecord=null, isValidateToSell=false, isSold=false, isStolen=false, isReturnOwner=false, " +
                 "user=null, sale=null, clothe=null, toy=null, book=null, object=null)", articleDto.toString());
 

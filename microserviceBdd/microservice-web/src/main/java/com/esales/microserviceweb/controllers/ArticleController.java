@@ -142,18 +142,60 @@ public class ArticleController {
 
 
     /**
-     * For remove article and get a new user article list
-     * @param articleDto -> to delete
-     * @param userEmail -> user who want the new article list
-     * @return -> article list updated
+     * for remove article
+     * @param articleDto -> to remove
+     * @return ok if removed
      */
-    @PostMapping(value = "/RemoveArticleAndGetNewList/{userEmail}")
-    public List<Article> removeArticleAndGetNewList(@RequestBody ArticleDto articleDto, @PathVariable String userEmail) {
+    @PostMapping(value = "/RemoveArticle")
+    public ResponseEntity<String> removeArticle(@RequestBody ArticleDto articleDto) {
+        boolean articleRemoved = false;
         Article articleToRemove = articleMapper.fromArticleDtoToArticle(articleDto);
-        articleManager.removeArticle(articleToRemove);
-        User userConcerned = userDao.findByEmail(userEmail);
-        List<Article> articlesList = articleManager.getAllArticlesForOneUser(userConcerned.getId());
-        return articlesList;
+        try {
+            articleManager.removeArticle(articleToRemove);
+            articleRemoved = true;
+        } catch (UnexpectedRollbackException e) {
+            logger.warn( "roll back on remove article");
+        }
+        if (articleRemoved) {
+            return (new ResponseEntity<>(HttpStatus.OK));
+        } else {
+            return (new ResponseEntity<>("error on removed article",HttpStatus.INTERNAL_SERVER_ERROR));
+        }
     }
 
+    /**
+     * Get all articles for one sale
+     * @return all articles
+     */
+    @GetMapping(value = "/AllArticlesForSale/{saleId}")
+    public List<Article> getAllArticlesForOneSale(@PathVariable int saleId) {
+        return articleManager.getAllArticlesForOneSale(saleId);
+    }
+
+    /**
+     * For update any sort of articles
+     * @param articleDto -> input
+     * @return 200 if article is updated
+     */
+    @PostMapping(value = "/UpdateArticle", consumes = "application/json")
+    public ResponseEntity<String> updateArticle(@RequestBody ArticleDto articleDto) {
+        boolean articleIsUpdated = articleManager.updateArticle(articleDto);
+        if (articleIsUpdated) {
+            return (new ResponseEntity<>(HttpStatus.OK));
+        } else {
+            return (new ResponseEntity<>("error on article update",HttpStatus.INTERNAL_SERVER_ERROR));
+        }
+    }
+
+    /**
+     * for get one article with his id
+     * @param articleId -> from front
+     * @return article
+     */
+    @GetMapping(value = "/getOneArticle/{articleId}")
+    public Article getOneArticleWithArticleId(@PathVariable int articleId) {
+        Article article = articleDao.getArticlesById(articleId);
+        System.out.println(article.toString());
+        return article;
+    }
 }

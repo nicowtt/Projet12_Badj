@@ -2,16 +2,10 @@ package com.esales.microservicebusiness.impl;
 
 import com.esales.microservicebusiness.contract.ArticleManager;
 import com.esales.microservicedao.*;
-import com.esales.microservicemodel.dto.ArticleBookDto;
-import com.esales.microservicemodel.dto.ArticleClotheDto;
-import com.esales.microservicemodel.dto.ArticleObjectDto;
-import com.esales.microservicemodel.dto.ArticleToyDto;
+import com.esales.microservicemodel.dto.*;
 import com.esales.microservicemodel.entity.*;
 import com.esales.microservicemodel.entity.Object;
-import com.esales.microservicemodel.mapper.contract.ArticleBookMapper;
-import com.esales.microservicemodel.mapper.contract.ArticleClotheMapper;
-import com.esales.microservicemodel.mapper.contract.ArticleObjectMapper;
-import com.esales.microservicemodel.mapper.contract.ArticleToyMapper;
+import com.esales.microservicemodel.mapper.contract.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +20,9 @@ public class ArticleManagerImpl implements ArticleManager {
 
     @Autowired
     private ArticleDao articleDao;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     @Autowired
     private ArticleBookMapper articleBookMapper;
@@ -199,6 +196,7 @@ public class ArticleManagerImpl implements ArticleManager {
      * @param article to delete
      */
     @Override
+    @Transactional
     public void removeArticle(Article article) {
         if (article.getBook() != null) {
             bookDao.delete(article.getBook());
@@ -213,5 +211,44 @@ public class ArticleManagerImpl implements ArticleManager {
             toyDao.delete(article.getToy());
         }
         articleDao.delete(article);
+    }
+
+    /**
+     * get All Articles For One Sale
+     * @param saleId for articles
+     * @return list of articles
+     */
+    @Override
+    public List<Article> getAllArticlesForOneSale(int saleId) {
+        return articleDao.getAllArticlesBySaleId(saleId);
+    }
+
+    /**
+     * for update one article
+     * @param articleDto -> from front
+     * @return true if article is updated
+     */
+    @Override
+    public boolean updateArticle(ArticleDto articleDto) {
+        Article articleToUpdate = articleMapper.fromArticleDtoToArticle(articleDto);
+        try {
+            articleDao.save(articleToUpdate);
+            if (articleDto.getBook() != null) {
+                bookDao.save(articleToUpdate.getBook());
+            }
+            if (articleDto.getClothe() != null) {
+                clotheDao.save(articleDto.getClothe());
+            }
+            if (articleDto.getObject() != null) {
+                objectDao.save(articleDto.getObject());
+            }
+            if ((articleDto.getToy() != null)) {
+                toyDao.save(articleDto.getToy());
+            }
+            return true;
+        } catch (DataIntegrityViolationException e) {
+            logger.warn("write error on update article");
+            return false;
+        }
     }
 }

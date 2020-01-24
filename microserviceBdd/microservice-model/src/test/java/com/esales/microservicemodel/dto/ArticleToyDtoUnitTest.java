@@ -39,8 +39,8 @@ public class ArticleToyDtoUnitTest {
         articleToyDto.setUserEmail("bruce.lee@gmail.com");
         articleToyDto.setValidateToSell(false);
 
-        Assert.assertEquals("ArticleToyDto(category=Jouet, type=jouet éléctronique, saleId=1, " +
-                "brand=bandai, color=bleu, price=5.0, comment=Rayure derrière, " +
+        Assert.assertEquals("ArticleToyDto(articleId=0, category=Jouet, type=jouet éléctronique, " +
+                "saleId=1, brand=bandai, color=bleu, price=5.0, comment=Rayure derrière, " +
                 "recordDate=Fri Jan 10 00:00:00 UTC 2020, isValidateToSell=false, isSold=false, isStolen=false, " +
                 "isReturnOwner=false, userEmail=bruce.lee@gmail.com)", articleToyDto.toString());
     }

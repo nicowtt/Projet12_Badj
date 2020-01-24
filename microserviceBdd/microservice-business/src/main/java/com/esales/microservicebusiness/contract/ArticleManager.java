@@ -1,9 +1,6 @@
 package com.esales.microservicebusiness.contract;
 
-import com.esales.microservicemodel.dto.ArticleBookDto;
-import com.esales.microservicemodel.dto.ArticleClotheDto;
-import com.esales.microservicemodel.dto.ArticleObjectDto;
-import com.esales.microservicemodel.dto.ArticleToyDto;
+import com.esales.microservicemodel.dto.*;
 import com.esales.microservicemodel.entity.Article;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +15,6 @@ public interface ArticleManager {
     boolean addNewToyArticle(ArticleToyDto articleToyDto, int userId);
     List<Article> getAllArticlesForOneUser(int userId);
     void removeArticle(Article article);
+    List<Article> getAllArticlesForOneSale(int saleId);
+    boolean updateArticle(ArticleDto articleDto);
 }

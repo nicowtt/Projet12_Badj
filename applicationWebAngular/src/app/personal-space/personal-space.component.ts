@@ -1,9 +1,6 @@
+import { UserService } from './../services/user.service';
 import { Router } from '@angular/router';
 import { ArticleModel } from './../models/Article.model';
-import { ArticleObjectModel } from './../models/ArticleObject.model';
-import { ArticleToyModel } from './../models/ArticleToy.model';
-import { ArticleBookModel } from './../models/ArticleBook.model';
-import { ArticleClotheModel } from './../models/ArticleClothe.model';
 import { AuthService } from './../services/auth.service';
 import { AlertService } from './../services/alert.service';
 import { ArticlesService } from './../services/articles.service';
@@ -27,7 +24,8 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
   constructor(private articlesService: ArticlesService,
               private alertService: AlertService,
               private authService: AuthService,
-              private router: Router) { 
+              private router: Router,
+              private userService: UserService) { 
                 this.authService.currentUser.subscribe(x => this.currentUser = x);
               }
 
@@ -39,8 +37,11 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
     )
     console.log('current user email: ' + this.currentUser.email);
     if (this.authService.currentUserValue) {
+      // check token is valid
+      this.userService.isTokenAlreadyValid(() => {
       this.articlesService.getAllArticlesForOneUser(this.currentUser.email);
       this.articlesService.emitArticles();
+      })
     }
   }
 
@@ -51,12 +52,9 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
   onDeleteArticle(id: number) {
     this.articleConcerned = this.articles[id];
     console.log('article concerné: ' + this.articleConcerned.id);
-    this.articlesService.removeObjectAndGetNewList(this.articleConcerned, this.currentUser.email);
-    this.articlesService.emitArticles();
-    this.router.navigate(['/personalSpace']);
-    this.alertService.success('L\'article a bien été supprimé', true);
-    setTimeout(() => {
-      this.alertService.clear();
-    }, 3000);
+    this.articlesService.removeArticle(this.articleConcerned, () => {
+      this.articlesService.getAllArticlesForOneUser(this.currentUser.email);
+      this.articlesService.emitArticles();
+    });
   }
 }

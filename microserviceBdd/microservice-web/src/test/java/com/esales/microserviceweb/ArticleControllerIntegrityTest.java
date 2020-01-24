@@ -3,6 +3,8 @@ package com.esales.microserviceweb;
 import com.esales.microservicemodel.dto.*;
 import com.esales.microservicemodel.entity.Article;
 import com.esales.microservicemodel.entity.Clothe;
+import com.esales.microservicemodel.entity.Sale;
+import com.esales.microservicemodel.entity.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -28,6 +30,8 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     private ArticleToyDto articleToyDto;
     private ArticleDto articleDto;
     private Clothe clothe;
+    private User user;
+    private Sale sale;
 
     @Override
     @Before
@@ -123,7 +127,7 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
         articleDto.setSale(null);
         articleDto.setClothe(null);
         clothe = new Clothe();
-//        clothe.setArticleId(4); // todo bleme
+        //clothe.setArticleId(0); 
         clothe.setSize("L");
         clothe.setColor("blanche");
         clothe.setGender("homme");
@@ -134,6 +138,14 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
         articleDto.setToy(null);
         articleDto.setBook(null);
         articleDto.setObject(null);
+
+        user = new User();
+        user.setId(0);
+        articleDto.setUser(user);
+
+        sale = new Sale();
+        sale.setId(1);
+        articleDto.setSale(sale);
 
 
     }
@@ -168,7 +180,7 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     }
 
     @Test
-    public void testAddObjectArticle() throws Exception {
+    public void testAddObjectArticleWrongAdd() throws Exception {
         String uri = "/NewObjectArticle";
         //wrong add
         articleObjectDto.setCategory(null);
@@ -198,7 +210,7 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
     }
 
     @Test
-    public void testAddBookArticle() throws Exception {
+    public void testAddBookArticleWrongAdd() throws Exception {
         String uri = "/NewBookArticle";
         // wrong add
         articleBookDto.setCategory(null);
@@ -226,48 +238,52 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
         assertTrue(articleslist.length > 0);
     }
 
-//    @Test
-//    public void testRemoveArticleAndGetNewList() throws Exception {
-//        // remove new toy
-//        String uriRemove = "/RemoveArticleAndGetNewList/bruce.lee@gmail.com";
-//        String inputJson = super.mapToJson(articleDto);
-//        MvcResult mvcResultRemove = mvc.perform(MockMvcRequestBuilders.post(uriRemove)
-//                .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                .content(inputJson)).andReturn();
-//
-//        int status = mvcResultRemove.getResponse().getStatus();
-////        assertEquals(200, status);
-//
-//        String content = mvcResultRemove.getResponse().getContentAsString();
-//        Article[] articleslist = super.mapFromJson(content, Article[].class);
-//        long nbrArticlesList = Arrays.stream(articleslist).count();
-//
-//        assertTrue(nbrArticlesList == 0);
-//    }
+    @Test
+    public void testGetAllArticleForOneSale() throws Exception {
+        String uri = "/AllArticlesForSale/1";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
-//    @Test
-//    public void testAddToyArticle() throws Exception {
-//        String uri = "/NewToyArticle";
-//
-//        String inputJson = super.mapToJson(articleToyDto);
-//        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-//                .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                .content(inputJson)).andReturn();
-//
-//        int status = mvcResult.getResponse().getStatus();
-//        assertEquals(201, status);
-//    }
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
 
-//    @Test
-//    public void testAddClotheArticle() throws Exception {
-//        String uri = "/NewClotheArticle";
-//
-//        String inputJson = super.mapToJson(articleClotheDto);
-//        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-//                .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                .content(inputJson)).andReturn();
-//
-//        int status = mvcResult.getResponse().getStatus();
-//        assertEquals(201, status);
-//    }
+        String content = mvcResult.getResponse().getContentAsString();
+        Article[] articleslist = super.mapFromJson(content, Article[].class);
+        assertTrue(articleslist.length > 0);
+    }
+
+    @Test
+    public void testForUpdateArticleWrongUpdate() throws Exception {
+        String uri = "/UpdateArticle";
+        // wrong update
+        String inputJson = super.mapToJson(articleDto);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(500, status);
+    }
+
+    @Test
+    public void testGetOneArticleWithArticleId() throws  Exception {
+        String uri = "/getOneArticle/1";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
+
+    @Test
+    public void testRemoveArticle() throws Exception {
+        String uri = "/RemoveArticle";
+        String inputJson = super.mapToJson(articleDto);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
 }

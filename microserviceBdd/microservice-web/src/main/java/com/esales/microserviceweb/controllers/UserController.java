@@ -105,4 +105,13 @@ public class UserController {
     public boolean userStateChange() {
         return true;
     }
+
+    /**
+     * to get all users Emails
+     * @return list
+     */
+    @GetMapping(value = "/allUserEmails")
+    public List<String> allUsersEmails() {
+        return userManager.getAllUsersEmails();
+    }
 }

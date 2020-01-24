@@ -12,7 +12,6 @@ export class HeaderInterceptorService implements HttpInterceptor {
     // Get the auth token from localStorage
     let bearer = 'Bearer ';
     let authToken = localStorage.getItem('currentUserToken');
-    // let authToken = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNTc3Nzk1MjExLCJpYXQiOjE1Nzc3NzcyMTF9.m_5mJY33zkwkV85gP0of8bwx-ZlrpXGD0yw9Rdm3NHlh-GU1Ys_a6gDUGB-kUuLG6C4urQ5fZCXPbVv7dPBAhA';
     
       if (authToken && this.authService.currentUserValue) {
         let cleanToken = authToken.replace(/"/g, '');

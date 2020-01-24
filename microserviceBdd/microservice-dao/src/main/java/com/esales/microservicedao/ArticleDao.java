@@ -18,4 +18,9 @@ public interface ArticleDao extends JpaRepository<Article, Integer> {
 
     @Query(value = "SELECT * FROM articles WHERE user_id = ?1", nativeQuery = true)
     List<Article> getAllArticlesByUserId(int userId);
+
+    @Query(value = "SELECT * FROM articles WHERE sale_id = ?1", nativeQuery = true)
+    List<Article> getAllArticlesBySaleId(int saleId);
+
+    Article getArticlesById(int id);
 }
