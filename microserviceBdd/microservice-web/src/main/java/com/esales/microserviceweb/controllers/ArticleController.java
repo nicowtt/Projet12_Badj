@@ -16,6 +16,7 @@ import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ArticleController {
@@ -193,9 +194,20 @@ public class ArticleController {
      * @return article
      */
     @GetMapping(value = "/getOneArticle/{articleId}")
-    public Article getOneArticleWithArticleId(@PathVariable int articleId) {
-        Article article = articleDao.getArticlesById(articleId);
-        System.out.println(article.toString());
-        return article;
+    public Optional<Article> getOneArticleWithSaleNumberAndSaleId(@PathVariable int articleId) {
+        return Optional.ofNullable(articleDao.getArticlesById(articleId));
     }
+
+    /**
+     * for get article with saleNumber and saleId
+     * @param saleNumber -> from front
+     * @param saleId -> from front
+     * @return article
+     */
+    @GetMapping(value = "/getOneArticleWithSaleNumberAndSaleId/{saleNumber}/{saleId}")
+    public Optional<Article> getOneArticleWithArticleId(@PathVariable int saleNumber, @PathVariable int saleId) {
+        return articleManager.getOneArticleWithSaleNumberAndSaleId(saleNumber, saleId);
+    }
+
+
 }

@@ -26,6 +26,7 @@ import { ArticleValidationComponent } from './article-validation/article-validat
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { ArticleModificationComponent } from './article-modification/article-modification.component';
 import {ModalModule} from 'ngx-bootstrap';
+import { CashArticlesComponent } from './cash-articles/cash-articles.component';
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
   { path: 'personalSpace',canActivate: [AuthGuardService], component: PersonalSpaceComponent},
   { path: 'articlesValidation/:id',canActivate: [AuthGuardService], component: ArticleValidationComponent},
   { path: 'articleModification/:id/:change',canActivate: [AuthGuardService], component: ArticleModificationComponent},
+  { path: 'cashArticles/:saleId', canActivate: [AuthGuardService], component: CashArticlesComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -51,7 +53,8 @@ const appRoutes: Routes = [
     AddArticlesComponent,
     PersonalSpaceComponent,
     ArticleValidationComponent,
-    ArticleModificationComponent
+    ArticleModificationComponent,
+    CashArticlesComponent
 
   ],
   imports: [

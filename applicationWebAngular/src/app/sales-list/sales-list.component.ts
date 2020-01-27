@@ -211,4 +211,12 @@ export class SalesListComponent implements OnInit, OnDestroy {
     console.log('bourse id concernée: ' + saleId);
     this.router.navigate(['addArticles/' + saleId + '/' + emailIn]);
     }
+  
+  /**
+   * For cash articles
+   * @param saleId 
+   */
+  cashArticles(saleId: number) {
+    this.router.navigate(['cashArticles/' + saleId]);
+  }
 }

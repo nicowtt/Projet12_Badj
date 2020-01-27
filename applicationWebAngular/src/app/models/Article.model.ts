@@ -12,9 +12,9 @@ export class ArticleModel {
     price: number;
     dateRecord: Date;
     validateToSell: boolean;
-    isSold: boolean;
-    isStolen: boolean;
-    isReturnOwner: boolean;
+    sold: boolean;
+    stolen: boolean;
+    ReturnOwner: boolean;
     user: UserModel;
     sale: Sale;
     clothe: ArticleClotheModel;

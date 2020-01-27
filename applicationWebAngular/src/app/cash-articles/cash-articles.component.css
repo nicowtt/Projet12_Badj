@@ -1,0 +1,36 @@
+.raw {
+    font-family: georgia, "trebuchet ms", arial, serif;
+  }
+
+#superTitle {
+    text-align: center;
+}
+
+
+#displayPriceText {
+    border-top: 1px solid #ccc;
+}
+
+#displayPriceNumber {
+    font-weight: bold;
+    font-size: 200%;
+    float: right;
+}
+
+.form-control{
+    width: 70px;
+}
+
+#displayRefundText {
+    border-top: 1px solid #ccc;
+}
+
+#displayRefundNumber {
+    font-weight: bold;
+    font-size: 200%;
+    float: right;
+}
+
+#validTransaction {
+    float: right;
+}

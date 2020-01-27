@@ -1,0 +1,70 @@
+<div class="raw">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <h2 id="superTitle" >Encaissement d'articles</h2>
+    <br>
+    <form [formGroup]="articleForm" (ngSubmit)="onSubmitArticle()">
+
+      <div class="form-group">
+
+        <label for="number">Veuillez ajouter un numéro d'article:</label>
+        <input type="number" id="articleNumber" class="form-control" formControlName="articleNumber" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.articleNumber.errors }" />
+        <div *ngIf="f.articleNumber.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.articleNumber.errors.pattern">Le chiffre doit être supérieur à 0.</div>
+        </div>
+
+        <p></p>
+        <button class="btn btn-primary" type="submit">Ajouter</button>
+
+      </div>
+    </form>
+
+    <!-- display cash article list in progress -->
+    <div class="articleCashList" *ngFor="let article of articlesCashList; let i = index">
+      <h5>{{article.saleNumber}} -- Catégorie: {{article.category}} -- Type: {{article.type}} -- Prix:
+        {{article.price}}€</h5>
+      <button type="button" class="btn btn-alert" (click)="removeArticle(i)">Supprimer</button>
+    </div>
+    
+
+    <p></p>
+    <p></p>
+    <div id="displayPriceText" *ngIf="resultWithTenPerCent > 0">Total à payer + 10%:
+      <span id="displayPriceNumber">{{resultWithTenPerCent | currency :'EUR'}}</span>
+    </div>
+
+    <br>
+    <br>
+    <!-- refund help form-->
+    <form [formGroup]="givenForm" (ngSubmit)="onSubmitGiven()">
+
+      <div class="form-group">
+        <label for="number">Veuillez écrire la somme donné par le client:</label>
+        <input type="number" id="givenNumber" class="form-control" formControlName="givenNumber" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && g.givenNumber.errors }" />
+        <div *ngIf="g.givenNumber.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && g.givenNumber.errors.pattern">Le chiffre doit être supérieur à 0.</div>
+        </div>
+
+        <p></p>
+        <button class="btn btn-info" type="submit">Calcul rembourssement</button>
+
+      </div>
+    </form>
+
+    <div id="displayRefundText" *ngIf="refund > 0">Somme à rembourser:
+      <span id="displayRefundNumber">{{refund | currency :'EUR'}}</span>
+    </div>
+    
+    <br>
+    <br>
+    <!-- validation action-->
+    <a id="validTransaction" (click)="validateCash()" class="btn btn-warning">
+      <span class="glyphicon glyphicon-save"></span> Valider la transaction
+    </a>
+
+    </div>
+</div>
+  
+  

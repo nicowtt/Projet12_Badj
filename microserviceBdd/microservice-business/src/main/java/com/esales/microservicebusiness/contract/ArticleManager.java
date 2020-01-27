@@ -5,6 +5,7 @@ import com.esales.microservicemodel.entity.Article;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface ArticleManager {
@@ -17,4 +18,5 @@ public interface ArticleManager {
     void removeArticle(Article article);
     List<Article> getAllArticlesForOneSale(int saleId);
     boolean updateArticle(ArticleDto articleDto);
+    Optional<Article> getOneArticleWithSaleNumberAndSaleId(int saleNumber, int saleId);
 }

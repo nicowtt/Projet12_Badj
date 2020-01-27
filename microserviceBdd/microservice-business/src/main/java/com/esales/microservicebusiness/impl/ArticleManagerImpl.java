@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ArticleManagerImpl implements ArticleManager {
@@ -251,4 +252,16 @@ public class ArticleManagerImpl implements ArticleManager {
             return false;
         }
     }
+
+    /**
+     * for get one article ith saleNumber and saleId
+     * @param saleNumber
+     * @param saleId
+     * @return
+     */
+    @Override
+    public Optional<Article> getOneArticleWithSaleNumberAndSaleId(int saleNumber, int saleId) {
+        return Optional.ofNullable(articleDao.getArticleBySaleNumberAndSaleId(saleNumber, saleId));
+    }
+
 }
