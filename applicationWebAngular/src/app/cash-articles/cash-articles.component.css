@@ -34,3 +34,17 @@
 #validTransaction {
     float: right;
 }
+
+label {
+    display: block;
+    float: left;
+    margin-top: 9px;
+    margin-right: 5px;
+}
+
+.articleNumber{
+    display: block;
+    float: left;
+}
+
+

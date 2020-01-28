@@ -106,6 +106,8 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
     this.articlesCashList.splice(indexId,1);
     this.findResult();
     this.findResultWith10PourCent();
+    this.givenForm.reset();
+    this.refund = 0;
   }
 
   alertArticleDontExist() {
