@@ -162,8 +162,8 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
       this.articlesService.updateArticle(article, () => {
         this.alertService.success('la transaction est validé', true);
         setTimeout(() => {
-          this.alertService.clear();
           window.location.reload();
+          this.alertService.clear();
         }, 3000);
       })
     });

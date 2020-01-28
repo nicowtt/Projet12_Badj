@@ -26,6 +26,8 @@ export class SalesListComponent implements OnInit, OnDestroy {
   // modal searchEmail
   modalRef: BsModalRef;
   userEmailsSubscription: Subscription;
+  newArticle: boolean;
+  refoundArticle: boolean;
   // autocompletion
   userEmailsListForAutocompletion: string[ ];
   keyword = 'email';
@@ -82,6 +84,8 @@ export class SalesListComponent implements OnInit, OnDestroy {
       this.salesService.getSales();
       this.salesService.emmitSales();
     }
+    this.newArticle = false;
+    this.refoundArticle = false;
   }
 
   ngOnDestroy() {
@@ -196,7 +200,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
    * show email modal
    * @param findEmailModal 
    */
-  findEmailWithModal(findEmailModal: TemplateRef<any>) {
+  findEmailWithModal(findEmailModal: TemplateRef<any>, from: string) {
+    if (from === 'newArticle') { this.newArticle = true; }
+    if (from === 'refundArticle') { this.refoundArticle = true; }
     this.modalRef = this.modalService.show(findEmailModal);
   }
 
@@ -209,7 +215,8 @@ export class SalesListComponent implements OnInit, OnDestroy {
     // do something with selected emailIn
     console.log('email de la personne pour enregistrer l\'article: ' + emailIn);
     console.log('bourse id concernée: ' + saleId);
-    this.router.navigate(['addArticles/' + saleId + '/' + emailIn]);
+    if (this.newArticle) { this.router.navigate(['addArticles/' + saleId + '/' + emailIn]); }
+    if (this.refoundArticle) { this.router.navigate(['articlesRefound/' + saleId + '/' + emailIn]); }
     }
   
   /**
@@ -218,5 +225,9 @@ export class SalesListComponent implements OnInit, OnDestroy {
    */
   cashArticles(saleId: number) {
     this.router.navigate(['cashArticles/' + saleId]);
+  }
+
+  refoundArticles(saleId: number) {
+    this.router.navigate(['articlesRefound/' + saleId]);
   }
 }
