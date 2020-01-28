@@ -90,7 +90,7 @@ public class ArticleManagerImpl implements ArticleManager {
             newBookFromDto.setArticle(newArticle);
             bookDao.save(newBookFromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.warn("SaleId and SaleNumber must be unique.");
+            logger.warn("Book saleId and SaleNumber must be unique.");
         }
         return true;
     }
@@ -119,7 +119,7 @@ public class ArticleManagerImpl implements ArticleManager {
             newObjectFromDto.setArticle(newArticle);
             objectDao.save(newObjectFromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.warn("SaleId and SaleNumber must be unique.");
+            logger.warn("Object saleId and SaleNumber must be unique.");
         }
         return true;
     }
@@ -148,7 +148,7 @@ public class ArticleManagerImpl implements ArticleManager {
             newClotheFromDto.setArticle(newArticle);
             clotheDao.save(newClotheFromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.warn("SaleId and SaleNumber must be unique.");
+            logger.warn("Clothe saleId and SaleNumber must be unique.");
         }
         return true;
     }
@@ -177,7 +177,7 @@ public class ArticleManagerImpl implements ArticleManager {
             newToyfromDto.setArticle(newArticle);
             toyDao.save(newToyfromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.warn("SaleId and SaleNumber must be unique.");
+            logger.warn("Toy saleId and SaleNumber must be unique.");
         }
         return true;
     }

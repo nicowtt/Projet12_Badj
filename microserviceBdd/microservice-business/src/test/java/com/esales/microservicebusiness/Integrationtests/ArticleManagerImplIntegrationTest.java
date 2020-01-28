@@ -428,5 +428,20 @@ public class ArticleManagerImplIntegrationTest {
         Assert.assertTrue(updatedToyArticle.getToy().getColor().equals("rouge"));
     }
 
+    @Test
+    public void testGetOneArticleWithSaleNumberAndSaleId() {
+        // add new Toy
+        userManagerImpl.addUser(userDtoTest);
+        User user = userManagerImpl.findUserByMail("test@test.com");
+        articleManagerImpl.addNewToyArticle(articleToyDto, user.getId());
+        List<Article> listArticlesForUserTest = articleManagerImpl.getAllArticlesForOneUser(user.getId());
+        int articleSaleId = listArticlesForUserTest.get(0).getSale().getId();
+        int articleSaleNumber = listArticlesForUserTest.get(0).getSaleNumber();
+        Optional<Article> articleForTest = articleManagerImpl.getOneArticleWithSaleNumberAndSaleId(articleSaleNumber,articleSaleId);
+
+        Assert.assertTrue(articleForTest.isPresent());
+
+    }
+
 
 }
