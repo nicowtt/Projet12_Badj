@@ -23,6 +23,8 @@
         <button *ngIf="currentUser.voluntary" class="btn btn-info" (click)="articlesValidation(i)">Validation</button>
         <span *ngIf="currentUser.voluntary">|</span>
         <button *ngIf="currentUser.voluntary" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal)">Nouvel article</button>
+        <span *ngIf="currentUser.voluntary">|</span>
+        <button *ngIf="currentUser.voluntary" type="button" class="btn btn-info" (click)="cashArticles(sale.id)">Encaisser</button>
 
         <ng-template #findEmailModal>
           <div class="modal-header">

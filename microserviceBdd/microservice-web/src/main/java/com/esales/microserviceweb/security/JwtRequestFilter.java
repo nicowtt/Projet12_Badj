@@ -26,7 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    static final Log logger = LogFactory.getLog(JwtRequestFilter.class);
+    private static final Log logger = LogFactory.getLog(JwtRequestFilter.class);
 
     /**
      * filter for check if there is a token on the header of request
@@ -39,13 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        // info
-//        Enumeration<String> headerNames = request.getHeaderNames();
-//        while(headerNames.hasMoreElements()){
-//            String headerName = headerNames.nextElement();
-//            System.out.println("headerName " + headerName);
-//            System.out.println("headerVal " + request.getHeader(headerName));
-//        }
+
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");

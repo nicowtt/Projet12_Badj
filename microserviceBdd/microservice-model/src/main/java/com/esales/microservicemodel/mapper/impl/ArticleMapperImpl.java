@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArticleMapperImpl implements ArticleMapper {
 
-    private User user;
-    private Sale sale;
+    private User userFromArticleDto;
+    private Sale saleFromArticleDto;
 
 
     /**
@@ -37,13 +37,13 @@ public class ArticleMapperImpl implements ArticleMapper {
         article.setBook(articleDto.getBook());
         article.setToy(articleDto.getToy());
 
-        user = new User();
-        user.setId(articleDto.getUser().getId());
-        article.setUser(user);
+        userFromArticleDto = new User();
+        userFromArticleDto.setId(articleDto.getUser().getId());
+        article.setUser(userFromArticleDto);
 
-        sale = new Sale();
-        sale.setId(articleDto.getSale().getId());
-        article.setSale(sale);
+        saleFromArticleDto = new Sale();
+        saleFromArticleDto.setId(articleDto.getSale().getId());
+        article.setSale(saleFromArticleDto);
 
         return article;
     }

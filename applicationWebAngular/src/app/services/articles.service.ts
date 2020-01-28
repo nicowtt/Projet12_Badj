@@ -164,7 +164,7 @@ export class ArticlesService {
     }
 
     /**
-     * to update article
+     * to get one article per id
      * @param articleId -> input
      */
     getOneArticle(articleId: number, onSuccess: Function) {
@@ -177,10 +177,31 @@ export class ArticlesService {
                 onSuccess();
             },
             (error) => {
+              console.log(error);
               this.alertNetworkOff(error);
             }
         );
     }
+
+    /**
+     * to get one article per saleNumber(id)
+     * @param articleId -> input
+     */
+    getOneArticleWithSaleNumberAndSaleId(saleNumber: number, saleId: number, onSuccess: Function) {
+      return this.http
+      .get<ArticleModel>('/getOneArticleWithSaleNumberAndSaleId/' + saleNumber + '/' +saleId )
+      .subscribe(
+          (response) => {
+              this.article = response;
+              this.emitArticles();
+              onSuccess();
+          },
+          (error) => {
+            console.log(error);
+            this.alertNetworkOff(error);
+          }
+      );
+  }
 
     recordArticleAlertOk(response: any) {
       this.alertService.success('article enregistré', true);

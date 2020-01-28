@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ArticleManagerImpl implements ArticleManager {
@@ -89,7 +90,7 @@ public class ArticleManagerImpl implements ArticleManager {
             newBookFromDto.setArticle(newArticle);
             bookDao.save(newBookFromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.warn("SaleId and SaleNumber must be unique.");
+            logger.warn("Book saleId and SaleNumber must be unique.");
         }
         return true;
     }
@@ -118,7 +119,7 @@ public class ArticleManagerImpl implements ArticleManager {
             newObjectFromDto.setArticle(newArticle);
             objectDao.save(newObjectFromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.warn("SaleId and SaleNumber must be unique.");
+            logger.warn("Object saleId and SaleNumber must be unique.");
         }
         return true;
     }
@@ -147,7 +148,7 @@ public class ArticleManagerImpl implements ArticleManager {
             newClotheFromDto.setArticle(newArticle);
             clotheDao.save(newClotheFromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.warn("SaleId and SaleNumber must be unique.");
+            logger.warn("Clothe saleId and SaleNumber must be unique.");
         }
         return true;
     }
@@ -176,7 +177,7 @@ public class ArticleManagerImpl implements ArticleManager {
             newToyfromDto.setArticle(newArticle);
             toyDao.save(newToyfromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.warn("SaleId and SaleNumber must be unique.");
+            logger.warn("Toy saleId and SaleNumber must be unique.");
         }
         return true;
     }
@@ -251,4 +252,16 @@ public class ArticleManagerImpl implements ArticleManager {
             return false;
         }
     }
+
+    /**
+     * for get one article ith saleNumber and saleId
+     * @param saleNumber
+     * @param saleId
+     * @return
+     */
+    @Override
+    public Optional<Article> getOneArticleWithSaleNumberAndSaleId(int saleNumber, int saleId) {
+        return Optional.ofNullable(articleDao.getArticleBySaleNumberAndSaleId(saleNumber, saleId));
+    }
+
 }

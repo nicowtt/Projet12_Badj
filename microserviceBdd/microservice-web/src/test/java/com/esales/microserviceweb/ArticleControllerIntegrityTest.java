@@ -286,4 +286,14 @@ public class ArticleControllerIntegrityTest extends AbstractTest{
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
     }
+
+    @Test
+    public void testGetOneArticleWithSaleNumberAndSaleId() throws Exception {
+        String uri = "/getOneArticleWithSaleNumberAndSaleId/1/1";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
 }
