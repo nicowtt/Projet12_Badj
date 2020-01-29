@@ -1,14 +1,17 @@
 <div class="row">
   <div class="col-xs-12">
     <div id="refundResult">
-        <h4>Resumé du rembourssement des {{articleTotalNbr}} articles:</h4>
+        <h4>Resumé du remboursement des {{articleTotalNbr}} articles:</h4>
         <p>{{articleSoldNbr}} article(s) vendu(s).<br>
          {{articleStolenNbr}} article(s) volé(s).
         </p>
     
-        <p id="sommeToRefund" >Somme à rembourser au client (10% badj enlevé): <span id="sommeToRefundNbr">{{refoundTotal | currency :'EUR'}}</span></p>
+        <p id="sommeToRefund" >Somme à rembourser au client (10% badj enlevé): 
+          <span *ngIf="!allArticleOk" id="sommeToRefundNbr">{{refoundTotal | currency :'EUR'}}</span></p>
+          <span *ngIf="allArticleOk" id="hiddenRefund">veuillez rendre les articles pour voir la somme à rembourser.</span>
     </div>
 
+    <br>
     <br>
     <br>
     <div class="list-group">
@@ -102,12 +105,12 @@
 
         <a id="buttonDeclareStolen" *ngIf="!article.sold && !article.stolen && !article.returnOwner"
           (click)="onDeclareStolen(article.id)" class="btn btn-danger ">
-          <span></span> Déclarer l'article volé
+          <span></span> Article volé
         </a>
 
         <a id="buttonDeclareReturnOwner" *ngIf="!article.sold && !article.stolen && !article.returnOwner"
           (click)="onDeclareReturnOwner(article.id)" class="btn btn-info ">
-          <span></span> Déclarer l'article rendu au propriétaire
+          <span></span> Article rendu au propriétaire
         </a>
 
       </button>

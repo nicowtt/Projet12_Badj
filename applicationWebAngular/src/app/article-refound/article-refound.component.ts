@@ -1,3 +1,4 @@
+import { ArticleModel } from './../models/Article.model';
 import { ArticlesService } from './../services/articles.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -22,6 +23,8 @@ export class ArticleRefoundComponent implements OnInit, OnDestroy {
 
   refoundTotal: number = 0;
 
+  allArticleOk: boolean = false;
+
   constructor(private route: ActivatedRoute,
     private articlesService: ArticlesService) { }
 
@@ -39,6 +42,7 @@ export class ArticleRefoundComponent implements OnInit, OnDestroy {
       this.countArticleSold();
       this.countArticleStolen();
       this.countRefoundTotal();
+      this.checkIfAllArticleIsOk();
     })
 
   }
@@ -107,4 +111,13 @@ export class ArticleRefoundComponent implements OnInit, OnDestroy {
     });
   }
 
+  checkIfAllArticleIsOk() {
+    this.articlesList.forEach(article => {
+      if (!article.returnOwner && !article.stolen) {
+        this.allArticleOk = true;
+      } else {
+        this.allArticleOk = false;
+      }
+    });
+  }
 }

@@ -73,7 +73,6 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
       return;
     }
 
-
     // get article on bdd and add on articleCashList
     this.articlesService.getOneArticleWithSaleNumberAndSaleId(this.f.articleNumber.value, this.saleId, () => {
       // add article only if present on sale concerned 
@@ -88,22 +87,26 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
           if (this.articleConcerned.returnOwner) {
             this.alertArticleIsReturnOwner();
           } else {
-            if (this.articleConcerned.sale.id == this.saleId) {
-              // avoid doublon
-              let doublon = false;
-              this.articlesCashList.forEach(article => {
-                if (article.id === this.articleConcerned.id) { doublon = true; }
-              });
-              if (!doublon && !this.articleConcerned.sold) {
-                this.articlesCashList.push(this.articleConcerned);
-              }
+            // error if article is stolen
+            if (this.articleConcerned.stolen) {
+              this.alertArticleStolen();
             } else {
-              this.alertArticleDontExist();
+              if (this.articleConcerned.sale.id == this.saleId) {
+                // avoid doublon
+                let doublon = false;
+                this.articlesCashList.forEach(article => {
+                  if (article.id === this.articleConcerned.id) { doublon = true; }
+                });
+                if (!doublon && !this.articleConcerned.sold) {
+                  this.articlesCashList.push(this.articleConcerned);
+                }
+              } else {
+                this.alertArticleDontExist();
+              }
             }
           }
         }
       }
-
       this.articleForm.reset();
       this.findResult();
       this.findResultWith10PourCent();
@@ -165,6 +168,13 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
     }, 3000);
   }
 
+  alertArticleStolen() {
+    this.alertService.error('Cet article à été déclaré volé.');
+    setTimeout(() => {
+      this.alertService.clear();
+    }, 3000);
+  }
+
   findResult() {
     this.result = 0;
     this.articlesCashList.forEach(article => {
@@ -212,8 +222,8 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
         this.articlesService.updateArticle(article, () => {
           this.alertService.success('la transaction est validé', true);
           setTimeout(() => {
-            window.location.reload();
             this.alertService.clear();
+            window.location.reload();
           }, 3000);
         })
       });

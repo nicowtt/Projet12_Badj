@@ -30,3 +30,9 @@
 #sommeToRefund {
     border-top: 1px solid #ccc;
 }
+
+#hiddenRefund {
+    float: right;
+    width: 200px;
+    font-weight: bold;
+}
