@@ -1,7 +1,6 @@
 import { ArticlesService } from './services/articles.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -27,6 +26,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { ArticleModificationComponent } from './article-modification/article-modification.component';
 import {ModalModule} from 'ngx-bootstrap';
 import { CashArticlesComponent } from './cash-articles/cash-articles.component';
+import { ArticleRefoundComponent } from './article-refound/article-refound.component';
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
@@ -38,6 +38,7 @@ const appRoutes: Routes = [
   { path: 'articlesValidation/:id',canActivate: [AuthGuardService], component: ArticleValidationComponent},
   { path: 'articleModification/:id/:change',canActivate: [AuthGuardService], component: ArticleModificationComponent},
   { path: 'cashArticles/:saleId', canActivate: [AuthGuardService], component: CashArticlesComponent},
+  { path: 'articlesRefound/:saleId/:email', canActivate: [AuthGuardService], component: ArticleRefoundComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     PersonalSpaceComponent,
     ArticleValidationComponent,
     ArticleModificationComponent,
-    CashArticlesComponent
+    CashArticlesComponent,
+    ArticleRefoundComponent
 
   ],
   imports: [

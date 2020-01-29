@@ -209,5 +209,17 @@ public class ArticleController {
         return articleManager.getOneArticleWithSaleNumberAndSaleId(saleNumber, saleId);
     }
 
+    /**
+     * For get all articles for one user and one Sale
+     * @param saleId -> from front
+     * @param userEmail -> from front
+     * @return articles list
+     */
+    @GetMapping( value = "/getAllArticleForOneUserAndOneSale/{saleId}/{userEmail}")
+    public List<Article> getAllArticleForOneUserAndOneSale(@PathVariable int saleId, @PathVariable String userEmail) {
+        User userConcerned = userDao.findByEmail(userEmail);
+        return articleManager.getAllArticleForOneUserAndOneSale(saleId, userConcerned.getId());
+    }
+
 
 }

@@ -19,4 +19,5 @@ public interface ArticleManager {
     List<Article> getAllArticlesForOneSale(int saleId);
     boolean updateArticle(ArticleDto articleDto);
     Optional<Article> getOneArticleWithSaleNumberAndSaleId(int saleNumber, int saleId);
+    List<Article>getAllArticleForOneUserAndOneSale(int saleId, int userId);
 }

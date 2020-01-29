@@ -14,7 +14,7 @@ export class ArticleModel {
     validateToSell: boolean;
     sold: boolean;
     stolen: boolean;
-    ReturnOwner: boolean;
+    returnOwner: boolean;
     user: UserModel;
     sale: Sale;
     clothe: ArticleClotheModel;

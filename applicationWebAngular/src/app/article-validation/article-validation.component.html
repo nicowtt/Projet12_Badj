@@ -30,7 +30,7 @@
     <!-- display all article for one sale  -->
     <div *ngIf="!submitted" class="list-group">
       <button class="list-group-item" *ngFor="let article of articles; let i = index" >
-        <h4 id="articleTypeBourse">Bourse: {{article.sale.description}} du
+        <h4 *ngIf="!article.sold && !article.stolen && !article.returnOwner" id="articleTypeBourse">Bourse: {{article.sale.description}} du
           {{article.sale.dateBegin | date: 'shortDate' }}
         </h4>
         <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">
@@ -122,7 +122,7 @@
     <!-- display all articles by sale with Email Filter -->
     <div *ngIf="submitted" class="list-group">
       <button class="list-group-item" *ngFor="let article of articlesFilteredByMail; let i = index">
-        <h4 id="articleTypeBourse">Bourse: {{article.sale.description}} du
+        <h4 *ngIf="!article.sold && !article.stolen && !article.returnOwner" id="articleTypeBourse">Bourse: {{article.sale.description}} du
           {{article.sale.dateBegin | date: 'shortDate' }}
         </h4>
         <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">

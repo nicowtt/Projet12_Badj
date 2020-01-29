@@ -264,4 +264,15 @@ public class ArticleManagerImpl implements ArticleManager {
         return Optional.ofNullable(articleDao.getArticleBySaleNumberAndSaleId(saleNumber, saleId));
     }
 
+    /**
+     * for get all articles For one user and one sale
+     * @param saleId
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Article>getAllArticleForOneUserAndOneSale(int saleId, int userId) {
+        return articleDao.getAllArticleForOneUserAndOneSale(saleId, userId);
+    }
+
 }

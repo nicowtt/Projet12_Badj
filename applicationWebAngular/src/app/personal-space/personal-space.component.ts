@@ -39,8 +39,9 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
     if (this.authService.currentUserValue) {
       // check token is valid
       this.userService.isTokenAlreadyValid(() => {
-      this.articlesService.getAllArticlesForOneUser(this.currentUser.email);
-      this.articlesService.emitArticles();
+      this.articlesService.getAllArticlesForOneUser(this.currentUser.email, () => {
+        this.articlesService.emitArticles();
+      });
       })
     }
   }
@@ -53,8 +54,9 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
     this.articleConcerned = this.articles[id];
     console.log('article concerné: ' + this.articleConcerned.id);
     this.articlesService.removeArticle(this.articleConcerned, () => {
-      this.articlesService.getAllArticlesForOneUser(this.currentUser.email);
-      this.articlesService.emitArticles();
+      this.articlesService.getAllArticlesForOneUser(this.currentUser.email, () => {
+        this.articlesService.emitArticles();
+      });
     });
   }
 }

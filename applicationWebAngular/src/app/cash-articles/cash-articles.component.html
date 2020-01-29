@@ -25,6 +25,8 @@
       <h5>{{article.saleNumber}} -- Catégorie: {{article.category}} -- Type: {{article.type}} -- Prix:
         {{article.price}}€</h5>
       <button type="button" class="btn btn-alert" (click)="removeArticle(i)">Supprimer</button>
+      <button *ngIf="!article.validateToSell" id="urgentValidate" type="button" class="btn btn-success" 
+      (click)="urgentValidateArticle(article.id)">valider</button>
     </div>
     
 
