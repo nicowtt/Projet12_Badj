@@ -17,6 +17,7 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
   articlesCashList: ArticleModel[] = [];
   articleConcerned: ArticleModel;
   articleSubscription: Subscription;
+  articleForUrgentValidate: ArticleModel;
 
   saleId: number;
 
@@ -71,10 +72,10 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
     if (this.articleForm.invalid) {
       return;
     }
-    
+
 
     // get article on bdd and add on articleCashList
-    this.articlesService.getOneArticleWithSaleNumberAndSaleId(this.f.articleNumber.value, this.saleId, ()=> {
+    this.articlesService.getOneArticleWithSaleNumberAndSaleId(this.f.articleNumber.value, this.saleId, () => {
       // add article only if present on sale concerned 
       if (this.articleConcerned === null) {
         this.alertArticleDontExist();
@@ -83,23 +84,42 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
         if (this.articleConcerned.sold) {
           this.alertArticleAlreadySold();
         } else {
-          if( this.articleConcerned.sale.id == this.saleId) {
-            // avoid doublon
-            let doublon = false;
-            this.articlesCashList.forEach(article => {
-              if (article.id === this.articleConcerned.id) { doublon = true; }
-            });
-            if (!doublon && !this.articleConcerned.sold) { 
-              this.articlesCashList.push(this.articleConcerned); }
+          // error if article is return to owner
+          if (this.articleConcerned.returnOwner) {
+            this.alertArticleIsReturnOwner();
           } else {
-            this.alertArticleDontExist();
+            if (this.articleConcerned.sale.id == this.saleId) {
+              // avoid doublon
+              let doublon = false;
+              this.articlesCashList.forEach(article => {
+                if (article.id === this.articleConcerned.id) { doublon = true; }
+              });
+              if (!doublon && !this.articleConcerned.sold) {
+                this.articlesCashList.push(this.articleConcerned);
+              }
+            } else {
+              this.alertArticleDontExist();
+            }
           }
         }
       }
+
       this.articleForm.reset();
       this.findResult();
       this.findResultWith10PourCent();
     })
+  }
+
+  urgentValidateArticle(articleId: number) {
+    this.articlesCashList.forEach(article => {
+      if (article.id === articleId) {
+        this.articleForUrgentValidate = article;
+        this.articleForUrgentValidate.validateToSell = true;
+        this.articlesService.updateArticle(this.articleForUrgentValidate, () => {
+          article.validateToSell = true;
+        })
+      }
+    });
   }
 
   removeArticle(indexId: number) {
@@ -122,6 +142,27 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.alertService.clear();
     }, 2000);
+  }
+
+  alertArticleDoesntValidate() {
+    this.alertService.error('Cet article n\'est pas validé, impossible de le vendre');
+    setTimeout(() => {
+      this.alertService.clear();
+    }, 2000);
+  }
+
+  alertOneArticleIsNotValidate() {
+    this.alertService.error('Tous les articles doivent être validé avant l\'encaissement !');
+    setTimeout(() => {
+      this.alertService.clear();
+    }, 2000);
+  }
+
+  alertArticleIsReturnOwner() {
+    this.alertService.error('Cet article à été déclaré rendu au propriétaire');
+    setTimeout(() => {
+      this.alertService.clear();
+    }, 3000);
   }
 
   findResult() {
@@ -157,16 +198,25 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
   }
 
   validateCash() {
+    // avoid validate if one article is not validate
+    let allArticleValidate = true;
     this.articlesCashList.forEach(article => {
-      article.sold = true;
-      this.articlesService.updateArticle(article, () => {
-        this.alertService.success('la transaction est validé', true);
-        setTimeout(() => {
-          window.location.reload();
-          this.alertService.clear();
-        }, 3000);
-      })
+      if (article.validateToSell === false) {
+        allArticleValidate = false;
+        this.alertOneArticleIsNotValidate();
+      }
     });
+    if (allArticleValidate) {
+      this.articlesCashList.forEach(article => {
+        article.sold = true;
+        this.articlesService.updateArticle(article, () => {
+          this.alertService.success('la transaction est validé', true);
+          setTimeout(() => {
+            window.location.reload();
+            this.alertService.clear();
+          }, 3000);
+        })
+      });
+    }
   }
-
 }
