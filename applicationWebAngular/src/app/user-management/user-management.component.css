@@ -1,0 +1,25 @@
+#displayVoluntary {
+    font-weight: bold;
+    color: blue;
+}
+
+#displayResponsible {
+    font-weight: bold;
+    color: green;
+}
+
+#buttonOnVoluntary {
+    display:table-cell;
+    float: right;
+    font-size: smaller;
+}
+
+li {
+    height: 55px;
+    line-height: 35px;
+}
+
+#frontTitle {
+    text-align: center;
+    font-family: georgia, "trebuchet ms", arial, serif;
+}

@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h3 id="frontTitle">Gestion des accés</h3>
+    <ul class="list-group" *ngFor="let user of usersList; let i = index">
+        <li class="list-group-item">
+          <span id="displayVoluntary" *ngIf="user.voluntary">Bénévole: </span>
+          <span id="displayResponsible" *ngIf="user.responsible">Responsable: </span>
+          {{user.email}}
+          <span id="buttonOnVoluntary" *ngIf="!user.voluntary && !user.responsible"
+            (click)="onDeclareVoluntary(user.id)" class="btn btn-info ">Déclarer bénévole
+          </span>
+          <span id="buttonOnVoluntary" *ngIf="user.voluntary && !user.responsible"
+            (click)="onDeclareVoluntaryOff(user.id)" class="btn btn-danger ">Enlever accés bénévoles
+          </span>
+        </li>
+      </ul>
+  </div>
+</div>
+
+
+
+  
