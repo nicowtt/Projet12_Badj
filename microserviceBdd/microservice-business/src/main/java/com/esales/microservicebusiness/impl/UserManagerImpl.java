@@ -92,23 +92,23 @@ public class UserManagerImpl implements UserManager {
     public boolean addUser(UserDto userDto) {
         Address addressInputFromUserDto;
         Address newAddress;
-        User newUserfromDto;
+        User newUserFromDto;
 
+        try {
         // new address -> bdd
         addressInputFromUserDto = userMapper.fromUserDtoToAddress(userDto);
 
         newAddress = addressDao.save(addressInputFromUserDto);
 
         // new user -> bdd
-        newUserfromDto = userMapper.fromDtoToUserWithoutAddress(userDto);
-        newUserfromDto.setAddress(newAddress);
+        newUserFromDto = userMapper.fromDtoToUserWithoutAddress(userDto);
+        newUserFromDto.setAddress(newAddress);
         String hashedPassword = passwordEncoder.hashPassword(userDto.getPassword());
-        newUserfromDto.setPassword(hashedPassword);
+        newUserFromDto.setPassword(hashedPassword);
 
-        try {
-            userDao.save(newUserfromDto);
+        userDao.save(newUserFromDto);
         } catch (DataIntegrityViolationException e) {
-            logger.info("L'enregistrement du nouvel utilisateur" + userDto.getEmail() + " à échoué: l'email existe déjà en BDD");
+            logger.info("L'enregistrement du nouvel utilisateur" + userDto.getEmail() + " à échoué: l'email existe déjà en BDD ou un champ requis n'est pas rempli");
             return false;
         }
         return true;
@@ -140,5 +140,18 @@ public class UserManagerImpl implements UserManager {
     @Override
     public List<String> getAllUsersEmails() {
         return userDao.getAllUsersEmails();
+    }
+
+    /**
+     * for update user
+     * @param userDto
+     * @return
+     */
+    @Override
+    public User updateUser(UserDto userDto) {
+        User userToUpdate = userMapper.fromDtoToUserWithoutAddress(userDto);
+        Address address = userDto.getAddress();
+        userToUpdate.setAddress(address);
+        return userDao.save(userToUpdate);
     }
 }

@@ -73,8 +73,8 @@ export class SalesListComponent implements OnInit, OnDestroy {
       //get list of sales with nbr of article already record
       this.salesService.getSalesCurrentUserIsPresent(this.currentUser.email);
       this.salesService.emmitSales();
-      // if voluntary -> get allUserEmails for validation (autocompletion)
-      if (this.authService.currentUserValue.voluntary) {
+      // if voluntary or responsible-> get allUserEmails for validation (autocompletion)
+      if (this.authService.currentUserValue.voluntary || this.authService.currentUserValue.responsible) {
         this.userService.getAllUserEmail(() => {
           this.userService.emitUserEmail();
         })

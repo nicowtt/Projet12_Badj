@@ -18,15 +18,15 @@
         <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForBookToyAndObject}}.</h6>
         
         <span *ngIf="currentUser">
-        <!-- functions for voluntary   -->
-        <h5 *ngIf="currentUser.voluntary" id="voluntaryFonction">Fonctions pour les bénévoles:</h5>
-        <button *ngIf="currentUser.voluntary" class="btn btn-info" (click)="articlesValidation(i)">Validation</button>
-        <span *ngIf="currentUser.voluntary">|</span>
-        <button *ngIf="currentUser.voluntary" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'newArticle')">Création article</button>
-        <span *ngIf="currentUser.voluntary">|</span>
-        <button *ngIf="currentUser.voluntary" type="button" class="btn btn-info" (click)="cashArticles(sale.id)">Encaissement</button>
-        <span *ngIf="currentUser.voluntary">|</span>
-        <button *ngIf="currentUser.voluntary" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'refundArticle')">Rembourssement</button>
+        <!-- functions for voluntary  and responsable -->
+        <h5 *ngIf="currentUser.voluntary || currentUser.responsible" id="voluntaryFonction">Fonctions pour les bénévoles:</h5>
+        <button *ngIf="currentUser.voluntary || currentUser.responsible" class="btn btn-info" (click)="articlesValidation(i)">Validation</button>
+        <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
+        <button *ngIf="currentUser.voluntary || currentUser.responsible" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'newArticle')">Création article</button>
+        <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
+        <button *ngIf="currentUser.voluntary || currentUser.responsible" type="button" class="btn btn-info" (click)="cashArticles(sale.id)">Encaissement</button>
+        <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
+        <button *ngIf="currentUser.voluntary || currentUser.responsible" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'refundArticle')">Rembourssement</button>
 
 
         <ng-template #findEmailModal>

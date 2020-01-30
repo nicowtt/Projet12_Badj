@@ -114,4 +114,16 @@ public class UserController {
     public List<String> allUsersEmails() {
         return userManager.getAllUsersEmails();
     }
+
+    /**
+     * For update user
+     * @param userDto
+     * @return
+     */
+    @PostMapping(value = "updateUser")
+    public UserDto updateUser(@RequestBody UserDto userDto) {
+        User userUpdated = userManager.updateUser(userDto);
+        logger.info("user " + userUpdated.getEmail() + " updated.");
+        return userMapper.fromUserToDto(userUpdated);
+    }
 }

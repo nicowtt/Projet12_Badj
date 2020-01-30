@@ -44,6 +44,7 @@ public class UserManagerImplUnitTest {
     private User userTest;
     private Address addressTest;
     private UserDto userDto;
+    private Address addressDto;
 
     @Before
     public void setUp() {
@@ -64,9 +65,11 @@ public class UserManagerImplUnitTest {
         userTest.setAddress(addressTest);
 
         userDto = new UserDto();
-        userDto.setStreet("rue du test dto");
-        userDto.setPostalCode(34500);
-        userDto.setCity("Beziers");
+        addressDto = new Address();
+        addressDto.setStreet("rue du test dto");
+        addressDto.setPostalCode(34500);
+        addressDto.setCity("Beziers");
+        userDto.setAddress(addressDto);
 
 
     }

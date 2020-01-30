@@ -1,3 +1,4 @@
+import { CanActivate } from '@angular/router';
 import { ArticlesService } from './services/articles.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -27,6 +28,7 @@ import { ArticleModificationComponent } from './article-modification/article-mod
 import {ModalModule} from 'ngx-bootstrap';
 import { CashArticlesComponent } from './cash-articles/cash-articles.component';
 import { ArticleRefoundComponent } from './article-refound/article-refound.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
@@ -39,6 +41,7 @@ const appRoutes: Routes = [
   { path: 'articleModification/:id/:change',canActivate: [AuthGuardService], component: ArticleModificationComponent},
   { path: 'cashArticles/:saleId', canActivate: [AuthGuardService], component: CashArticlesComponent},
   { path: 'articlesRefound/:saleId/:email', canActivate: [AuthGuardService], component: ArticleRefoundComponent},
+  { path: 'userManagement', canActivate: [AuthGuardService], component: UserManagementComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -56,7 +59,8 @@ const appRoutes: Routes = [
     ArticleValidationComponent,
     ArticleModificationComponent,
     CashArticlesComponent,
-    ArticleRefoundComponent
+    ArticleRefoundComponent,
+    UserManagementComponent
 
   ],
   imports: [

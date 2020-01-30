@@ -1,36 +1,37 @@
 <div class="raw">
   <div class="col-sm-8 col-sm-offset-2">
 
-    <h2>Pré-enregistrement d'articles:</h2>
+  <h4 id="frontTitle">Pré-enregistrement d'articles 
+    <span *ngIf="emailforCreateArticle != null"> pour le client 
+      <span id="customerEmail">{{emailforCreateArticle}}</span></span>:</h4>
     <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
 
       <div class="form-group">
         <!--Category choice-->
-        <label for="category" >Choix catégorie:</label>
+        <label for="category">Choix catégorie:</label>
 
         <select *ngIf="childrenSale" class="form-control" id="category" formControlName="category"
-                (change)="onEditClick($event.target.value)"
-                [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
-                <option [value] = "category" *ngFor="let category of categories">{{category}}</option>
+          (change)="onEditClick($event.target.value)" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+          <option [value]="category" *ngFor="let category of categories">{{category}}</option>
         </select>
 
         <select *ngIf="adultSale" class="form-control" id="category2" formControlName="category2"
-                (change)="onEditClick($event.target.value)"
-                [ngClass]="{ 'is-invalid': submitted && f.category2.errors }">
-                <option [value] = "category2" *ngFor="let category2 of categories2">{{category2}}</option>
+          (change)="onEditClick($event.target.value)" [ngClass]="{ 'is-invalid': submitted && f.category2.errors }">
+          <option [value]="category2" *ngFor="let category2 of categories2">{{category2}}</option>
         </select>
 
         <select *ngIf="playSale" class="form-control" id="category3" formControlName="category3"
-                (change)="onEditClick($event.target.value)"
-                [ngClass]="{ 'is-invalid': submitted && f.category3.errors }">
-                <option [value] = "category3" *ngFor="let category3 of categories3">{{category3}}</option>
+          (change)="onEditClick($event.target.value)" [ngClass]="{ 'is-invalid': submitted && f.category3.errors }">
+          <option [value]="category3" *ngFor="let category3 of categories3">{{category3}}</option>
         </select>
 
         <div *ngIf="f.category.errors" class="invalid-feedback">
-          <div class="error" *ngIf="childrenSale && submitted && f.category.errors.required">La catégorie est requise</div>
+          <div class="error" *ngIf="childrenSale && submitted && f.category.errors.required">La catégorie est requise
+          </div>
         </div>
         <div *ngIf="f.category2.errors" class="invalid-feedback">
-          <div class="error" *ngIf="adultSale && submitted && f.category2.errors.required">La catégorie est requise</div>
+          <div class="error" *ngIf="adultSale && submitted && f.category2.errors.required">La catégorie est requise
+          </div>
         </div>
         <div *ngIf="f.category3.errors" class="invalid-feedback">
           <div class="error" *ngIf="playSale && submitted && f.category3.errors.required">La catégorie est requise</div>
@@ -42,8 +43,8 @@
         <!--Type-->
         <p></p>
         <label for="type">Type géneral(exemple: vêtement -> Chemise):</label>
-        <input type="text" id="type" class="form-control" formControlName="type"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" />
+        <input type="text" id="type" class="form-control" formControlName="type" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.type.errors }" />
         <div *ngIf="f.type.errors" class="invalid-feedback">
           <div class="error" *ngIf="submitted && f.type.errors.required">Un type est requis</div>
         </div>
@@ -51,9 +52,9 @@
         <!--!! clothes !! -->
         <!--*** size ***-->
         <p></p>
-        <label *ngIf="clothe" for="size">Size:</label>
-        <input *ngIf="clothe" type="text" id="size" class="form-control" formControlName="size"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.size.errors }" />
+        <label *ngIf="clothe" for="size">Taille:</label>
+        <input *ngIf="clothe" type="text" id="size" class="form-control" formControlName="size" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.size.errors }" />
         <div *ngIf="f.size.errors" class="invalid-feedback">
           <div class="error" *ngIf="clothe && submitted && f.size.errors.required">Une taille est requis</div>
         </div>
@@ -62,8 +63,8 @@
         <p></p>
         <label *ngIf="clothe" for="gender">Genre:</label>
         <select *ngIf="clothe" class="form-control" id="gender" formControlName="gender"
-        [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
-        <option [value] = "gender" *ngFor="let gender of genders">{{gender}}</option>
+          [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+          <option [value]="gender" *ngFor="let gender of genders">{{gender}}</option>
         </select>
         <div *ngIf="f.gender.errors" class="invalid-feedback">
           <div class="error" *ngIf="clothe && submitted && f.gender.errors.required">Le genre est requis</div>
@@ -73,7 +74,7 @@
         <p></p>
         <label *ngIf="clothe" for="material">Matière:</label>
         <input *ngIf="clothe" type="text" id="material" class="form-control" formControlName="material"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.material.errors }" />
+          class="form-control" [ngClass]="{ 'is-invalid': submitted && f.material.errors }" />
         <div *ngIf="f.material.errors" class="invalid-feedback">
           <div class="error" *ngIf="clothe && submitted && f.material.errors.required">Une matière est requis</div>
         </div>
@@ -82,17 +83,17 @@
         <p></p>
         <label *ngIf="clothe" for="clotheColor">Couleur:</label>
         <input *ngIf="clothe" type="text" id="clotheColor" class="form-control" formControlName="clotheColor"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.clotheColor.errors }" />
+          class="form-control" [ngClass]="{ 'is-invalid': submitted && f.clotheColor.errors }" />
         <div *ngIf="f.clotheColor.errors" class="invalid-feedback">
           <div class="error" *ngIf="clothe && submitted && f.clotheColor.errors.required">Une couleur est requise</div>
         </div>
 
-        <!--!! object !! -->  
+        <!--!! object !! -->
         <!--*** brand ***-->
         <p></p>
         <label *ngIf="object" for="brand">Marque:</label>
-        <input *ngIf="object" type="text" id="brand" class="form-control" formControlName="brand"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brand.errors }" />
+        <input *ngIf="object" type="text" id="brand" class="form-control" formControlName="brand" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.brand.errors }" />
         <div *ngIf="f.brand.errors" class="invalid-feedback">
           <div class="error" *ngIf="object && submitted && f.brand.errors.required">Une marque est requise</div>
         </div>
@@ -101,7 +102,7 @@
         <p></p>
         <label *ngIf="object" for="ObjectColor">Couleur:</label>
         <input *ngIf="object" type="text" id="ObjectColor" class="form-control" formControlName="ObjectColor"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ObjectColor.errors }" />
+          class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ObjectColor.errors }" />
         <div *ngIf="f.ObjectColor.errors" class="invalid-feedback">
           <div class="error" *ngIf="object && submitted && f.ObjectColor.errors.required">Une couleur est requise</div>
         </div>
@@ -110,8 +111,8 @@
         <!--*** name ***-->
         <p></p>
         <label *ngIf="book" for="name">Titre:</label>
-        <input *ngIf="book" type="text" id="name" class="form-control" formControlName="name"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <input *ngIf="book" type="text" id="name" class="form-control" formControlName="name" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
         <div *ngIf="f.name.errors" class="invalid-feedback">
           <div class="error" *ngIf="book && submitted && f.name.errors.required">Un titre est requis</div>
         </div>
@@ -119,8 +120,8 @@
         <!--*** author ***-->
         <p></p>
         <label *ngIf="book" for="author">Author:</label>
-        <input *ngIf="book" type="text" id="author" class="form-control" formControlName="author"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.author.errors }" />
+        <input *ngIf="book" type="text" id="author" class="form-control" formControlName="author" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.author.errors }" />
         <div *ngIf="f.author.errors" class="invalid-feedback">
           <div class="error" *ngIf="book && submitted && f.author.errors.required">Un Auteur est requis</div>
         </div>
@@ -129,8 +130,8 @@
         <!--*** brand ***-->
         <p></p>
         <label *ngIf="toy" for="brand">Marque / Nom:</label>
-        <input *ngIf="toy" type="text" id="brand" class="form-control" formControlName="brand"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brand.errors }" />
+        <input *ngIf="toy" type="text" id="brand" class="form-control" formControlName="brand" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.brand.errors }" />
         <div *ngIf="f.brand.errors" class="invalid-feedback">
           <div class="error" *ngIf="toy && submitted && f.brand.errors.required">Une marque est requise</div>
         </div>
@@ -139,21 +140,21 @@
         <p></p>
         <label *ngIf="toy" for="ToyColor">Couleur:</label>
         <input *ngIf="toy" type="text" id="ToyColor" class="form-control" formControlName="ToyColor"
-               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ToyColor.errors }" />
+          class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ToyColor.errors }" />
         <div *ngIf="f.ToyColor.errors" class="invalid-feedback">
           <div class="error" *ngIf="toy && submitted && f.ToyColor.errors.required">Une couleur est requise</div>
         </div>
 
-        <!-- >>common for all<< -->     
-        <!--Price--> 
+        <!-- >>common for all<< -->
+        <!--Price-->
         <p></p>
         <label for="price">Prix:</label>
         <div class="input-group">
           <span class="input-group-addon">€</span>
-          <input type="number" id="price" class="form-control" formControlName="price"
-          class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
-        </div>  
-          
+          <input type="number" id="price" class="form-control" formControlName="price" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+        </div>
+
         <div *ngIf="f.price.errors" class="invalid-feedback">
           <div class="error" *ngIf="submitted && f.price.errors.required">Un prix est requis</div>
           <div class="error" *ngIf="submitted && f.price.errors.pattern">Exemple: 10.20</div>
@@ -162,17 +163,15 @@
         <!-- comment -->
         <p></p>
         <label for="comment">Commentaire éventuel:</label>
-        <input type="text" id="comment" class="form-control" formControlName="comment"
-               class="form-control" />
+        <input type="text" id="comment" class="form-control" formControlName="comment" class="form-control" />
 
-               <div class="form-group">
-        <p></p>
-        <button class="btn btn-primary" type="submit" >Enregistrement de l'article</button>
-               </div>
+        <div class="form-group">
+          <p></p>
+          <button class="btn btn-primary" type="submit">Enregistrement de l'article</button>
+        </div>
 
       </div>
-      
+
     </form>
   </div>
 </div>
-

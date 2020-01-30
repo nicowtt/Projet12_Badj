@@ -19,11 +19,16 @@ public class UserMapperImpl implements UserMapper {
     public User fromDtoToUserWithoutAddress(UserDto userDto) {
         User user = new User();
 
+        if (userDto.getId() != null) {
+            user.setId(userDto.getId());
+        }
         user.setName(userDto.getName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
         user.setPassword(userDto.getPassword());
+        user.setVoluntary(userDto.isVoluntary());
+        user.setResponsible(userDto.isResponsible());
 
         return user;
     }
@@ -36,7 +41,15 @@ public class UserMapperImpl implements UserMapper {
     @Override
     public UserDto fromUserToDto(User user) {
         UserDto userDto = new UserDto();
+        Address address = new Address();
 
+        address.setStreet(user.getAddress().getStreet());
+        address.setPostalCode(user.getAddress().getPostalCode());
+        address.setCity(user.getAddress().getCity());
+
+        if (userDto.getId() != null) {
+            user.setId(userDto.getId());
+        }
         userDto.setName(user.getName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
@@ -45,9 +58,7 @@ public class UserMapperImpl implements UserMapper {
         userDto.setVoluntary(user.isVoluntary());
         userDto.setResponsible(user.isResponsible());
 
-        userDto.setStreet(user.getAddress().getStreet());
-        userDto.setPostalCode(user.getAddress().getPostalCode());
-        userDto.setCity(user.getAddress().getCity());
+        userDto.setAddress(address);
 
         return userDto;
     }
@@ -61,9 +72,9 @@ public class UserMapperImpl implements UserMapper {
     public Address fromUserDtoToAddress(UserDto userDto) {
         Address address = new Address();
 
-        address.setStreet(userDto.getStreet());
-        address.setPostalCode(userDto.getPostalCode());
-        address.setCity(userDto.getCity());
+        address.setStreet(userDto.getAddress().getStreet());
+        address.setPostalCode(userDto.getAddress().getPostalCode());
+        address.setCity(userDto.getAddress().getCity());
 
         return address;
     }

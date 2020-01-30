@@ -32,14 +32,16 @@ public class UserMapperUnitTest {
         user = new User();
         address = new Address();
 
+        address.setStreet("rue du test");
+        address.setPostalCode(31200);
+        address.setCity("Toulouse");
+
         userDto.setName("nico");
         userDto.setLastName("bod");
         userDto.setEmail("test@test.com");
         userDto.setPhone("06121212");
         userDto.setPassword("pass");
-        userDto.setStreet("une rue");
-        userDto.setPostalCode(31200);
-        userDto.setCity("Toulouse");
+        userDto.setAddress(address);
         userDto.setToken("123");
 
         user.setName("Jean-claude");
@@ -49,9 +51,7 @@ public class UserMapperUnitTest {
         user.setVoluntary(false);
         user.setResponsible(false);
 
-        address.setStreet("rue du test");
-        address.setPostalCode(31200);
-        address.setCity("Toulouse");
+
 
         user.setAddress(address);
 
@@ -72,16 +72,16 @@ public class UserMapperUnitTest {
 
         UserDto userDtoTest = userMapper.fromUserToDto(user);
 
-        Assert.assertEquals("UserDto(userId=null, name=Jean-claude, lastName=Vandamme, password=secret, " +
-                "email=jean-claude.vandamme@gmail.com, phone=null, street=rue du test, postalCode=31200, " +
-                "city=Toulouse, isVoluntary=false, isResponsible=false, token=null)", userDtoTest.toString());
+        Assert.assertEquals("UserDto(id=null, name=Jean-claude, lastName=Vandamme, password=secret, " +
+                "email=jean-claude.vandamme@gmail.com, phone=null, isVoluntary=false, isResponsible=false, token=null, " +
+                "address=Address(id=0, street=rue du test, postalCode=31200, city=Toulouse))", userDtoTest.toString());
     }
 
     @Test
     public void testFromUserDtoToAddress() {
         Address addressTest = userMapper.fromUserDtoToAddress(userDto);
 
-        Assert.assertEquals("Address(id=0, street=une rue, postalCode=31200, city=Toulouse)"
+        Assert.assertEquals("Address(id=0, street=rue du test, postalCode=31200, city=Toulouse)"
                 , addressTest.toString());
     }
 

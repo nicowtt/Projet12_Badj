@@ -40,6 +40,7 @@ public class ArticleManagerImplIntegrationTest {
     private Sale oldSaleTest;
     private Optional<Address> oldAddressTest;
     private UserDto userDtoTest;
+    private Address addressDtoTest;
     private ArticleBookDto articleBookDto;
     private ArticleObjectDto articleObjectDto;
     private ArticleClotheDto articleClotheDto;
@@ -98,15 +99,16 @@ public class ArticleManagerImplIntegrationTest {
         saleDtoTest.setAddress(address);
 
         userDtoTest = new UserDto();
-        userDtoTest = new UserDto();
+        addressDtoTest = new Address();
         userDtoTest.setName("nico");
         userDtoTest.setLastName("bod");
         userDtoTest.setPassword("pass");
         userDtoTest.setEmail("test@test.com");
         userDtoTest.setPhone("0612121212");
-        userDtoTest.setStreet("rue du test");
-        userDtoTest.setPostalCode(31200);
-        userDtoTest.setCity("Toulouse");
+        addressDtoTest.setStreet("rue du test");
+        addressDtoTest.setPostalCode(31200);
+        addressDtoTest.setCity("Toulouse");
+        userDtoTest.setAddress(addressDtoTest);
 
         articleBookDto = new ArticleBookDto();
         articleBookDto.setCategory("Livre");
