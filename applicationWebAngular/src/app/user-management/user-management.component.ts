@@ -12,6 +12,12 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
   userSubscription: Subscription;
   usersList: any[] = [];
+  usersEmailList: string[] = [];
+  userFilteredList: UserModel[] = [];
+  // autocompletion
+  keyword = 'email';
+  autocompletionEmails = [ ];
+  emailFilter: boolean = false;
 
   constructor(private userService: UserService) { }
 
@@ -23,6 +29,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     )
     this.userService.getAllUsers(() => {
       this.userService.emitUsers();
+      this.getUserEmailList();
     })
   }
 
@@ -49,4 +56,38 @@ export class UserManagementComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  getUserEmailList() {
+    this.usersList.forEach(user => {
+      this.usersEmailList.push(user.email);
+    });
+  }
+
+  selectEvent(emailIn: any) {
+    this.userFilteredList = [];
+    this.usersList.forEach(user => {
+      if (user.email === emailIn) {
+        this.userFilteredList.push(user);
+        this.emailFilter= true;
+      }
+    });
+  }
+
+  onChangeSearch(emailIn: any) {
+    this.usersList.forEach(user => {
+      if (user.email === emailIn) {
+        this.userFilteredList.push(user);
+      }
+    });
+  }
+
+  onFocused($event) {
+  }
+
+  onStopFilter() {
+    this.emailFilter = false;
+    window.location.reload(); 
+  }
 }
+
+      

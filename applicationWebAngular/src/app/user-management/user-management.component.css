@@ -23,3 +23,16 @@ li {
     text-align: center;
     font-family: georgia, "trebuchet ms", arial, serif;
 }
+
+.ng-autocomplete {
+    width:60%;
+    max-width: 600px;
+    display: table;
+    margin: 0 auto;
+}
+
+#stopFilter {
+    position: relative;
+    margin-top: -48px;
+    float: right;
+}

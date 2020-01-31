@@ -28,6 +28,8 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
   keyword = 'email';
   autocompletionEmails = [ ];
 
+  emailFilter: boolean = false;
+
   constructor(private route: ActivatedRoute,
               private articlesService: ArticlesService,
               private router: Router,
@@ -77,11 +79,10 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
   }
 
   selectEvent(emailIn: any) {
-    // do something with selected emailIn
     if ( emailIn === null) {
       this.articlesFilteredByMail = this.articles;
     } else {
-      this.submitted = true;
+      this.emailFilter = true;
       this.articlesFilteredByMail = [];
       this.searchEmail = emailIn;
       this.articles.forEach(article => {
@@ -90,12 +91,23 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
         }
       });
     }
-    
+    this.emailFilter = true;
   }
 
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
+  onChangeSearch(emailIn: any) {
+    this.articlesFilteredByMail = [];
+    this.searchEmail = emailIn;
+      this.articles.forEach(article => {
+        if (article.user.email === this.searchEmail) {
+          this.articlesFilteredByMail.push(article);
+        }
+      });
+  }
+
+  onStopFilter() {
+    this.articlesFilteredByMail = this.articles;
+    this.emailFilter = false;
+    window.location.reload();
   }
 
   onFocused(e: any) {
