@@ -32,6 +32,8 @@ public class UserControllerIntegrityTest extends AbstractTest {
         userDtoTest.setEmail("bruce.lee@gmail.com");
         userDtoTest.setPhone("060606006");
         userDtoTest.setPassword("pass");
+        userDtoTest.setVoluntary(false);
+        userDtoTest.setResponsible(false);
         addressDtoTest.setStreet("rue du test");
         addressDtoTest.setPostalCode(31200);
         addressDtoTest.setCity("Toulouse");
@@ -118,5 +120,16 @@ public class UserControllerIntegrityTest extends AbstractTest {
         String content = mvcResult.getResponse().getContentAsString();
         String[] emailList = super.mapFromJson(content, String[].class);
         assertTrue(emailList.length > 0);
+    }
+
+    @Test(expected = Exception.class)
+    public void testUpdateUserIncompleteUser() throws  Exception {
+        // missing userId and addressId
+        String uri = "/updateUser";
+        String inputJson = super.mapToJson(userDtoTest);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)).andReturn();
+
     }
 }
