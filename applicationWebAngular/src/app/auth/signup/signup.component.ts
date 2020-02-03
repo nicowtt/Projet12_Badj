@@ -1,3 +1,4 @@
+import { AddressModel } from './../../models/Address.model';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
@@ -61,9 +62,23 @@ export class SignupComponent implements OnInit {
       console.log('formulaire error');
       return;
     }
-
+    // mapp from form
     this.loading = true;
-    this.userService.AddUser(this.signUpForm.value, () => {
+    const newUser = new UserModel();
+    newUser.name = this.f.name.value;
+    newUser.lastName = this.f.lastName.value;
+    newUser.email = this.f.email.value;
+    newUser.password = this.f.password.value;
+    newUser.phone = this.f.phone.value;
+    newUser.responsible = false;
+    newUser.voluntary = false;
+    const newAdress = new AddressModel;
+    newAdress.street = this.f.street.value;
+    newAdress.postalCode = this.f.postalCode.value;
+    newAdress.city = this.f.city.value;
+    newUser.address = newAdress;
+
+    this.userService.AddUser(newUser, () => {
       this.router.navigate(['auth/signin']);
     }, () => {
       this.loading = false;

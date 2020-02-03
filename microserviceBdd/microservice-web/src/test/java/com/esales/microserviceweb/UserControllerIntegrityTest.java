@@ -2,6 +2,7 @@ package com.esales.microserviceweb;
 
 
 import com.esales.microservicemodel.dto.UserDto;
+import com.esales.microservicemodel.entity.Address;
 import com.esales.microservicemodel.entity.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,7 @@ public class UserControllerIntegrityTest extends AbstractTest {
 
     /** Jeu de données **/
     private UserDto userDtoTest;
+    private Address addressDtoTest;
 
     @Override
     @Before
@@ -24,14 +26,18 @@ public class UserControllerIntegrityTest extends AbstractTest {
         super.setUp();
 
         userDtoTest = new UserDto();
+        addressDtoTest = new Address();
         userDtoTest.setName("nico");
         userDtoTest.setLastName("bod");
         userDtoTest.setEmail("bruce.lee@gmail.com");
         userDtoTest.setPhone("060606006");
         userDtoTest.setPassword("pass");
-        userDtoTest.setStreet("rue du test");
-        userDtoTest.setPostalCode(31200);
-        userDtoTest.setCity("Toulouse");
+        userDtoTest.setVoluntary(false);
+        userDtoTest.setResponsible(false);
+        addressDtoTest.setStreet("rue du test");
+        addressDtoTest.setPostalCode(31200);
+        addressDtoTest.setCity("Toulouse");
+        userDtoTest.setAddress(addressDtoTest);
         userDtoTest.setToken("tok");
     }
 
@@ -114,5 +120,16 @@ public class UserControllerIntegrityTest extends AbstractTest {
         String content = mvcResult.getResponse().getContentAsString();
         String[] emailList = super.mapFromJson(content, String[].class);
         assertTrue(emailList.length > 0);
+    }
+
+    @Test(expected = Exception.class)
+    public void testUpdateUserIncompleteUser() throws  Exception {
+        // missing userId and addressId
+        String uri = "/updateUser";
+        String inputJson = super.mapToJson(userDtoTest);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)).andReturn();
+
     }
 }

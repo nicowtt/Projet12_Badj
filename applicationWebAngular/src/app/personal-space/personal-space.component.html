@@ -1,5 +1,13 @@
 <div class="row">
   <div class="col-xs-12">
+    <!-- responsible Functions -->
+    <div>
+      <h3 *ngIf="currentUser.responsible" id="responsibleFonction">Gestion</h3>
+      <button *ngIf="currentUser.responsible" class="btn btn-info" (click)="managementUser()">Accés utilisateur</button>
+      <p></p>
+      <div *ngIf="currentUser.responsible" class="trait_dessus"><hr></div>
+    </div>
+    <!-- Personal articles list -->
     <div class="list-group">
       <h3 id="frontTitle">Vos articles pré-enregistrés</h3>
       <button class="list-group-item" *ngFor="let article of articles; let i = index">
@@ -12,8 +20,6 @@
         <h5 *ngIf="!article.stolen && !article.returnOwner">
           <span id="articleCategory">Article: </span>{{article.type}}
         </h5>
-        
-
         <h5 *ngIf="!article.stolen && !article.returnOwner && article.clothe">
           <span id="articleCategory">Taille: </span>{{article.clothe.size}}
         </h5>
@@ -29,7 +35,6 @@
         <h5 *ngIf="!article.stolen && !article.returnOwner && article.clothe">
           <span id="articleCategory">Commentaire:</span> {{article.clothe.comment}}
         </h5>
-
         <h5 *ngIf="!article.stolen && !article.returnOwner && article.book">
           <span id="articleCategory">Titre:</span> {{article.book.name}}
         </h5>
@@ -39,7 +44,6 @@
         <h5 *ngIf="!article.stolen && !article.returnOwner && article.book">
           <span id="articleCategory">Commentaire:</span> {{article.book.comment}}
         </h5>
-
         <h5 *ngIf="!article.stolen && !article.returnOwner && article.object ">
           <span id="articleCategory">Marque:</span> {{article.object.brand}}
         </h5>
@@ -49,7 +53,6 @@
         <h5 *ngIf="!article.stolen && !article.returnOwner && article.object ">
           <span id="articleCategory">Commentaire:</span> {{article.object.comment}}
         </h5>
-
         <h5 *ngIf="!article.stolen && !article.returnOwner && article.toy">
           <span id="articleCategory">Marque: </span>{{article.toy.brand}}
         </h5>
@@ -59,7 +62,6 @@
         <h5 *ngIf="!article.stolen && !article.returnOwner && article.toy">
           <span id="articleCategory">Commentaire:</span> {{article.toy.comment}}
         </h5>
-
         <h5 *ngIf="!article.stolen && !article.returnOwner">
           <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
         </h5>
@@ -80,7 +82,6 @@
             <span class="glyphicon glyphicon-thumbs-up"></span> Vendu
           </a>
         </h4>
-
       </button>
     </div>
   </div>

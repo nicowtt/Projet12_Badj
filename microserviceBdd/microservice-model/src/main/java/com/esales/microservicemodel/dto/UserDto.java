@@ -1,6 +1,7 @@
 package com.esales.microservicemodel.dto;
 
 
+import com.esales.microservicemodel.entity.Address;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,16 +13,14 @@ import lombok.ToString;
 @ToString
 public class UserDto {
 
-    private Integer userId;
+    private Integer id;
     private String name;
     private String lastName;
     private String password;
     private String email;
     private String phone;
-    private String street;
-    private int postalCode;
-    private String city;
     private boolean isVoluntary;
     private boolean isResponsible;
     private String token;
+    private Address address;
 }

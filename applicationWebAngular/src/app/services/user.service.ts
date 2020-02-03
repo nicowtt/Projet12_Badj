@@ -11,15 +11,15 @@ export class UserService {
               private alertService : AlertService,
               private router: Router) { }
 
-  private users: UserModel[] = [];
-  userSubject = new Subject<UserModel[]>();
+  private usersList: UserModel[] = [];
+  usersSubject = new Subject<UserModel[]>();
 
 
   listEmailsSubject = new Subject<string[]>();  
   userEmails: string[];
 
-  emitUser() {
-    this.userSubject.next(this.users.slice());
+  emitUsers() {
+    this.usersSubject.next(this.usersList.slice());
   }
 
   emitUserEmail() {
@@ -32,7 +32,8 @@ export class UserService {
    * @constructor
    */
   AddUser(user: UserModel, onSucces: Function, onError:Function) {
-    return this.http.post(`/newUser`, user)
+    return this.http
+    .post(`/newUser`, user)
     .subscribe(
       res => {
         this.alertService.success('Utilisateur enregistré', true);
@@ -100,5 +101,44 @@ export class UserService {
             });
       }
     );
+  }
+
+  getAllUsers(onSucces: Function) {
+    return this.http
+    .get<any[]>('/AllUsers')
+    .subscribe(
+      (response) => {
+        this.usersList = response;
+        this.emitUsers();
+        onSucces();
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  }
+
+  updateUser(user: UserModel, onSuccess: Function) {
+    return this.http
+    .post<UserModel>('/updateUser', user)
+    .subscribe(
+      (response) => {
+        onSuccess();
+      },
+      (error) => {
+        this.alertNetworkOff(error);
+      }
+    );
+  }
+
+  alertNetworkOff(error: any) {
+    this.alertService.error('erreur reseau veuillez recommencer plus tard.', true);
+    this.timeOutOffAlert5000();
+  }
+
+  timeOutOffAlert5000() {
+    setTimeout(() => {
+      this.alertService.clear();
+    }, 5000);
   }
 }

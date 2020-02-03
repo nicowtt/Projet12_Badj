@@ -15,4 +15,5 @@ public interface UserManager {
     List<User> getAllUsers();
     User findUserByMail(String email);
     List<String> getAllUsersEmails();
+    User updateUser(UserDto userDto);
 }

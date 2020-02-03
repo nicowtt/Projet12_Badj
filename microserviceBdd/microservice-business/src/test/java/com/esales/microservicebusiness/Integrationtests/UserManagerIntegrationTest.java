@@ -38,6 +38,7 @@ public class UserManagerIntegrationTest {
     /** Jeu de données **/
 
     private UserDto userDtoTest;
+    private Address addressDtoTest;
     private User userTest;
 
     @Before
@@ -46,14 +47,16 @@ public class UserManagerIntegrationTest {
         Optional<Address> oldAddressTest;
 
         userDtoTest = new UserDto();
+        addressDtoTest = new Address();
         userDtoTest.setName("nico");
         userDtoTest.setLastName("bod");
         userDtoTest.setPassword("pass");
         userDtoTest.setEmail("test@test.com");
         userDtoTest.setPhone("0612121212");
-        userDtoTest.setStreet("rue du test");
-        userDtoTest.setPostalCode(31200);
-        userDtoTest.setCity("Toulouse");
+        addressDtoTest.setStreet("rue du test");
+        addressDtoTest.setPostalCode(31200);
+        addressDtoTest.setCity("Toulouse");
+        userDtoTest.setAddress(addressDtoTest);
 
         userTest = new User();
         userTest.setPassword("pass");

@@ -59,4 +59,8 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
       });
     });
   }
+
+  managementUser() {
+    this.router.navigate(['userManagement']);
+  }
 }

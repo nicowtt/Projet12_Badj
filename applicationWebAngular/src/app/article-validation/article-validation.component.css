@@ -18,6 +18,7 @@
 	margin: 1em 0;
 	text-align: center;
     font-family: georgia, "trebuchet ms", arial, serif;
+    font-weight: bold;
 }
 
 .searchByMail {
@@ -32,6 +33,12 @@
     float: right;
     /* position:relative;
     bottom: 45px; */
+}
+
+#stopFilter {
+    position: relative;
+    margin-top: -48px;
+    float: right;
 }
 
 
