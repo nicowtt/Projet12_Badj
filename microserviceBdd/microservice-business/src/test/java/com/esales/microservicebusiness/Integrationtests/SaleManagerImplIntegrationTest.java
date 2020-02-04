@@ -79,7 +79,7 @@ public class SaleManagerImplIntegrationTest {
 
 
         // check if old test is on bdd
-        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         if (listSaleOnBddBeforeTest != null) {
             Sale saleResult = listSaleOnBddBeforeTest.stream()
                     .filter(x -> "saleTest".equals(x.getType()))
@@ -103,7 +103,7 @@ public class SaleManagerImplIntegrationTest {
     @After
     public void cleanAfter() {
         // check if old test is on bdd
-        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         if (listSaleOnBddBeforeTest != null) {
             Sale saleResult = listSaleOnBddBeforeTest.stream()
                     .filter(x -> "saleTest".equals(x.getType()))
@@ -126,11 +126,11 @@ public class SaleManagerImplIntegrationTest {
     @Test
     public void testGetSalesByDateBeginAfterToday() {
         // count how many sale before test
-        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         long nbrOfSaleBeforeTest = listOfSaleBeforeTest.stream().count();
         // add saleTest on bdd
         saleManagerImpl.addSale(saleDtoTest);
-        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateEndAfterToday();
         List<SaleDto> listOfSaleAfterAll = saleManagerImpl.getSalesByDateBeginAfterToday(listOfSaleAfterAddTest);
         long nbrOfSaleAfter = listOfSaleAfterAll.stream().count();
 
@@ -142,11 +142,11 @@ public class SaleManagerImplIntegrationTest {
     @Test
     public void testGetSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord() {
         // count how many sale before test
-        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         long nbrOfSaleBeforeTest = listOfSaleBeforeTest.stream().count();
         // add saleTest on bdd
         saleManagerImpl.addSale(saleDtoTest);
-        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateEndAfterToday();
         List<SaleDto> listOfSaleAfterAll =
                 saleManagerImpl.getSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord(listOfSaleAfterAddTest, user);
         long nbrOfSaleAfter = listOfSaleAfterAll.stream().count();

@@ -1,26 +1,38 @@
 -- Remplissage base de données--
 
--- 1/adresse (1-4)-- ->id1 -> responsable
+-- 1/adresse (1-6)-- ->id1 -> responsable
 
 INSERT INTO badj.addresses
 (street, postal_code, city)
     VALUE
     ('2 route de l''ouest', 34300, 'Agde');
 
--- 1/adresse (2-4)-- ->id2 -> benevole
+-- 1/adresse (2-6)-- ->id2 -> benevole
 
 INSERT INTO badj.addresses
 (street, postal_code, city)
     VALUE
     ('5 boulevard marechal', 34300, 'Agde');
 
--- 1/adresse (3-4)-- ->id3 -> client
+-- 1/adresse (3-6)-- ->id3 -> client
 INSERT INTO badj.addresses
 (street, postal_code, city)
     VALUE
     ('15 allée marc aurèle', 34300, 'Agde');
 
--- 1/adresse (4-4)-- ->id4 -> bourse(sale)
+-- 1/adresse (4-6)-- ->id4 -> bourse(sale)
+INSERT INTO badj.addresses
+(street, postal_code, city)
+    VALUE
+    ('6 rue brescou', 34300, 'Agde');
+
+-- 1/adresse (5-6)-- ->id5 -> bourse(sale)
+INSERT INTO badj.addresses
+(street, postal_code, city)
+    VALUE
+    ('6 rue brescou', 34300, 'Agde');
+
+-- 1/adresse (6-6)-- ->id6 -> bourse(sale)
 INSERT INTO badj.addresses
 (street, postal_code, city)
     VALUE
@@ -58,14 +70,14 @@ VALUES
 INSERT INTO badj.sales
 (type, description, date_begin, date_end, address_id)
 VALUES
-('Bourse de printemps', 'Vêtements adulte','2020-04-13', '2020-04-17', 4);
+('Bourse de printemps', 'Vêtements adulte','2020-04-13', '2020-04-17', 5);
 
 -- 3/bourse(sales) (3-3) ->id3
 
 INSERT INTO badj.sales
 (type, description, date_begin, date_end, address_id)
 VALUES
-('Bourse de noël', 'jouets Livres Cadeaux Bijoux', '2020-11-16', '2020-11-20', 4);
+('Bourse de noël', 'jouets Livres Cadeaux Bijoux', '2020-11-16', '2020-11-20', 6);
 
 -- 4-1-1/Article () ->id1 (un benevole d'id 2 enregistre un article de type vetement dans la bourse d'id 1)
 

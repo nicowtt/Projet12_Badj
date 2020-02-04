@@ -87,8 +87,6 @@ export class AddSaleComponent implements OnInit {
     address.postalCode = this.f.postalCode.value;
     address.city = this.f.city.value;
     newSale.address = address;
-    console.log('date commencement bourse: ' + newSale.dateBegin);
-    console.log('date fin bourse: ' + newSale.dateEnd);
     // send new sale
     this.salesService.addNewSale(newSale, () => {
       this.router.navigate(['Sales']);

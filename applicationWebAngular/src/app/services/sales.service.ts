@@ -109,4 +109,23 @@ export class SalesService {
           }, 3000);
         });
   }
+
+  deleteSale(sale: SaleModel, onSuccess: Function) {
+    return this.http
+      .post('/RemoveSale', sale)
+      .subscribe(
+        (data) => {
+        this.alertService.success('La bourse à bien été supprimée.', true)
+        setTimeout(() => {
+          this.alertService.clear();
+        }, 3000);
+        onSuccess();
+      },
+        (error) => {
+          this.alertService.error('La bourse à commencer, il est impossible de la supprimer')
+          setTimeout(() => {
+            this.alertService.clear();
+          }, 3000);
+        });
+  }
 }

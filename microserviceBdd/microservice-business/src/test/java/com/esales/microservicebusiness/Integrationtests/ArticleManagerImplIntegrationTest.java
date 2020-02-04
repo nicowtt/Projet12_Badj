@@ -209,7 +209,7 @@ public class ArticleManagerImplIntegrationTest {
 
         // check if old test is on bdd
         // for sale
-        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         if (listSaleOnBddBeforeTest != null) {
             Sale saleResult = listSaleOnBddBeforeTest.stream()
                     .filter(x -> "saleTest".equals(x.getType()))
@@ -251,7 +251,7 @@ public class ArticleManagerImplIntegrationTest {
     public void cleanAfter() {
         // check if old test is on bdd
         // for sale
-        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         if (listSaleOnBddBeforeTest != null) {
             Sale saleResult = listSaleOnBddBeforeTest.stream()
                     .filter(x -> "saleTest".equals(x.getType()))

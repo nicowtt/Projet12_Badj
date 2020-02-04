@@ -8,11 +8,16 @@ import com.esales.microservicemodel.entity.Address;
 import com.esales.microservicemodel.entity.Sale;
 import com.esales.microservicemodel.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.List;
-import java.util.Optional;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 @CrossOrigin
 @RestController
@@ -52,7 +57,7 @@ public class SaleController {
      */
     @GetMapping(value = "/AfterTodaySales")
     public List<Sale> getAfterTodaySales() {
-        return saleDao.getSalesByDateBeginAfterToday();
+        return saleDao.getSalesByDateEndAfterToday();
     }
 
     /**
@@ -63,7 +68,7 @@ public class SaleController {
     @GetMapping(value = "/AfterTodaySales/{userEmail}")
     public List<SaleDto> getAfterTodaySales(@PathVariable String userEmail) {
         List<SaleDto> afterTodaySalesDtoList;
-        List<Sale> afterTodaySalesList = saleManager.getSalesByDateBeginAfterToday();
+        List<Sale> afterTodaySalesList = saleManager.getSalesByDateEndAfterToday();
 
         User user = userDao.findByEmail(userEmail);
         // pre-record added on sale list
@@ -80,4 +85,15 @@ public class SaleController {
     public Sale addNewSale(@RequestBody SaleDto saleDto) {
         return saleManager.addSale(saleDto);
     }
+
+    @PostMapping(value = "/RemoveSale")
+    public ResponseEntity<String> deleteSale(@RequestBody SaleDto saleDto) {
+        boolean saleIsDeleted = saleManager.deleteSale(saleDto);
+        if (saleIsDeleted) {
+            return (new ResponseEntity<>(HttpStatus.OK));
+        } else {
+            return (new ResponseEntity<>("sale not removed, today date is after sale date begin", HttpStatus.ACCEPTED));
+        }
+    }
+
 }

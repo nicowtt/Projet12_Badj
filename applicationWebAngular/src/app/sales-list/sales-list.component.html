@@ -27,6 +27,9 @@
         <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button" class="btn btn-info" (click)="cashArticles(sale.id)">Encaissement</button>
         <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
         <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'refundArticle')">Rembourssement</button>
+        <!-- functions for responsable -->
+        <h5 *ngIf="currentUser.responsible" id="voluntaryFonction">Fonctions pour la responsable:</h5>
+        <button *ngIf="currentUser.responsible" id="function" type="button" class="btn btn-danger" (click)="deleteSale(sale.id)">supprimer bourse</button>
 
 
         <ng-template #findEmailModal>

@@ -230,4 +230,16 @@ export class SalesListComponent implements OnInit, OnDestroy {
   refoundArticles(saleId: number) {
     this.router.navigate(['articlesRefound/' + saleId]);
   }
+
+  deleteSale(saleId: number) {
+    this.sales.forEach(sale => {
+      if (sale.id === saleId) {
+        this.saleConcerned = sale;
+      }
+    });
+    this.salesService.deleteSale(this.saleConcerned, () => {
+      window.location.reload();
+    })
+    
+  }
 }
