@@ -19,3 +19,7 @@
     font-family: georgia, "trebuchet ms", arial, serif;
     text-align: center;
 }
+
+#addSaleButton {
+    margin-left: 15px;
+}

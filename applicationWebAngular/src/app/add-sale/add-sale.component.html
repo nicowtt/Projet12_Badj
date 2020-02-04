@@ -1,0 +1,87 @@
+<div class="raw">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <h4 id="frontTitle">Enregistrement de bourse</h4>
+    <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <p></p>
+        <!-- bourse choice -->
+        <label for="type">Choix type de bourse:</label>
+        <select class="form-control" id="type" formControlName="type"
+          [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+          <option [value]="sale" *ngFor="let sale of saleType">{{sale}}</option>
+        </select>
+        <div *ngIf="f.type.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.type.errors.required">Un type est requis</div>
+        </div>
+        <p></p>
+
+        <!--Category choice-->
+        <label for="description">Choix description:</label>
+
+        <select class="form-control" id="description" formControlName="description"
+          [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+          <option [value]="description" *ngFor="let description of descriptions">{{description}}</option>
+        </select>
+        <div *ngIf="f.description.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.description.errors.required">Une description est requise</div>
+        </div>
+        
+        <!-- date begin choice -->
+        <p></p>
+        <label for="dateBegin" id="dateBeginText">Choix date de commencement:</label>
+          <input #minmaxInput matInput
+          [min]="minDate"
+          [matDatepicker]="beginDate" formControlName="dateBegin" placeholder="Choisissez une date">
+          <mat-datepicker #beginDate></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="beginDate"></mat-datepicker-toggle><br>
+          <mat-error class="error" *ngIf="submitted && saleForm.controls['dateBegin'].hasError('required')"
+                      >Une date est requise</mat-error>
+        <p></p>
+        
+        
+
+        <!-- date end choice -->
+        <p></p>
+        <label for="dateEnd" id="dateEndText">Choix date de fin:</label>
+          <input #minmaxInput matInput 
+          [min]="minDate"
+          [matDatepicker]="endDate" formControlName="dateEnd" placeholder="Choisissez une date">
+          <mat-datepicker #endDate></mat-datepicker >
+          <mat-datepicker-toggle matSuffix [for]="endDate" ></mat-datepicker-toggle><br>
+          <mat-error class="error" *ngIf="submitted && saleForm.controls['dateEnd'].hasError('required')"
+                      >Une date est requise</mat-error>
+        <p></p>
+        
+
+        <div class="form-group">
+          <label for="street">Rue</label>
+          <input type="text" id="street" formControlName="street"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.street.errors }" />
+          <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
+            <div class="error" *ngIf="f.street.errors.required">Une rue est requise</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="postalCode">Code postal</label>
+          <input type="number" id="postalCode" formControlName="postalCode"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" />
+          <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+            <div class="error"*ngIf="f.postalCode.errors.required">Un code postal est requis</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="city">Ville</label>
+          <input type="text" id="city" formControlName="city"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+          <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+            <div class="error" *ngIf="f.city.errors.required">Une ville est requis</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Enregistrement de la bourse</button>
+      </div>
+    </form>

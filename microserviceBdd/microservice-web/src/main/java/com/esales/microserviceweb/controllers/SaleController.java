@@ -4,6 +4,7 @@ import com.esales.microservicebusiness.contract.SaleManager;
 import com.esales.microservicedao.SaleDao;
 import com.esales.microservicedao.UserDao;
 import com.esales.microservicemodel.dto.SaleDto;
+import com.esales.microservicemodel.entity.Address;
 import com.esales.microservicemodel.entity.Sale;
 import com.esales.microservicemodel.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,15 @@ public class SaleController {
         // pre-record added on sale list
         afterTodaySalesDtoList = saleManager.getSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord(afterTodaySalesList, user);
         return afterTodaySalesDtoList;
+    }
+
+    /**
+     * for add new Sale
+     * @param saleDto -> from front
+     * @return saleRecorded
+     */
+    @PostMapping(value = "/NewSale")
+    public Sale addNewSale(@RequestBody SaleDto saleDto) {
+        return saleManager.addSale(saleDto);
     }
 }

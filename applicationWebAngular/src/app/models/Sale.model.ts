@@ -1,6 +1,6 @@
 import {AddressModel} from "./Address.model";
 
-export class Sale {
+export class SaleModel {
   id: number;
   type: string;
   description: string;

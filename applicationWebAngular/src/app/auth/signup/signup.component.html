@@ -8,7 +8,7 @@
         <input type="text" id="name" formControlName="name"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-          <div *ngIf="f.name.errors.required">Un prenoms est requis</div>
+          <div class="error" *ngIf="f.name.errors.required">Un prenoms est requis</div>
         </div>
       </div>
 
@@ -17,7 +17,7 @@
         <input type="text" id="lastName" formControlName="lastName"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
         <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-          <div *ngIf="f.lastName.errors.required">Un nom est requis</div>
+          <div class="error" *ngIf="f.lastName.errors.required">Un nom est requis</div>
         </div>
       </div>
 
@@ -26,8 +26,8 @@
         <input type="email" id="email" formControlName="email"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors.required">Un email est requis</div>
-          <div *ngIf="f.email.errors.email">@ non présent</div>
+          <div class="error" *ngIf="f.email.errors.required">Un email est requis</div>
+          <div class="error" *ngIf="f.email.errors.email">@ non présent</div>
         </div>
       </div>
 
@@ -36,26 +36,25 @@
         <input type="text" id="phone" formControlName="phone"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
         <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-          <div *ngIf="f.phone.errors.required">Un telephone est requis</div>
+          <div class="error" *ngIf="f.phone.errors.required">Un telephone est requis</div>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="street">Adresse</label>
+        <label for="street">Rue</label>
         <input type="text" id="street" formControlName="street"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.street.errors }" />
         <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
-          <div *ngIf="f.street.errors.required">Un telephone est requis</div>
+          <div class="error" *ngIf="f.street.errors.required">Une rue est requise</div>
         </div>
       </div>
 
       <div class="form-group">
         <label for="postalCode">Code postal</label>
-        <input type="text" id="postalCode" formControlName="postalCode"
+        <input type="number" id="postalCode" formControlName="postalCode"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" />
         <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
-          <div *ngIf="f.postalCode.errors.required">Un code postal est requis</div>
-          <div *ngIf="f.postalCode.errors.pattern">Chiffres uniquement</div>
+          <div class="error" *ngIf="f.postalCode.errors.required">Un code postal est requis</div>
         </div>
       </div>
 
@@ -64,7 +63,7 @@
         <input type="text" id="city" formControlName="city"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
         <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
-          <div *ngIf="f.city.errors.required">Une ville est requis</div>
+          <div class="error" *ngIf="f.city.errors.required">Une ville est requis</div>
         </div>
       </div>
 
@@ -73,8 +72,8 @@
         <input type="password" id="password" formControlName="password"
                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback" >
-          <div *ngIf="f.password.errors.required">Un password est requis</div>
-          <div *ngIf="f.password.errors.pattern">minimum 3 caractères </div>
+          <div class="error" *ngIf="f.password.errors.required">Un password est requis</div>
+          <div class="error" *ngIf="f.password.errors.pattern">minimum 3 caractères </div>
         </div>
       </div>
 

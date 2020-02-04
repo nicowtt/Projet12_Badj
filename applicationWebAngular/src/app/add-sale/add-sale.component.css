@@ -11,6 +11,10 @@
   margin-bottom: 30px;
 }
 
-#customerEmail {
-  font-weight: bold;
+#dateBeginText {
+  margin-right: 5px;
+}
+
+#dateEndText {
+  margin-right: 5px;
 }
