@@ -16,10 +16,16 @@ export class AddSaleComponent implements OnInit {
   saleForm: FormGroup;
 
   // sale types
-  saleType = ['Bourse de printemps', 'Bourse de noël'];
+  saleType = ['Bourse de printemps', 'Bourse d\'automne', 'Bourse de noël'];
 
-  // sale description
-  descriptions = ['Vêtements enfants', 'Vêtements adultes', 'jouets Livres Cadeaux Bijoux']
+  springAndAutomnSale: boolean;
+  noelSale: boolean;
+  saleTypeConcerned: string;
+  choiceTypeOk: boolean;
+
+  // sales description
+  descriptionsForSpringAndAutomnSale = ['Vêtements enfants', 'Vêtements adultes'];
+  descriptionsForNoelSale = ['jouets Livres Cadeaux Bijoux'];
 
   submitted = false;
 
@@ -88,5 +94,29 @@ export class AddSaleComponent implements OnInit {
       this.router.navigate(['Sales']);
     });
     this.liveAnnouncer.clear();
+  }
+
+  /**
+   * For adapt form when user choose a category
+   * @param category from form
+   */
+  onEditClick(type: any) {
+    this.saleTypeConcerned = this.f.type.value;
+    if (this.saleTypeConcerned === 'Bourse de printemps' || 
+        this.saleTypeConcerned === 'Bourse d\'automne') {
+      this.allTypeToFalse();
+      this.choiceTypeOk = true;
+      this.springAndAutomnSale = true;
+    }
+    if (this.saleTypeConcerned === 'Bourse de noël') {
+      this.allTypeToFalse();
+      this.choiceTypeOk = true;
+      this.noelSale = true;
+    }
+  }
+
+  allTypeToFalse() {
+    this.springAndAutomnSale = false;
+    this.noelSale = false;
   }
 }

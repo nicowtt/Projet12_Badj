@@ -17,6 +17,10 @@
   text-decoration: underline;
 }
 
+#function {
+  margin-top: 5px;
+}
+
 .searchByMail {
   font-family: georgia, "trebuchet ms", arial, serif;
 }

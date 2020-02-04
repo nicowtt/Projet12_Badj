@@ -9,7 +9,7 @@
         <!-- bourse choice -->
         <label for="type">Choix type de bourse:</label>
         <select class="form-control" id="type" formControlName="type"
-          [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+        (change)="onEditClick($event.target.value)" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
           <option [value]="sale" *ngFor="let sale of saleType">{{sale}}</option>
         </select>
         <div *ngIf="f.type.errors" class="invalid-feedback">
@@ -17,12 +17,17 @@
         </div>
         <p></p>
 
-        <!--Category choice-->
-        <label for="description">Choix description:</label>
-
-        <select class="form-control" id="description" formControlName="description"
+        <!-- Category choice -->
+        <label *ngIf="choiceTypeOk" for="description">Choix description:</label>
+        <!-- spring and automn sale -->
+        <select *ngIf="springAndAutomnSale" class="form-control" id="description" formControlName="description"
           [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
-          <option [value]="description" *ngFor="let description of descriptions">{{description}}</option>
+          <option [value]="description" *ngFor="let description of descriptionsForSpringAndAutomnSale">{{description}}</option>
+        </select>
+        <!-- noel sale -->
+        <select *ngIf="noelSale" class="form-control" id="description" formControlName="description"
+          [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+          <option [value]="description" *ngFor="let description of descriptionsForNoelSale">{{description}}</option>
         </select>
         <div *ngIf="f.description.errors" class="invalid-feedback">
           <div class="error" *ngIf="submitted && f.description.errors.required">Une description est requise</div>
@@ -30,7 +35,7 @@
         
         <!-- date begin choice -->
         <p></p>
-        <label for="dateBegin" id="dateBeginText">Choix date de commencement:</label>
+        <label for="dateBegin" id="dateBeginText">Début:</label>
           <input #minmaxInput matInput
           [min]="minDate"
           [matDatepicker]="beginDate" formControlName="dateBegin" placeholder="Choisissez une date">
@@ -44,7 +49,7 @@
 
         <!-- date end choice -->
         <p></p>
-        <label for="dateEnd" id="dateEndText">Choix date de fin:</label>
+        <label for="dateEnd" id="dateEndText">Fin:</label>
           <input #minmaxInput matInput 
           [min]="minDate"
           [matDatepicker]="endDate" formControlName="dateEnd" placeholder="Choisissez une date">
