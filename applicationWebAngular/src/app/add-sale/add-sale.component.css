@@ -18,3 +18,18 @@
 #dateEndText {
   margin-right: 5px;
 }
+
+::ng-deep .cdk-overlay-container {
+  /* Do you changes here */
+  display: block;
+    
+  position: fixed; 
+  z-index: 1000;
+  margin-left: 400px;
+  margin-top: -300px;
+  background-color: white;
+}
+
+::ng-deep .cdk-live-announcer-element {
+  color: white;
+}
