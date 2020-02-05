@@ -4,7 +4,7 @@ import { AlertService } from './../services/alert.service';
 import { AuthService } from './../services/auth.service';
 import { UserModel } from './../models/User.model';
 import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
-import {Sale} from '../models/Sale.model';
+import {SaleModel} from '../models/Sale.model';
 import {Subscription} from 'rxjs';
 import {SalesService} from '../services/sales.service';
 import {Router} from '@angular/router';
@@ -17,9 +17,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class SalesListComponent implements OnInit, OnDestroy {
 
-  sales: Sale[];
+  sales: SaleModel[];
   salesSubscription: Subscription;
-  saleConcerned: Sale;
+  saleConcerned: SaleModel;
   currentUser: UserModel;
   saleId: number;
 
@@ -55,7 +55,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // subscription
     this.salesSubscription = this.salesService.salesSubject.subscribe(
-      (sales: Sale[]) => {
+      (sales: SaleModel[]) => {
         this.sales = sales;
       }
       );
@@ -229,5 +229,17 @@ export class SalesListComponent implements OnInit, OnDestroy {
 
   refoundArticles(saleId: number) {
     this.router.navigate(['articlesRefound/' + saleId]);
+  }
+
+  deleteSale(saleId: number) {
+    this.sales.forEach(sale => {
+      if (sale.id === saleId) {
+        this.saleConcerned = sale;
+      }
+    });
+    this.salesService.deleteSale(this.saleConcerned, () => {
+      window.location.reload();
+    })
+    
   }
 }

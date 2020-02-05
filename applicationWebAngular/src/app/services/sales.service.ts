@@ -1,7 +1,7 @@
 import { AuthService } from './auth.service';
 import { UserModel } from './../models/User.model';
 import {Observable, Subject} from 'rxjs';
-import {Sale} from '../models/Sale.model';
+import {SaleModel} from '../models/Sale.model';
 import {Injectable} from '@angular/core';
 // import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpRequest} from "@angular/common/http";
 import {AlertService} from './alert.service';
@@ -17,9 +17,9 @@ export class SalesService {
 
   saleSubject = new Subject<any>();
 
-  private sales: Sale[] = [];
+  private sales: SaleModel[] = [];
 
-  private sale: Sale;
+  private sale: SaleModel;
 
   // currentUsertoken : string;
 
@@ -89,5 +89,43 @@ export class SalesService {
       console.log(error);
       }
       );
+  }
+
+  addNewSale(sale: SaleModel, onSuccess: Function) {
+    return this.http
+      .post('/NewSale', sale)
+      .subscribe(
+        (data) => {
+        this.alertService.success('La nouvelle bourse est bien enregistré', true)
+        setTimeout(() => {
+          this.alertService.clear();
+        }, 3000);
+        onSuccess();
+      },
+        (error) => {
+          this.alertService.error('Erreur la nouvelle bourse n\'a pas été enregistré')
+          setTimeout(() => {
+            this.alertService.clear();
+          }, 3000);
+        });
+  }
+
+  deleteSale(sale: SaleModel, onSuccess: Function) {
+    return this.http
+      .post('/RemoveSale', sale)
+      .subscribe(
+        (data) => {
+        this.alertService.success('La bourse à bien été supprimée.', true)
+        setTimeout(() => {
+          this.alertService.clear();
+        }, 3000);
+        onSuccess();
+      },
+        (error) => {
+          this.alertService.error('La bourse à commencer, il est impossible de la supprimer')
+          setTimeout(() => {
+            this.alertService.clear();
+          }, 3000);
+        });
   }
 }

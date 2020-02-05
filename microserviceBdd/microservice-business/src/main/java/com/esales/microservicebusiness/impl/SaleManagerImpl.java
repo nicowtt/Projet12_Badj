@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,8 +39,8 @@ public class SaleManagerImpl implements SaleManager {
     static final Log logger = LogFactory.getLog(SaleManagerImpl.class);
 
     @Override
-    public List<Sale> getSalesByDateBeginAfterToday() {
-        return saleDao.getSalesByDateBeginAfterToday();
+    public List<Sale> getSalesByDateEndAfterToday() {
+        return saleDao.getSalesByDateEndAfterToday();
     }
 
     /**
@@ -89,9 +91,20 @@ public class SaleManagerImpl implements SaleManager {
     @Override
     @Transactional
     public Sale addSale(SaleDto saleDto) {
+        Calendar cal = Calendar.getInstance();
         Address addressInputFromSaleDto;
         Address newAddress;
         Sale newSaleFromDto;
+
+        //force datebeginCET and dateEndCET -> UTC
+        cal.setTime(saleDto.getDateEnd());
+        cal.add(Calendar.HOUR_OF_DAY, 1);
+        Date dateEnd = cal.getTime();
+        saleDto.setDateEnd(dateEnd);
+        cal.setTime(saleDto.getDateBegin());
+        cal.add(Calendar.HOUR_OF_DAY, 1);
+        Date datebegin = cal.getTime();
+        saleDto.setDateBegin(datebegin);
 
         // new address -> bdd
         addressInputFromSaleDto =saleMapper.fromSaleDtoToAddress(saleDto);
@@ -114,5 +127,30 @@ public class SaleManagerImpl implements SaleManager {
     @Override
     public Sale getSale(String dateBegin) {
         return saleDao.getSale(dateBegin);
+    }
+
+    /**
+     * For remove sale if date begin is before today
+     * @param saleDto
+     * @return true if sale and address are removed
+     */
+    @Transactional
+    @Override
+    public boolean deleteSaleIfBeginDateIsAfterToday(SaleDto saleDto) {
+        Sale saleToDelete = saleMapper.fromSaleDtoToSale(saleDto);
+        Address addressToDelete = saleMapper.fromSaleDtoToAddress(saleDto);
+        saleToDelete.setAddress(addressToDelete);
+        // remove only is sale date begin is before today
+        Date todayDate = new Date();
+        if (saleToDelete.getDateBegin().after(todayDate)) {
+            // method for delete sale concerned
+            saleDao.delete(saleToDelete);
+            addressDao.delete(addressToDelete);
+            logger.info(" sale d'id: " + saleToDelete.getId() + " removed");
+            return true;
+        } else {
+            logger.info(" sale d'id: " + saleToDelete.getId() + " not removed, today date is after sale date begin");
+            return false;
+        }
     }
 }

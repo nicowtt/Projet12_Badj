@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface SaleDao extends JpaRepository<Sale, Integer> {
 
-    @Query(value = "SELECT * FROM sales WHERE date_begin > current_date ", nativeQuery = true)
-    List<Sale> getSalesByDateBeginAfterToday();
+    @Query(value = "SELECT * FROM sales WHERE date_end >= current_date ", nativeQuery = true)
+    List<Sale> getSalesByDateEndAfterToday();
 
     Sale findById(int id);
 

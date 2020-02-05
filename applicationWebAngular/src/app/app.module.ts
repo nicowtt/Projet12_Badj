@@ -13,7 +13,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import {AuthService} from './services/auth.service';
 import {AuthGuardService} from './services/auth-guard.service';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import {AlertService} from './services/alert.service';
 import {UserService} from './services/user.service';
@@ -29,6 +29,11 @@ import {ModalModule} from 'ngx-bootstrap';
 import { CashArticlesComponent } from './cash-articles/cash-articles.component';
 import { ArticleRefoundComponent } from './article-refound/article-refound.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { AddSaleComponent } from './add-sale/add-sale.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MAT_DATE_LOCALE, MatFormFieldModule} from "@angular/material";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 const appRoutes: Routes = [
   { path: 'sales', component: SalesListComponent},
@@ -41,6 +46,7 @@ const appRoutes: Routes = [
   { path: 'articleModification/:id/:change',canActivate: [AuthGuardService], component: ArticleModificationComponent},
   { path: 'cashArticles/:saleId', canActivate: [AuthGuardService], component: CashArticlesComponent},
   { path: 'articlesRefound/:saleId/:email', canActivate: [AuthGuardService], component: ArticleRefoundComponent},
+  { path: 'addSale', canActivate: [AuthGuardService], component: AddSaleComponent},
   { path: 'userManagement', canActivate: [AuthGuardService], component: UserManagementComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
@@ -60,7 +66,8 @@ const appRoutes: Routes = [
     ArticleModificationComponent,
     CashArticlesComponent,
     ArticleRefoundComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    AddSaleComponent
 
   ],
   imports: [
@@ -71,9 +78,14 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AutocompleteLibModule,
     ModalModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptorService, multi: true },
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     SalesService,
     AuthService,
     AuthGuardService,

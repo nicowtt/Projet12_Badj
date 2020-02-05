@@ -21,10 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.TimeZone;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestContextConf.class)
@@ -79,7 +76,7 @@ public class SaleManagerImplIntegrationTest {
 
 
         // check if old test is on bdd
-        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         if (listSaleOnBddBeforeTest != null) {
             Sale saleResult = listSaleOnBddBeforeTest.stream()
                     .filter(x -> "saleTest".equals(x.getType()))
@@ -94,7 +91,8 @@ public class SaleManagerImplIntegrationTest {
                 oldSaleTest = saleManagerImpl.getSale("2100-01-10");
                 oldAddressTest = addressManager.getAddressById(oldSaleTest.getAddress().getId());
                 address.setId(oldAddressTest.get().getId());
-                oldAddressTest.ifPresent(address -> addressManager.removeAddress(address));
+                oldAddressTest.ifPresent(
+                        addressToDelete -> addressManager.removeAddress(address));
                 logger.info(" old sale test removed ");
             }
         }
@@ -103,7 +101,7 @@ public class SaleManagerImplIntegrationTest {
     @After
     public void cleanAfter() {
         // check if old test is on bdd
-        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listSaleOnBddBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         if (listSaleOnBddBeforeTest != null) {
             Sale saleResult = listSaleOnBddBeforeTest.stream()
                     .filter(x -> "saleTest".equals(x.getType()))
@@ -117,7 +115,7 @@ public class SaleManagerImplIntegrationTest {
                 oldSaleTest = saleManagerImpl.getSale("2100-01-10");
                 oldAddressTest = addressManager.getAddressById(oldSaleTest.getAddress().getId());
                 address.setId(oldAddressTest.get().getId());
-                oldAddressTest.ifPresent(address -> addressManager.removeAddress(address));
+                oldAddressTest.ifPresent(addressToDelete -> addressManager.removeAddress(address));
                 logger.info(" old sale test removed ");
             }
         }
@@ -126,11 +124,11 @@ public class SaleManagerImplIntegrationTest {
     @Test
     public void testGetSalesByDateBeginAfterToday() {
         // count how many sale before test
-        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         long nbrOfSaleBeforeTest = listOfSaleBeforeTest.stream().count();
         // add saleTest on bdd
         saleManagerImpl.addSale(saleDtoTest);
-        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateEndAfterToday();
         List<SaleDto> listOfSaleAfterAll = saleManagerImpl.getSalesByDateBeginAfterToday(listOfSaleAfterAddTest);
         long nbrOfSaleAfter = listOfSaleAfterAll.stream().count();
 
@@ -142,17 +140,46 @@ public class SaleManagerImplIntegrationTest {
     @Test
     public void testGetSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord() {
         // count how many sale before test
-        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listOfSaleBeforeTest = saleManagerImpl.getSalesByDateEndAfterToday();
         long nbrOfSaleBeforeTest = listOfSaleBeforeTest.stream().count();
         // add saleTest on bdd
         saleManagerImpl.addSale(saleDtoTest);
-        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateBeginAfterToday();
+        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateEndAfterToday();
         List<SaleDto> listOfSaleAfterAll =
                 saleManagerImpl.getSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord(listOfSaleAfterAddTest, user);
         long nbrOfSaleAfter = listOfSaleAfterAll.stream().count();
 
         Assert.assertTrue("Add sale must return number of sale + 1",
                 nbrOfSaleAfter == nbrOfSaleBeforeTest + 1);
+    }
+
+    @Test
+    public void testDeleteSaleIfBeginDateIsAfterToday() {
+        // add saleTest on bdd and count nbr of sale
+        saleManagerImpl.addSale(saleDtoTest);
+        List<Sale> listOfSaleAfterAddTest = saleManagerImpl.getSalesByDateEndAfterToday();
+        List<SaleDto> listOfSaleAfterAll =
+                saleManagerImpl.getSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord(listOfSaleAfterAddTest, user);
+        long nbrOfSaleAfterAddTest = listOfSaleAfterAddTest.stream().count();
+
+        //get sale test
+        SaleDto saleDtoConcerned = listOfSaleAfterAll.stream()
+                .filter(sale -> "descriptionTest".equals(sale.getDescription()))
+                .findAny()
+                .orElse(null);
+        if (saleDtoConcerned != null) {
+            saleDtoTest.setId(saleDtoConcerned.getId());
+            saleDtoTest.getAddress().setId(saleDtoConcerned.getAddress().getId());
+        }
+
+        // remove saleDtoTest
+        saleManagerImpl.deleteSaleIfBeginDateIsAfterToday(saleDtoTest);
+
+        // count nbr of sale after
+        List<Sale> listOfSalefinal = saleManagerImpl.getSalesByDateEndAfterToday();
+        long nbrOfSaleAfterDeleteSaleDtoTest = listOfSalefinal.stream().count();
+
+        Assert.assertTrue(nbrOfSaleAfterDeleteSaleDtoTest == nbrOfSaleAfterAddTest - 1);
     }
 
 }

@@ -8,9 +8,10 @@ import java.util.List;
 
 @Service
 public interface SaleManager {
-    List<Sale> getSalesByDateBeginAfterToday();
+    List<Sale> getSalesByDateEndAfterToday();
     List<SaleDto> getSalesByDateBeginAfterTodayWithNbrOfPreArticleRecord(List<Sale> saleList, User user);
     List<SaleDto> getSalesByDateBeginAfterToday(List<Sale> saleList);
     Sale addSale(SaleDto saleDto);
     Sale getSale(String dateBegin);
+    boolean deleteSaleIfBeginDateIsAfterToday(SaleDto saleDto);
 }

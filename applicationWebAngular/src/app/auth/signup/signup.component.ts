@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone:['', [Validators.required]],
       street:['', [Validators.required]],
-      postalCode:['', [Validators.required, Validators.pattern(/[0-9]/)]],
+      postalCode:['', [Validators.required]],
       city:['', [Validators.required]],
       password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{3,}/)]]
     });

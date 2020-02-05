@@ -10,7 +10,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SalesService} from '../services/sales.service';
-import {Sale} from '../models/Sale.model';
+import {SaleModel} from '../models/Sale.model';
 import {Subscription} from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {DatePipe} from '@angular/common';
@@ -47,7 +47,7 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
 
   // other
   saleSubscription: Subscription;
-  saleConcerned: Sale;
+  saleConcerned: SaleModel;
   saleId: number;
 
   submitted = false;
@@ -76,7 +76,7 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
     this.salesService.getOneSale(id);
 
     this.saleSubscription = this.salesService.saleSubject.subscribe(
-      (sale: Sale) => {
+      (sale: SaleModel) => {
         this.saleConcerned = sale;
         if (this.saleConcerned.description === 'Vêtements enfants') {
           this.childrenSale = true;

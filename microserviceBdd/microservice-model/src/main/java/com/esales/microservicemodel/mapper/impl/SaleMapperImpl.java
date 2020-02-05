@@ -35,6 +35,7 @@ public class SaleMapperImpl implements SaleMapper {
     @Override
     public Address fromSaleDtoToAddress(SaleDto saleDto) {
         Address address = new Address();
+        address.setId(saleDto.getAddress().getId());
         address.setStreet(saleDto.getAddress().getStreet());
         address.setPostalCode(saleDto.getAddress().getPostalCode());
         address.setCity(saleDto.getAddress().getCity());
@@ -49,6 +50,7 @@ public class SaleMapperImpl implements SaleMapper {
     @Override
     public Sale fromSaleDtoToSale(SaleDto saleDto) {
         Sale sale = new Sale();
+        sale.setId(saleDto.getId());
         sale.setDescription(saleDto.getDescription());
         sale.setType(saleDto.getType());
         sale.setDateBegin(saleDto.getDateBegin());

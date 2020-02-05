@@ -2,7 +2,7 @@ import { ArticleToyModel } from './ArticleToy.model';
 import { ArticleObjectModel } from './ArticleObject.model';
 import { ArticleBookModel } from './ArticleBook.model';
 import { ArticleClotheModel } from './ArticleClothe.model';
-import { Sale } from './Sale.model';
+import { SaleModel } from './Sale.model';
 import { UserModel } from './User.model';
 export class ArticleModel {
     id: number;
@@ -16,7 +16,7 @@ export class ArticleModel {
     stolen: boolean;
     returnOwner: boolean;
     user: UserModel;
-    sale: Sale;
+    sale: SaleModel;
     clothe: ArticleClotheModel;
     toy: ArticleToyModel;
     book: ArticleBookModel;
