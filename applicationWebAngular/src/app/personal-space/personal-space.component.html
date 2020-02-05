@@ -3,8 +3,9 @@
     <!-- responsible Functions -->
     <div>
       <h3 *ngIf="currentUser.responsible" id="responsibleFonction">Gestion</h3>
-      <button *ngIf="currentUser.responsible" class="btn btn-info" (click)="managementUser()">Accés utilisateur</button>
+      <button *ngIf="currentUser.responsible" id="accessButton" class="btn btn-info" (click)="managementUser()">Accés utilisateur</button>
       <button *ngIf="currentUser.responsible" id="addSaleButton" class="btn btn-info" (click)="addSale()">Ajouter une bourse</button>
+      <button *ngIf="currentUser.responsible" id="seeResultButton" class="btn btn-info" (click)="seeSalesResult()">Voir resultats des bourses</button>
       <p></p>
       <div *ngIf="currentUser.responsible" class="trait_dessus"><hr></div>
     </div>

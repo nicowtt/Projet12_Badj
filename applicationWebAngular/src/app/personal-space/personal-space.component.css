@@ -22,4 +22,14 @@
 
 #addSaleButton {
     margin-left: 15px;
+    margin-top: 5px;
+}
+
+#seeResultButton {
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+#accessButton {
+    margin-top: 5px;
 }

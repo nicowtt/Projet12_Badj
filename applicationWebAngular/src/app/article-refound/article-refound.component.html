@@ -7,8 +7,8 @@
         </p>
     
         <p id="sommeToRefund" >Somme à rembourser au client (10% badj enlevé): 
-          <span *ngIf="!allArticleOk" id="sommeToRefundNbr">{{refoundTotal | currency :'EUR'}}</span></p>
-          <span *ngIf="allArticleOk" id="hiddenRefund">veuillez rendre les articles pour voir la somme à rembourser.</span>
+          <span *ngIf="allArticleOk" id="sommeToRefundNbr">{{refoundTotal | currency :'EUR'}}</span></p>
+          <span *ngIf="!allArticleOk" id="hiddenRefund">veuillez rendre les articles pour voir la somme à rembourser.</span>
     </div>
 
     <br>

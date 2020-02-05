@@ -44,7 +44,6 @@ export class ArticleRefoundComponent implements OnInit, OnDestroy {
       this.countRefoundTotal();
       this.checkIfAllArticleIsOk();
     })
-
   }
 
   ngOnDestroy() {
@@ -112,12 +111,17 @@ export class ArticleRefoundComponent implements OnInit, OnDestroy {
   }
 
   checkIfAllArticleIsOk() {
+    let totalArticle = 0;
+    let totalArticleSold =0;
     this.articlesList.forEach(article => {
+      totalArticle++;
+      if (article.sold) { totalArticleSold++; }
       if (!article.returnOwner && !article.stolen) {
-        this.allArticleOk = true;
-      } else {
         this.allArticleOk = false;
+      } else {
+        this.allArticleOk = true;
       }
     });
+    if (totalArticle = totalArticleSold) { this.allArticleOk = true; }
   }
 }

@@ -55,6 +55,21 @@ export class SalesService {
       );
   }
 
+  getAllSales() {
+    this.http
+      .get<any[]>('/AllSales')
+      .subscribe(
+        (response) => {
+          this.sales = response;
+          this.emmitSales();
+        },
+        (error) => {
+          console.log('Erreur de chargement !' + error);
+          this.alertService.error('erreur reseau veuillez recommencer plus tard');
+        }
+      );
+  }
+
   /**
    * for get next sales (after today) when user is connected
    */
