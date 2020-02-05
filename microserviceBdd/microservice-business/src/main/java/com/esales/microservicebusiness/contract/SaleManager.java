@@ -13,5 +13,5 @@ public interface SaleManager {
     List<SaleDto> getSalesByDateBeginAfterToday(List<Sale> saleList);
     Sale addSale(SaleDto saleDto);
     Sale getSale(String dateBegin);
-    boolean deleteSale(SaleDto saleDto);
+    boolean deleteSaleIfBeginDateIsAfterToday(SaleDto saleDto);
 }

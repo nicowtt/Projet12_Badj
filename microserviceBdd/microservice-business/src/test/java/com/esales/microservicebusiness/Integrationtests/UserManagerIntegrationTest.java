@@ -53,6 +53,7 @@ public class UserManagerIntegrationTest {
         userDtoTest.setPassword("pass");
         userDtoTest.setEmail("test@test.com");
         userDtoTest.setPhone("0612121212");
+        userDtoTest.setVoluntary(false);
         addressDtoTest.setStreet("rue du test");
         addressDtoTest.setPostalCode(31200);
         addressDtoTest.setCity("Toulouse");
@@ -160,4 +161,26 @@ public class UserManagerIntegrationTest {
 
     }
 
+    @Test
+    public void testUpdateUser() {
+        userManager.addUser(userDtoTest);
+        userDtoTest.setVoluntary(true);
+        // get user
+        List<User> listOfAllUser = userManager.getAllUsers();
+        User userConcerned = listOfAllUser.stream()
+                .filter(user -> "test@test.com".equals(user.getEmail()))
+                .findAny()
+                .orElse(null);
+        userDtoTest.setId(userConcerned.getId());
+        userDtoTest.getAddress().setId(userConcerned.getAddress().getId());
+        userManager.updateUser(userDtoTest);
+
+        List<User> listOfAllUserFinal = userManager.getAllUsers();
+        User userUpdated = listOfAllUserFinal.stream()
+                .filter(user -> "test@test.com".equals(user.getEmail()))
+                .findAny()
+                .orElse(null);
+
+        Assert.assertTrue(userUpdated.isVoluntary());
+    }
 }

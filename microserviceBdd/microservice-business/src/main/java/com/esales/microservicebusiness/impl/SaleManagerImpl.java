@@ -136,7 +136,7 @@ public class SaleManagerImpl implements SaleManager {
      */
     @Transactional
     @Override
-    public boolean deleteSale(SaleDto saleDto) {
+    public boolean deleteSaleIfBeginDateIsAfterToday(SaleDto saleDto) {
         Sale saleToDelete = saleMapper.fromSaleDtoToSale(saleDto);
         Address addressToDelete = saleMapper.fromSaleDtoToAddress(saleDto);
         saleToDelete.setAddress(addressToDelete);

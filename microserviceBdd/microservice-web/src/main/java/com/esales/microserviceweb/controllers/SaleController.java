@@ -86,9 +86,14 @@ public class SaleController {
         return saleManager.addSale(saleDto);
     }
 
+    /**
+     * For remove sale if begin date is before than today
+     * @param saleDto -> from front
+     * @return
+     */
     @PostMapping(value = "/RemoveSale")
     public ResponseEntity<String> deleteSale(@RequestBody SaleDto saleDto) {
-        boolean saleIsDeleted = saleManager.deleteSale(saleDto);
+        boolean saleIsDeleted = saleManager.deleteSaleIfBeginDateIsAfterToday(saleDto);
         if (saleIsDeleted) {
             return (new ResponseEntity<>(HttpStatus.OK));
         } else {
