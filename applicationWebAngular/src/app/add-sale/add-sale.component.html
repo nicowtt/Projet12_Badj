@@ -29,34 +29,27 @@
           [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
           <option [value]="description" *ngFor="let description of descriptionsForNoelSale">{{description}}</option>
         </select>
-        <div *ngIf="f.description.errors" class="invalid-feedback">
+        <div *ngIf="f.description.errors && choiceTypeOk" class="invalid-feedback">
           <div class="error" *ngIf="submitted && f.description.errors.required">Une description est requise</div>
         </div>
         
         <!-- date begin choice -->
         <p></p>
         <label for="dateBegin" id="dateBeginText">Début:</label>
-          <input #minmaxInput matInput
-          [min]="minDate"
-          [matDatepicker]="beginDate" formControlName="dateBegin" placeholder="Choisissez une date">
-          <mat-datepicker #beginDate></mat-datepicker>
-          <mat-datepicker-toggle matSuffix [for]="beginDate"></mat-datepicker-toggle><br>
-          <mat-error class="error" *ngIf="submitted && saleForm.controls['dateBegin'].hasError('required')"
-                      >Une date est requise</mat-error>
-        <p></p>
+        <input type="date" name="sale-start" value={{todayDate}} min={{todayDate}} formControlName="dateBegin">
+        <div *ngIf="f.dateBegin.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.dateBegin.errors.required">Une date est requise</div>
+        </div>
         
         
 
         <!-- date end choice -->
         <p></p>
         <label for="dateEnd" id="dateEndText">Fin:</label>
-          <input #minmaxInput matInput 
-          [min]="minDate"
-          [matDatepicker]="endDate" formControlName="dateEnd" placeholder="Choisissez une date">
-          <mat-datepicker #endDate></mat-datepicker >
-          <mat-datepicker-toggle matSuffix [for]="endDate" ></mat-datepicker-toggle><br>
-          <mat-error class="error" *ngIf="submitted && saleForm.controls['dateEnd'].hasError('required')"
-                      >Une date est requise</mat-error>
+        <input type="date" name="sale-end" value={{todayDate}} min={{todayDate}} formControlName="dateEnd">
+        <div *ngIf="f.dateEnd.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.dateEnd.errors.required">Une date est requise</div>
+        </div>
         <p></p>
         
 

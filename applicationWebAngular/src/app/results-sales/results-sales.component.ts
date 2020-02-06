@@ -128,17 +128,33 @@ export class ResultsSalesComponent implements OnInit, OnDestroy {
   }
 
   calcAssociativeWin() {
-    let totalWin: number = 0;
-    let totalWithoutTwentyPerCent = 0;
+    let cashArticleResult: number = 0;
+    let refoundArticleResult: number = 0;
+    let associativeWinOnOneArticle: number = 0
+
     this.articles.forEach(article => {
       if (article.sold) { 
-        totalWithoutTwentyPerCent = totalWithoutTwentyPerCent + article.price; 
+        // cash article
+          // add 10%
+          let tenPercentAdded = article.price / 10;
+          let resultWithTenPerCentNumber = article.price + tenPercentAdded;
+            // round up for associative advantage
+            cashArticleResult = Math.ceil( resultWithTenPerCentNumber * 10 ) / 10;
+        // refound article
+          // remove 10%
+          // remove 10% for badj
+          let tenPerCentRemoved = article.price / 10;
+          let refoundlessTenPerCentNbr = article.price - tenPerCentRemoved;
+            // round down for associative advantage
+            refoundArticleResult = Math.floor( refoundlessTenPerCentNbr * 10 ) / 10;
+        // total win for one article
+        associativeWinOnOneArticle = cashArticleResult - refoundArticleResult;
+        this.totalAssociativeArticlesSoldWin = this.totalAssociativeArticlesSoldWin + associativeWinOnOneArticle;
+        // reset variable
+        cashArticleResult = 0;
+        refoundArticleResult = 0;
+        associativeWinOnOneArticle = 0;
       }
     });
-    // calc 20% for badj
-    let twentyPerCent = totalWithoutTwentyPerCent * 0.2;
-    let twentyPerCentString = twentyPerCent.toFixed(1);
-    this.totalAssociativeArticlesSoldWin = +twentyPerCentString;
   }
-
 }

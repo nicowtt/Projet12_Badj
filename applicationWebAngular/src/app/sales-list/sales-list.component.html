@@ -7,6 +7,7 @@
         *ngFor="let sale of sales; let i = index">
         <h3>{{ sale.type }} <span id="date">du {{ sale.dateBegin | date: 'dd/MM/yyyy'}}
           au {{ sale.dateEnd | date: 'dd/MM/yyyy' }}</span></h3>
+          <button *ngIf="currentUser && currentUser.responsible" id="deleteSaleFunction" type="button" class="btn btn-danger" (click)="deleteSale(sale.id)">supprimer bourse</button>
         <h4>{{ sale.description}}</h4>
         <h5>{{ sale.address.street}} {{sale.address.postalCode}} {{sale.address.city}}</h5>
         <button class="btn btn-primary" (click)="addArticles(i)">Pré-enregistrement d'articles</button>
@@ -27,11 +28,6 @@
         <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button" class="btn btn-info" (click)="cashArticles(sale.id)">Encaissement</button>
         <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
         <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'refundArticle')">Rembourssement</button>
-        <!-- functions for responsable -->
-        <h5 *ngIf="currentUser.responsible" id="voluntaryFonction">Fonctions pour la responsable:</h5>
-        <button *ngIf="currentUser.responsible" id="function" type="button" class="btn btn-danger" (click)="deleteSale(sale.id)">supprimer bourse</button>
-
-
         <ng-template #findEmailModal>
           <div class="modal-header">
             <h4 class="modal-title pull-left">Veuillez entrer l'email à qui appartient l'article:</h4>

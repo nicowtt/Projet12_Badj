@@ -137,7 +137,7 @@ export class SalesService {
         onSuccess();
       },
         (error) => {
-          this.alertService.error('La bourse à commencer, il est impossible de la supprimer')
+          this.alertService.error('La bourse est en cours il est impossible de la supprimer')
           setTimeout(() => {
             this.alertService.clear();
           }, 3000);
