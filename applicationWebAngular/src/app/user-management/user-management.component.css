@@ -36,3 +36,10 @@ li {
     margin-top: -48px;
     float: right;
 }
+
+#buttonOnResponsable {
+    display:table-cell;
+    float: right;
+    font-size: smaller;
+    margin-left: 5px;
+}

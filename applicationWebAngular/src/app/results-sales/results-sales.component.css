@@ -14,3 +14,15 @@
 #articleCategory {
     color: #A58EB7
 }
+
+#searchBydateButton {
+    margin-left: 5px;
+}
+
+.error {
+    color: red;
+}
+
+#noSaleResult {
+    text-decoration: underline;
+}

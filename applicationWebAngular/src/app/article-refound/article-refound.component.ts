@@ -115,15 +115,17 @@ export class ArticleRefoundComponent implements OnInit, OnDestroy {
   checkIfAllArticleIsOk() {
     let totalArticle = 0;
     let totalArticleSold =0;
+    let totalArticleStolen = 0;
+    let totalArticleReturnOwner = 0;
+    let totalArticleSoldStolenAndReturnOwner = 0;
+    // count total articles, total article sold, total article stolen
     this.articlesList.forEach(article => {
       totalArticle++;
       if (article.sold) { totalArticleSold++; }
-      if (!article.returnOwner && !article.stolen) {
-        this.allArticleOk = false;
-      } else {
-        this.allArticleOk = true;
-      }
+      if (article.stolen) { totalArticleStolen++; }
+      if (article.returnOwner) { totalArticleReturnOwner++; }
     });
-    if (totalArticle = totalArticleSold) { this.allArticleOk = true; }
+    totalArticleSoldStolenAndReturnOwner = totalArticleSold + totalArticleStolen + totalArticleReturnOwner;
+    if (totalArticle === totalArticleSoldStolenAndReturnOwner) { this.allArticleOk = true; }
   }
 }

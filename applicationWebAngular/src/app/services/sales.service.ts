@@ -143,4 +143,22 @@ export class SalesService {
           }, 3000);
         });
   }
+
+  /**
+   * for get only one sale by date
+   * @param date
+   */
+  getOneSaleByDate(date: Date) {
+    return this.http
+      .get<any>('/getSaleByDate/' + date)
+      .subscribe(
+        (data) => {
+          this.sale = data;
+          this.emmitSale()
+        },
+      (error) => {
+      console.log(error);
+      }
+      );
+  }
 }

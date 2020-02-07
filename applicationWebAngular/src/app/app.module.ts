@@ -34,6 +34,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MAT_DATE_LOCALE, MatFormFieldModule} from "@angular/material";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResultsSalesComponent } from './results-sales/results-sales.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 const appRoutes: Routes = [
@@ -85,6 +86,7 @@ const appRoutes: Routes = [
     MatNativeDateModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptorService, multi: true },

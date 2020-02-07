@@ -1,9 +1,11 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ArticlesService } from './../services/articles.service';
 import { ArticleModel } from './../models/Article.model';
 import { SalesService } from './../services/sales.service';
 import { Subscription } from 'rxjs';
 import { SaleModel } from './../models/Sale.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { throwIfEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-results-sales',
@@ -30,12 +32,22 @@ export class ResultsSalesComponent implements OnInit, OnDestroy {
   nbrArticleReturnOwner: number;
   perCentOfArticleReturnOwner: number;
   totalAssociativeArticlesSoldWin: number;
-  
+
+  // search by date
+  searchDateForm: FormGroup;
+  submitted = false;
+  todayDate: Date;
+  saleResult: boolean;
 
   constructor(private salesService: SalesService,
-              private articlesService: ArticlesService) { }
+              private articlesService: ArticlesService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.displayOneSaleResult = false;
+    this.saleResult = false;
+    this.initForm();
+    this.todayDate = new Date;
     this.nbrTotalArticlesSale = 0;
     this.nbrArticlesSold = 0;
     this.perCentOfarticleSold = 0;
@@ -59,6 +71,15 @@ export class ResultsSalesComponent implements OnInit, OnDestroy {
     this.salesService.emmitSales();
     this.displayOneSaleResult = false;
   }
+
+  initForm() {
+    this.searchDateForm = this.formBuilder.group({
+      dateIn: [null, [Validators.required, Validators.email]]
+    });
+  }
+
+   // easy access to form fields
+   get f() { return this.searchDateForm.controls; }
 
   ngOnDestroy() {
     this.salesSubscription.unsubscribe();
@@ -130,7 +151,8 @@ export class ResultsSalesComponent implements OnInit, OnDestroy {
   calcAssociativeWin() {
     let cashArticleResult: number = 0;
     let refoundArticleResult: number = 0;
-    let associativeWinOnOneArticle: number = 0
+    let associativeWinOnOneArticle: number = 0;
+    this.saleResult = true;
 
     this.articles.forEach(article => {
       if (article.sold) { 
@@ -157,4 +179,39 @@ export class ResultsSalesComponent implements OnInit, OnDestroy {
       }
     });
   }
-}
+
+  onSubmitForm() {
+    let before: boolean = false;
+    let after: boolean = false;
+    let dateIsPresent: boolean = false;
+
+    this.submitted = true;
+    this.displayOneSaleResult = true;
+
+    // search on salesList if sale exist
+    this.sales.forEach(sale => {
+      // search by compare
+      let dateInString: string = this.searchDateForm.get('dateIn').value;
+      let dateIn = new Date(dateInString);
+      let dateEnd = new Date(sale.dateEnd);
+      before = +dateIn <= +dateEnd;
+      let dateBegin = new Date(sale.dateBegin);
+      after = +dateIn >= + dateBegin;
+      if( before && after) {
+        this.displayOneSaleResult = true;
+        this.submitted = true;
+        this.saleResult = true;
+          dateIsPresent = true;
+          // si present le met la bourse dans la bourse Concerné
+          this.saleConcerned = sale;
+          // affichage resultat de cette bourse
+          this.seeResults(sale.id);
+      }
+    });
+    }
+
+    filterStop() {
+      window.location.reload();
+    }
+  }
+
