@@ -96,16 +96,6 @@ public class SaleManagerImpl implements SaleManager {
         Address newAddress;
         Sale newSaleFromDto;
 
-        //force datebeginCET and dateEndCET -> UTC
-        cal.setTime(saleDto.getDateEnd());
-        cal.add(Calendar.HOUR_OF_DAY, 1);
-        Date dateEnd = cal.getTime();
-        saleDto.setDateEnd(dateEnd);
-        cal.setTime(saleDto.getDateBegin());
-        cal.add(Calendar.HOUR_OF_DAY, 1);
-        Date datebegin = cal.getTime();
-        saleDto.setDateBegin(datebegin);
-
         // new address -> bdd
         addressInputFromSaleDto =saleMapper.fromSaleDtoToAddress(saleDto);
 

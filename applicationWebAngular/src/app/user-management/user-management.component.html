@@ -38,6 +38,12 @@
             <span id="displayVoluntary" *ngIf="user.voluntary">Bénévole: </span>
             <span id="displayResponsible" *ngIf="user.responsible">Responsable: </span>
             {{user.email}}
+            <span id="buttonOnResponsable" *ngIf="!user.responsible"
+              (click)="onDeclareResponsible(user.id)" class="btn btn-info ">Déclarer responsable
+            </span>
+            <span id="buttonOnResponsable" *ngIf="user.responsible"
+              (click)="onDeclareResponsibleOff(user.id)" class="btn btn-danger">Enlever accés responsable
+            </span>
             <span id="buttonOnVoluntary" *ngIf="!user.voluntary && !user.responsible"
               (click)="onDeclareVoluntary(user.id)" class="btn btn-info ">Déclarer bénévole
             </span>
@@ -56,12 +62,19 @@
           <span id="displayVoluntary" *ngIf="user.voluntary">Bénévole: </span>
           <span id="displayResponsible" *ngIf="user.responsible">Responsable: </span>
           {{user.email}}
+          <span id="buttonOnResponsable" *ngIf="!user.responsible"
+            (click)="onDeclareResponsible(user.id)" class="btn btn-warning ">Déclarer responsable
+          </span>
+          <span id="buttonOnResponsable" *ngIf="user.responsible && user.email !='bruce.lee@gmail.com'"
+            (click)="onDeclareResponsibleOff(user.id)" class="btn btn-danger">Enlever accés responsable
+          </span>
           <span id="buttonOnVoluntary" *ngIf="!user.voluntary && !user.responsible"
             (click)="onDeclareVoluntary(user.id)" class="btn btn-info ">Déclarer bénévole
           </span>
           <span id="buttonOnVoluntary" *ngIf="user.voluntary && !user.responsible"
             (click)="onDeclareVoluntaryOff(user.id)" class="btn btn-danger ">Enlever accés bénévoles
           </span>
+          
         </li>
       </ul>
       </div>

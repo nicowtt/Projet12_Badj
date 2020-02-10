@@ -3,15 +3,16 @@
     <!-- responsible Functions -->
     <div>
       <h3 *ngIf="currentUser.responsible" id="responsibleFonction">Gestion</h3>
-      <button *ngIf="currentUser.responsible" class="btn btn-info" (click)="managementUser()">Accés utilisateur</button>
+      <button *ngIf="currentUser.responsible" id="accessButton" class="btn btn-info" (click)="managementUser()">Accés utilisateur</button>
       <button *ngIf="currentUser.responsible" id="addSaleButton" class="btn btn-info" (click)="addSale()">Ajouter une bourse</button>
+      <button *ngIf="currentUser.responsible" id="seeResultButton" class="btn btn-info" (click)="seeSalesResult()">Voir resultats des bourses</button>
       <p></p>
       <div *ngIf="currentUser.responsible" class="trait_dessus"><hr></div>
     </div>
     <!-- Personal articles list -->
     <div class="list-group">
       <h3 id="frontTitle">Vos articles pré-enregistrés</h3>
-      <button class="list-group-item" *ngFor="let article of articles; let i = index">
+      <button class="list-group-item" *ngFor="let article of articles | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
         <h4 *ngIf="!article.stolen && !article.returnOwner"
         id="articleTypeBourse">Bourse: {{article.sale.description}} du
           {{article.sale.dateBegin | date: 'shortDate' }}</h4>
@@ -87,3 +88,4 @@
     </div>
   </div>
 </div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

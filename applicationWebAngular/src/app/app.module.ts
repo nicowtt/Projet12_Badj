@@ -33,6 +33,8 @@ import { AddSaleComponent } from './add-sale/add-sale.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MAT_DATE_LOCALE, MatFormFieldModule} from "@angular/material";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ResultsSalesComponent } from './results-sales/results-sales.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 const appRoutes: Routes = [
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
   { path: 'articlesRefound/:saleId/:email', canActivate: [AuthGuardService], component: ArticleRefoundComponent},
   { path: 'addSale', canActivate: [AuthGuardService], component: AddSaleComponent},
   { path: 'userManagement', canActivate: [AuthGuardService], component: UserManagementComponent},
+  { path: 'resultSales', canActivate: [AuthGuardService], component: ResultsSalesComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -67,7 +70,8 @@ const appRoutes: Routes = [
     CashArticlesComponent,
     ArticleRefoundComponent,
     UserManagementComponent,
-    AddSaleComponent
+    AddSaleComponent,
+    ResultsSalesComponent
 
   ],
   imports: [
@@ -82,6 +86,7 @@ const appRoutes: Routes = [
     MatNativeDateModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptorService, multi: true },

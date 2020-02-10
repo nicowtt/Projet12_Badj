@@ -51,8 +51,25 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.usersList.forEach(user => {
       if (user.id === userId) {
         user.voluntary = false;
-        this.userService.updateUser(user, () => {
-        })
+        this.userService.updateUser(user, () => {})
+      }
+    });
+  }
+
+  onDeclareResponsible(userId: number) {
+    this.usersList.forEach(user => {
+      if (user.id === userId) {
+        user.responsible = true;
+        this.userService.updateUser(user, () => {})
+      }
+    });
+  }
+
+  onDeclareResponsibleOff(userId: number) {
+    this.usersList.forEach(user => {
+      if (user.id === userId) {
+        user.responsible = false;
+        this.userService.updateUser(user, () => {})
       }
     });
   }

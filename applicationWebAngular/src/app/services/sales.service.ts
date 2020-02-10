@@ -55,6 +55,21 @@ export class SalesService {
       );
   }
 
+  getAllSales() {
+    this.http
+      .get<any[]>('/AllSales')
+      .subscribe(
+        (response) => {
+          this.sales = response;
+          this.emmitSales();
+        },
+        (error) => {
+          console.log('Erreur de chargement !' + error);
+          this.alertService.error('erreur reseau veuillez recommencer plus tard');
+        }
+      );
+  }
+
   /**
    * for get next sales (after today) when user is connected
    */
@@ -122,10 +137,28 @@ export class SalesService {
         onSuccess();
       },
         (error) => {
-          this.alertService.error('La bourse à commencer, il est impossible de la supprimer')
+          this.alertService.error('La bourse est en cours il est impossible de la supprimer')
           setTimeout(() => {
             this.alertService.clear();
           }, 3000);
         });
+  }
+
+  /**
+   * for get only one sale by date
+   * @param date
+   */
+  getOneSaleByDate(date: Date) {
+    return this.http
+      .get<any>('/getSaleByDate/' + date)
+      .subscribe(
+        (data) => {
+          this.sale = data;
+          this.emmitSale()
+        },
+      (error) => {
+      console.log(error);
+      }
+      );
   }
 }

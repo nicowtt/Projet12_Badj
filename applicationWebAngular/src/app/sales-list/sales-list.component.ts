@@ -240,6 +240,6 @@ export class SalesListComponent implements OnInit, OnDestroy {
     this.salesService.deleteSale(this.saleConcerned, () => {
       window.location.reload();
     })
-    
+
   }
 }

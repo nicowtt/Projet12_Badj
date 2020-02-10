@@ -187,8 +187,11 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
     this.resultWithTenPerCent = 0;
     let tenPercent = this.result / 10;
     let resultWithTenPerCentNumber = this.result + tenPercent;
-    let resultWithTenPerCentString = resultWithTenPerCentNumber.toFixed(1);
-    this.resultWithTenPerCent = +resultWithTenPerCentString;
+    // round up
+    resultWithTenPerCentNumber = Math.ceil( resultWithTenPerCentNumber * 10 ) / 10;
+    this.resultWithTenPerCent = +resultWithTenPerCentNumber;
+    
+  
     console.log('result without round up :' + resultWithTenPerCentNumber);
   }
 

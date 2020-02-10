@@ -31,7 +31,7 @@
 
     <!-- display all article for one sale  -->
     <div *ngIf="!emailFilter" class="list-group">
-      <button class="list-group-item" *ngFor="let article of articles; let i = index" >
+      <button class="list-group-item" *ngFor="let article of articles | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" >
         <h4 *ngIf="!article.sold && !article.stolen && !article.returnOwner" id="articleTypeBourse">Bourse: {{article.sale.description}} du
           {{article.sale.dateBegin | date: 'shortDate' }}
         </h4>
@@ -124,7 +124,7 @@
 
     <!-- display all articles by sale with Email Filter -->
     <div *ngIf="emailFilter" class="list-group">
-      <button class="list-group-item" *ngFor="let article of articlesFilteredByMail; let i = index">
+      <button class="list-group-item" *ngFor="let article of articlesFilteredByMail | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
         <h4 *ngIf="!article.sold && !article.stolen && !article.returnOwner" id="articleTypeBourse">Bourse: {{article.sale.description}} du
           {{article.sale.dateBegin | date: 'shortDate' }}
         </h4>
@@ -215,3 +215,4 @@
     </div>
   </div>
 </div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
