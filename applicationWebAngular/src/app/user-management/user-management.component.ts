@@ -41,7 +41,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.usersList.forEach(user => {
       if (user.id === userId) {
         user.voluntary = true;
-        this.userService.updateUser(user, () => {
+        this.userService.updateUserAndAddressSamePassword(user, () => {
         })
       }
     });
@@ -51,7 +51,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.usersList.forEach(user => {
       if (user.id === userId) {
         user.voluntary = false;
-        this.userService.updateUser(user, () => {})
+        this.userService.updateUserAndAddressSamePassword(user, () => {})
       }
     });
   }
@@ -60,7 +60,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.usersList.forEach(user => {
       if (user.id === userId) {
         user.responsible = true;
-        this.userService.updateUser(user, () => {})
+        this.userService.updateUserAndAddressSamePassword(user, () => {})
       }
     });
   }
@@ -69,7 +69,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.usersList.forEach(user => {
       if (user.id === userId) {
         user.responsible = false;
-        this.userService.updateUser(user, () => {})
+        this.userService.updateUserAndAddressSamePassword(user, () => {})
       }
     });
   }

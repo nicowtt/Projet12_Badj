@@ -35,6 +35,7 @@ import {MatNativeDateModule, MAT_DATE_LOCALE, MatFormFieldModule} from "@angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResultsSalesComponent } from './results-sales/results-sales.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { UserModificationComponent } from './user-modification/user-modification.component';
 
 
 const appRoutes: Routes = [
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
   { path: 'addSale', canActivate: [AuthGuardService], component: AddSaleComponent},
   { path: 'userManagement', canActivate: [AuthGuardService], component: UserManagementComponent},
   { path: 'resultSales', canActivate: [AuthGuardService], component: ResultsSalesComponent},
+  { path: 'userUpdate', canActivate: [AuthGuardService], component: UserModificationComponent},
   { path: '', redirectTo: 'sales', pathMatch: 'full'},
   { path: '**', redirectTo: 'sales'}
 ];
@@ -71,7 +73,8 @@ const appRoutes: Routes = [
     ArticleRefoundComponent,
     UserManagementComponent,
     AddSaleComponent,
-    ResultsSalesComponent
+    ResultsSalesComponent,
+    UserModificationComponent
 
   ],
   imports: [

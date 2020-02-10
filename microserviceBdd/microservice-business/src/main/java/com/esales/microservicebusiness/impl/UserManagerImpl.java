@@ -143,15 +143,33 @@ public class UserManagerImpl implements UserManager {
     }
 
     /**
-     * for update user
+     * for update user or user address
      * @param userDto
      * @return
      */
     @Override
-    public User updateUser(UserDto userDto) {
+    public User updateUserAndAddressSamePassword(UserDto userDto) {
         User userToUpdate = userMapper.fromDtoToUserWithoutAddress(userDto);
         Address address = userDto.getAddress();
         userToUpdate.setAddress(address);
+        addressDao.save(address);
+        return userDao.save(userToUpdate);
+    }
+
+    /**
+     * For update user or user address and update password
+     * @param userDto
+     * @return
+     */
+    @Override
+    public User updateUserAndAddressAndPassword(UserDto userDto) {
+        User userToUpdate = userMapper.fromDtoToUserWithoutAddress(userDto);
+        Address address = userDto.getAddress();
+        userToUpdate.setAddress(address);
+        // hash new password
+        userToUpdate.setPassword(passwordEncoder.hashPassword(userDto.getPassword()));
+        // save user and user address
+        addressDao.save(address);
         return userDao.save(userToUpdate);
     }
 }

@@ -71,4 +71,8 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
   seeSalesResult() {
     this.router.navigate(['resultSales']);
   }
+
+  userUpdate() {
+    this.router.navigate(['userUpdate']);
+  }
 }

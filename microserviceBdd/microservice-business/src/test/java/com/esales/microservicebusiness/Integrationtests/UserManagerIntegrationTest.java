@@ -173,7 +173,7 @@ public class UserManagerIntegrationTest {
                 .orElse(null);
         userDtoTest.setId(userConcerned.getId());
         userDtoTest.getAddress().setId(userConcerned.getAddress().getId());
-        userManager.updateUser(userDtoTest);
+        userManager.updateUserAndAddressSamePassword(userDtoTest);
 
         List<User> listOfAllUserFinal = userManager.getAllUsers();
         User userUpdated = listOfAllUserFinal.stream()

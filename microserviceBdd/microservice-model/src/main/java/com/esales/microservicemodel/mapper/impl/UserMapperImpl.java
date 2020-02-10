@@ -43,13 +43,12 @@ public class UserMapperImpl implements UserMapper {
         UserDto userDto = new UserDto();
         Address address = new Address();
 
+        address.setId(user.getId());
         address.setStreet(user.getAddress().getStreet());
         address.setPostalCode(user.getAddress().getPostalCode());
         address.setCity(user.getAddress().getCity());
 
-        if (userDto.getId() != null) {
-            user.setId(userDto.getId());
-        }
+        userDto.setId(user.getId());
         userDto.setName(user.getName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());

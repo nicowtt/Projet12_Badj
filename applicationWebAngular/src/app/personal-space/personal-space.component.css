@@ -33,3 +33,7 @@
 #accessButton {
     margin-top: 5px;
 }
+
+#userUpdateButton {
+    float: right;
+}

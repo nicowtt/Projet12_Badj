@@ -79,7 +79,7 @@ public class SaleControllerIntegrityTest extends AbstractTest{
                     .filter(x -> "saleTest".equals(x.getType()))
                     .findAny()
                     .orElse(null);
-            logger.info(" old user test is present: " + saleResult);
+            logger.info(" old sale test is present: " + saleResult);
 
             if (saleResult != null) {
                 // deleting adress -> cascade for delete sale
@@ -102,7 +102,7 @@ public class SaleControllerIntegrityTest extends AbstractTest{
                     .filter(x -> "saleTest".equals(x.getType()))
                     .findAny()
                     .orElse(null);
-            logger.info(" old user test is present: " + saleResult);
+            logger.info(" old sale test is present: " + saleResult);
 
             if (saleResult != null) {
                 // deleting adress -> cascade for delete sale

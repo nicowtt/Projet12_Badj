@@ -14,6 +14,9 @@ export class UserService {
   private usersList: UserModel[] = [];
   usersSubject = new Subject<UserModel[]>();
 
+  private user: UserModel;
+  userSubject = new Subject<UserModel>();
+
 
   listEmailsSubject = new Subject<string[]>();  
   userEmails: string[];
@@ -24,6 +27,10 @@ export class UserService {
 
   emitUserEmail() {
     this.listEmailsSubject.next(this.userEmails.slice());
+  }
+
+  emitUser() {
+    this.userSubject.next(this.user);
   }
 
   /**
@@ -118,11 +125,47 @@ export class UserService {
     )
   }
 
-  updateUser(user: UserModel, onSuccess: Function) {
+  updateUserAndAddressSamePassword(user: UserModel, onSuccess: Function) {
     return this.http
-    .post<UserModel>('/updateUser', user)
+    .post<UserModel>('/updateUserAndAddressSamePassword', user)
     .subscribe(
       (response) => {
+        this.alertService.success('Utilisateur à été mis à jour', true);
+        setTimeout(() => {
+          this.alertService.clear();
+        }, 3000);
+        onSuccess();
+      },
+      (error) => {
+        this.alertNetworkOff(error);
+      }
+    );
+  }
+
+  updateUserAndAddressAndPassword(user: UserModel, onSuccess: Function) {
+  return this.http
+    .post<UserModel>('/updateUserAndAddressAndPassword', user)
+    .subscribe(
+      (response) => {
+        this.alertService.success('Utilisateur et son mot de passe ont été mis à jour', true);
+        setTimeout(() => {
+          this.alertService.clear();
+        }, 3000);
+        onSuccess();
+      },
+      (error) => {
+        this.alertNetworkOff(error);
+      }
+    );
+  }
+
+  getOneUser(user: UserModel, onSuccess: Function) {
+    return this.http
+    .post<UserModel>('/getOneUser', user)
+    .subscribe(
+      (response) => {
+        this.user = response;
+        this.emitUser();
         onSuccess();
       },
       (error) => {

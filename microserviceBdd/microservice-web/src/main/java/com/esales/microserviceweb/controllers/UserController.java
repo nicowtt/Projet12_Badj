@@ -117,13 +117,36 @@ public class UserController {
 
     /**
      * For update user
-     * @param userDto
+     * @param userDto -> from front
      * @return
      */
-    @PostMapping(value = "updateUser")
-    public UserDto updateUser(@RequestBody UserDto userDto) {
-        User userUpdated = userManager.updateUser(userDto);
-        logger.info("user " + userUpdated.getEmail() + " updated.");
+    @PostMapping(value = "/updateUserAndAddressSamePassword")
+    public UserDto updateUserAndAddressSamePassword(@RequestBody UserDto userDto) {
+        User userUpdated = userManager.updateUserAndAddressSamePassword(userDto);
+        logger.info("user " + userUpdated.getEmail() + " updated for user or address change.");
         return userMapper.fromUserToDto(userUpdated);
+    }
+
+    /**
+     * for update user with password
+     * @param userDto -> from front
+     * @return
+     */
+    @PostMapping(value = "/updateUserAndAddressAndPassword")
+    public UserDto updateUserAndAddressAndPassword(@RequestBody UserDto userDto) {
+        User userUpdated = userManager.updateUserAndAddressAndPassword(userDto);
+        logger.info("user " + userUpdated.getEmail() + " updated for user or address change with a new password.");
+        return userMapper.fromUserToDto(userUpdated);
+    }
+
+    /**
+     * get full user bean
+     * @param userDto -> from front
+     * @return
+     */
+    @PostMapping(value = "/getOneUser")
+    public UserDto getOneUser(@RequestBody UserDto userDto) {
+        User fullUser = userDao.findByEmail(userDto.getEmail());
+        return userMapper.fromUserToDto(fullUser);
     }
 }
