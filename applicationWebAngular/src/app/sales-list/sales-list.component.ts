@@ -33,13 +33,13 @@ export class SalesListComponent implements OnInit, OnDestroy {
   keyword = 'email';
 
   // -pre-record article limits
-  userArticleLimitForAdultClothe = 4;
+  userArticleLimitForAdultClothe = 20;
   userVoluntaryArticleLimitForAdultClothe = this.userArticleLimitForAdultClothe * 2;
 
-  userArticleLimitForChildrenClothe = 2;
+  userArticleLimitForChildrenClothe = 40;
   userVoluntaryArticleLimitForChildrenClothe = this.userArticleLimitForChildrenClothe * 2;
 
-  userArticleLimitForBookToyAndObject = 6;
+  userArticleLimitForBookToyAndObject = 60;
   userVoluntaryArticleLimitForBookToyAndObject = this.userArticleLimitForBookToyAndObject * 2;
   
   constructor(private salesService: SalesService,
@@ -217,6 +217,7 @@ export class SalesListComponent implements OnInit, OnDestroy {
     console.log('bourse id concernée: ' + saleId);
     if (this.newArticle) { this.router.navigate(['addArticles/' + saleId + '/' + emailIn]); }
     if (this.refoundArticle) { this.router.navigate(['articlesRefound/' + saleId + '/' + emailIn]); }
+    this.modalService._hideModal(1);
     }
   
   /**
@@ -232,14 +233,16 @@ export class SalesListComponent implements OnInit, OnDestroy {
   }
 
   deleteSale(saleId: number) {
-    this.sales.forEach(sale => {
-      if (sale.id === saleId) {
-        this.saleConcerned = sale;
+      if(confirm( 'Voulez-vous vraiment supprimer la bourse ainsi que tous les articles associés ?')) {
+        this.sales.forEach(sale => {
+          if (sale.id === saleId) {
+            this.saleConcerned = sale;
+          }
+        });
+        this.salesService.deleteSale(this.saleConcerned, () => {
+          window.location.reload();
+        })
       }
-    });
-    this.salesService.deleteSale(this.saleConcerned, () => {
-      window.location.reload();
-    })
-
-  }
+      
+    }
 }

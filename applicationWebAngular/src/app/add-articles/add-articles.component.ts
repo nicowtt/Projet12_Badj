@@ -32,9 +32,14 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
   playSale: boolean; // -> type category 3
 
   // categories
-  categories = ['Vêtements', 'Puériculture et accessoires'];
-  categories2 = ['Vêtements', 'Linge de maison'];
-  categories3 = ['Jouet', 'Objet de décoration', 'Livre'];
+  categories = ['Vêtements', 'Puériculture et accessoires', 'Autre'];
+  categories2 = ['Vêtements', 'Linge de maison', 'Autre'];
+  categories3 = ['Jouet', 'Objet de décoration', 'Livre', 'Bijoux', 'Autre'];
+
+  // Vêtements -> categories Type: clothe
+  // Puériculture et accessoires, Autre, Linge de maison, Objet de décoration, Bijoux -> categories Type: Object
+  // Livre -> categories Type: book
+  // Jouet -> categories Type: Toy
 
   // gender
   genders = ['Homme / Garçon', 'Femme / Fille'];
@@ -144,7 +149,11 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
     // if there is null on object category -> display form error (object)
     if (this.signForm.get('category').value === 'Puériculture et accessoires' ||
     this.signForm.get('category2').value === 'Linge de maison' ||
-    this.signForm.get('category3').value === 'Objet de décoration') {
+    this.signForm.get('category3').value === 'Objet de décoration' ||
+    this.signForm.get('category').value === 'Autre' ||
+    this.signForm.get('category2').value === 'Autre' ||
+    this.signForm.get('category3').value === 'Autre' ||
+    this.signForm.get('category3').value === 'Bijoux') {
         if (this.f.type.value === null || this.f.brand.value === null || this.f.ObjectColor.value === null ||
           this.f.price.value === null ) {
         console.log('passage error from Puériculture et accessoires, linge de maison (object)');
@@ -210,8 +219,13 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
     }
 
     // articleObject
-    if (this.f.category.value === 'Puériculture et accessoires' || this.f.category2.value === 'Linge de maison' ||
-    this.f.category3.value === 'Objet de décoration') {
+    if (this.f.category.value === 'Puériculture et accessoires' || 
+        this.f.category2.value === 'Linge de maison' ||
+        this.f.category3.value === 'Objet de décoration' || 
+        this.f.category3.value === 'Bijoux' ||
+        this.f.category.value === 'Autre'||
+        this.f.category2.value === 'Autre'||
+        this.f.category3.value === 'Autre') {
       const articleObject = new ArticleObjectModel();
       const dateRecord = new Date;
       if (this.childrenSale === true) {
@@ -319,7 +333,9 @@ export class AddArticlesComponent implements OnInit, OnDestroy {
     }
     if (category === 'Puériculture et accessoires' ||
       category === 'Linge de maison' ||
-      category === 'Objet de décoration') {
+      category === 'Objet de décoration' ||
+      category === 'Bijoux' ||
+      category === 'Autre') {
       console.log(category);
       this.allCategoryToFalse();
       this.object = true;

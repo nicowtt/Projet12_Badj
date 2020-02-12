@@ -10,7 +10,7 @@
           <input type="text" id="size" formControlName="size"
                  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.size.errors }" />
           <div *ngIf="submitted && f.size.errors" class="invalid-feedback">
-            <div *ngIf="f.size.errors.required">Une taille est requise</div>
+            <div class="error"*ngIf="f.size.errors.required">Une taille est requise</div>
           </div>
         </div>
 
@@ -72,7 +72,7 @@
             <input type="text" id="bookName" formControlName="bookName"
                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bookName.errors }" />
             <div *ngIf="submitted && f.bookName.errors" class="invalid-feedback">
-              <div *ngIf="f.bookName.errors.required">Un titre est requis</div>
+              <div class="error" *ngIf="f.bookName.errors.required">Un titre est requis</div>
             </div>
           </div>
         
@@ -82,7 +82,7 @@
             <input type="text" id="bookAuthor" formControlName="bookAuthor"
                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bookAuthor.errors }" />
             <div *ngIf="submitted && f.bookAuthor.errors" class="invalid-feedback">
-              <div *ngIf="f.bookAuthor.errors.required">Un auteur est requis</div>
+              <div class="error" *ngIf="f.bookAuthor.errors.required">Un auteur est requis</div>
             </div>
           </div>
 
@@ -128,7 +128,7 @@
             <input type="text" id="type" formControlName="type"
                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" />
             <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
-              <div *ngIf="f.type.errors.required">Un type est requis</div>
+              <div class="error" *ngIf="f.type.errors.required">Un type est requis</div>
             </div>
           </div>
 

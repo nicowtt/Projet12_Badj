@@ -110,10 +110,6 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
     window.location.reload();
   }
 
-  onFocused(e: any) {
-    // do something
-  }
-
   changeCharacteristics(articleId: number, characteristic: string) {
     this.articles.forEach(article => {
       if (article.id === articleId) { this.articleConcerned = article; }
@@ -138,13 +134,15 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
   }
 
   onDeleteArticle(articleId: number) {
-    this.articles.forEach(article => {
-      if (article.id === articleId) { this.articleConcerned = article; }
-    });
-    this.articlesService.removeArticle(this.articleConcerned, () => {
-      this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
-        window.location.reload();
+    if (confirm('Voulez-vous vraiment supprimer cet article ?')) {
+      this.articles.forEach(article => {
+        if (article.id === articleId) { this.articleConcerned = article; }
       });
-    });
+      this.articlesService.removeArticle(this.articleConcerned, () => {
+        this.articlesService.getAllArticlesForOneSale(this.saleId, () => {
+          window.location.reload();
+        });
+      });
+    }
   }
 }

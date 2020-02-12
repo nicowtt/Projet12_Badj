@@ -48,7 +48,7 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    this.articleSubscription.unsubscribe();
   }
 
   // easy access to form fields
@@ -211,25 +211,27 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
   }
 
   validateCash() {
-    // avoid validate if one article is not validate
-    let allArticleValidate = true;
+    if (confirm('Veuillez comfirmer la transaction:')) {
+  // avoid validate if one article is not validate
+  let allArticleValidate = true;
+  this.articlesCashList.forEach(article => {
+    if (article.validateToSell === false) {
+      allArticleValidate = false;
+      this.alertOneArticleIsNotValidate();
+    }
+  });
+  if (allArticleValidate) {
     this.articlesCashList.forEach(article => {
-      if (article.validateToSell === false) {
-        allArticleValidate = false;
-        this.alertOneArticleIsNotValidate();
-      }
+      article.sold = true;
+      this.articlesService.updateArticle(article, () => {
+        this.alertService.success('la transaction est validé', true);
+        setTimeout(() => {
+          this.alertService.clear();
+          window.location.reload();
+        }, 3000);
+      })
     });
-    if (allArticleValidate) {
-      this.articlesCashList.forEach(article => {
-        article.sold = true;
-        this.articlesService.updateArticle(article, () => {
-          this.alertService.success('la transaction est validé', true);
-          setTimeout(() => {
-            this.alertService.clear();
-            window.location.reload();
-          }, 3000);
-        })
-      });
+  }
     }
   }
 }

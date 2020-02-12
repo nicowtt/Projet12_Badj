@@ -1,67 +1,77 @@
-
 <div class="row">
   <div class="col-xs-12">
     <div class="list-group">
-      <button
-        class="list-group-item"
-        *ngFor="let sale of sales; let i = index">
+      <button class="list-group-item" *ngFor="let sale of sales; let i = index">
         <h3>{{ sale.type }} <span id="date">du {{ sale.dateBegin | date: 'dd/MM/yyyy'}}
-          au {{ sale.dateEnd | date: 'dd/MM/yyyy' }}</span></h3>
-          <button *ngIf="currentUser && currentUser.responsible" id="deleteSaleFunction" type="button" class="btn btn-danger" (click)="deleteSale(sale.id)">supprimer bourse</button>
+            au {{ sale.dateEnd | date: 'dd/MM/yyyy' }}</span></h3>
+          <button *ngIf="currentUser && currentUser.responsible" id="deleteSaleFunction" type="button" 
+          class="btn btn-danger" (click)="deleteSale(sale.id)">Supprimer bourse</button>
+
         <h4>{{ sale.description}}</h4>
         <h5>{{ sale.address.street}} {{sale.address.postalCode}} {{sale.address.city}}</h5>
         <button class="btn btn-primary" (click)="addArticles(i)">Pré-enregistrement d'articles</button>
-        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'Vêtements adulte'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForAdultClothe}}.</h6>
-        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'Vêtements adulte'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForAdultClothe}}.</h6>
-        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'Vêtements enfants'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForChildrenClothe}}.</h6>
-        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'Vêtements enfants'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForChildrenClothe}}.</h6>
-        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForBookToyAndObject}}.</h6>
-        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForBookToyAndObject}}.</h6>
-        
+        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'Vêtements adulte'">
+          Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForAdultClothe}}.</h6>
+        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'Vêtements adulte'">
+          Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForAdultClothe}}.</h6>
+        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'Vêtements enfants'">
+          Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForChildrenClothe}}.
+        </h6>
+        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'Vêtements enfants'">
+          Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForChildrenClothe}}.</h6>
+        <h6 *ngIf="currentUser && !currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">
+          Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userArticleLimitForBookToyAndObject}}.</h6>
+        <h6 *ngIf="currentUser && currentUser.voluntary && sale.description == 'jouets Livres Cadeaux Bijoux'">
+          Vous avez pré-enregistré {{ sale.nbrArticlesPreRecordForUser }} article(s) sur {{userVoluntaryArticleLimitForBookToyAndObject}}.</h6>
+
         <span *ngIf="currentUser">
-        <!-- functions for voluntary  and responsable -->
-        <h5 *ngIf="currentUser.voluntary || currentUser.responsible" id="voluntaryFonction">Fonctions pour les bénévoles:</h5>
-        <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button" class="btn btn-info" (click)="articlesValidation(i)">Validation</button>
-        <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
-        <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'newArticle')">Création article</button>
-        <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
-        <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button" class="btn btn-info" (click)="cashArticles(sale.id)">Encaissement</button>
-        <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
-        <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button" class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'refundArticle')">Rembourssement</button>
-        <ng-template #findEmailModal>
-          <div class="modal-header">
-            <h4 class="modal-title pull-left">Veuillez entrer l'email à qui appartient l'article:</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-            <!-- autocomplétion for filter by email -->
-            <div class="searchByMail">
-              <div class="ng-autocomplete">
-                <ng-autocomplete [data]="userEmailsListForAutocompletion" [searchKeyword]="keyword" placeHolder="Filtrer par email"
-                  (selected)='selectedEmailOnModal($event, sale.id)' 
-                  historyIdentifier="emails" [itemTemplate]="itemTemplate"
-                  [notFoundTemplate]="notFoundTemplate">
-                </ng-autocomplete>
-
-                <ng-template #itemTemplate let-item>
-                  <a [innerHTML]="item"></a>
-                </ng-template>
-
-                <ng-template #notFoundTemplate let-notFound>
-                  <div [innerHTML]="notFound"></div>
-                </ng-template>
-                <p></p>
-              </div>
+          <!-- functions for voluntary  and responsable -->
+          <h5 *ngIf="currentUser.voluntary || currentUser.responsible" id="voluntaryFonction">Fonctions pour les
+            bénévoles:</h5>
+          <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button"
+            class="btn btn-info" (click)="articlesValidation(i)">Validation</button>
+          <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
+          <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button"
+            class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'newArticle')">Création article</button>
+          <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
+          <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button"
+            class="btn btn-info" (click)="cashArticles(sale.id)">Encaissement</button>
+          <span *ngIf="currentUser.voluntary || currentUser.responsible">|</span>
+          <button *ngIf="currentUser.voluntary || currentUser.responsible" id="function" type="button"
+            class="btn btn-info" (click)="findEmailWithModal(findEmailModal, 'refundArticle')">Rembourssement</button>
+          <ng-template #findEmailModal>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Veuillez entrer l'email du proprietaire des articles:</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+            <div class="modal-body">
 
-          </div>
+              <!-- autocomplétion for filter by email -->
+              <div class="searchByMail">
+                <div class="ng-autocomplete">
+                  <ng-autocomplete [data]="userEmailsListForAutocompletion" [searchKeyword]="keyword"
+                    placeHolder="Filtrer par email" (selected)='selectedEmailOnModal($event, sale.id)'
+                    historyIdentifier="emails" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                  </ng-autocomplete>
+
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item"></a>
+                  </ng-template>
+
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                  <p></p>
+                </div>
+              </div>
+
+            </div>
           </ng-template>
 
         </span>
-        </button>
+      </button>
     </div>
   </div>
 </div>
