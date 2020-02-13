@@ -12,7 +12,7 @@ Mysql (version 8) dans un conteneur Docker.
     * L'API web est couverte à 85% par des tests d'intégrations ou unitaires.
     * L'intégration continue utilise Travis CI et SonarCloud liée au github du projet.
  
-### Trois types de ventes(Bourses):
+## Trois types de ventes(Bourses):
 _Deux bourses de printemps:_
 * Vêtements enfants
 * Vêtements adultes
@@ -25,14 +25,14 @@ _Une bourse de noël:_
 * Jouets Livres Cadeaux bijoux
 
 _Pour chaque prochaine bourse:_
-##### Les fonctions (client vendeur):
+### Les fonctions (client vendeur):
 * Le client vendeur une fois inscrit dans le système peut pré-enregistrer des articles dans
 les prochaines bourses. (Le nombre d'articles est limité)
 * Il dispose d'un espace personnel avec tous les articles qu'il a pré-enregistré.
 * Dans cette espace il peut supprimer un article qu'il ne veut plus vendre.
 * Il peut modifier ses données personnelles (nom, prenom, email, password...etc)
 
-##### Les Fonctions pour les benévoles de l'association:
+### Les Fonctions pour les benévoles de l'association:
 Les bénévoles de l'association ont les mêmes fonctions qu'un client vendeur+:<br>
 
 **1ere Etape - La Validation et la création d'articles-**<br>
@@ -64,7 +64,7 @@ les infos.
 * Le systéme lorsque tous les articles ne sont plus de la résponsibilité de l'association donne le montant
 des articles que l'association à vendu. (- 10% arrondi au dixième en faveur de l'association)
 
-##### Les fonctions pour la responsable:
+### Les fonctions pour la responsable:
 La ou les responsable de l'association ont les mêmes fonctions qu'un bénévole +:<br>
 * La responsable peut supprimer une bourse sauf si elle a commencé ou si elle est déja passé.
 Dans son espace personnel:
@@ -79,46 +79,36 @@ Dans son espace personnel:
     * Nombre total d'articles retournés au propriétaire (+ pourcentage).
     * Total des gains de la bourse pour l'association sur les articles vendus.
     
-### Déploiement:
-**L'application web:**<br>
+## Déploiement:
+**Pour l'application web(front):**<br>
 * Executer la commande suivante afin de crée le dossier dist/applicationWebAngular:
 ```
     ng build --prod
 ```
 Copier/coller le contenu de ce dossier dans un serveur static web de type apache httpd ou nginx.
 
-**L'API web (microserviceBDD):**<br>
-* Executer la commande maven suivante:
-```
-    mvn package
-```
-* Le fichier microservice-web-1.0.0.war devrait être crée dans le dossier target du module web.
-* Copier/Coller ce fichier dans le dossier du serveur static web de type apache httpd.
-* Afin d'autoriser la connexion de l'application a la BDD, vous devez declarer une 
-Data source nommé "jdbc/badj" dans tomcat.
-
-Réglez cette data source dans le fichier context.xml (repertoire conf de tomcat) dans la balise ```<Context>```:
-```
-     <Resource name="jdbc/badj" auth="Container" type="javax.sql.DataSource"
-              username="username"
-              password="password"
-              driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://127.0.0.1:9032/badj?serverTimezone=UTC"
-              maxTotal="30"
-              maxIdle="10"
-              validationQuery="select 1" /> 
-             
-```
-(Pour plus d'information: https://tomcat.apache.org/tomcat-9.0-doc/jndi-resources-howto.html#context.xml_configuration)
-
-* Copier/coller le dossier docker et executer la commande suivante afin de lancer un conteneur
+**Pour l'API web (microserviceBDD -> back):**<br>
+* Copier/coller le fichier "token-conf.properties" à l'emplacement de votre choix.
+- Dans ce fichier , vous pouvez changer la variable "secret", elle contient le mot secret pour le token.
+* Afin de lancer la base de donnée mySql: copier/coller le dossier docker et executer la commande suivante afin de lancer un conteneur
 docker qui contient la base de donnée mySql:
 ```
     docker-compose up -d
 ```
-* créez une variable d'environnement temporaire, exemple sur windows:
-set CONF_DIR=C:\Users\nicob\Documents\GitHub\Projet12_Badj\microserviceBdd\microservice-web\target
-* Copier/coller le fichier "token-conf.properties" à cet emplacement
+* Afin de lancer l'API web microserviceBdd: créez une variable d'environnement temporaire avec l'emplacement du fichier "token-conf.properties"
+, exemple sur windows:
+```
+    set CONF_DIR=C:\Users\nicob\Documents\GitHub\Projet12_Badj\microserviceBdd\microservice-web\target
+```
+* Dans le dossier microserviceBdd executez la commande:
+```
+    mvn package
+```
+* Le fichier microservice-web-1.0.0.jar devrait être crée dans le dossier target du module web.
+* Executer la commande suivante afin de lancer l'API:
+```
+    Java -jar microservice-web-1.0.0.jar
+```
 * Lancer votre serveur Tomcat et rendez-vous à l'adresse :
 ```
    http://localhost:4200/

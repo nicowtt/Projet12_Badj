@@ -15,7 +15,7 @@
 
 	<!-- ===== Maven information  ===== -->
 	<artifactId>microservice-web</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<!-- ===== global Informations ===== -->
 	<version>1.0.0</version>
