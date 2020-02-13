@@ -17,11 +17,10 @@ services:
   - docker
 
 before_install:
-  - export CONF_DIR=/nicowtt/Projet12_Badj/
+  - export CONF_DIR=/
   - echo $CONF_DIR
   - ls
-  - cd ../../microserviceBdd
-  - ls
+  - pwd
   - mv token-conf.properties $CONF_DIR
   - cd docker/dev
   - docker-compose up -d
