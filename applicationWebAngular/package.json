@@ -22,9 +22,6 @@
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
-<<<<<<< HEAD
-    "bootstrap": "^3.4.1",
-=======
     "@ng-bootstrap/ng-bootstrap": "^5.2.1",
     "angular-moment-timezone": "^1.7.1",
     "angular-ng-autocomplete": "^1.1.16",
@@ -33,7 +30,6 @@
     "mydatepicker": "^2.6.8",
     "ngx-bootstrap": "latest",
     "ngx-pagination": "^5.0.0",
->>>>>>> develop
     "rxjs": "~6.4.0",
     "rxjs-compat": "^6.5.4",
     "save": "^2.4.0",
