@@ -21,7 +21,6 @@ before_install:
   - echo $CONF_DIR
   - ls
   - pwd
-  - mv token-conf.properties $CONF_DIR
   - cd docker/dev
   - docker-compose up -d
   - docker ps -a
