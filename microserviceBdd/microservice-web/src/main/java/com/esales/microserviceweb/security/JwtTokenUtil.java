@@ -15,13 +15,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
-//@PropertySource(name = "tokenSecretWord", value = "file:${CONF_DIR}/token-conf.properties")
+@PropertySource(name = "tokenSecretWord", value = "file:${CONF_DIR}/token-conf.properties")
 public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = -2550185165626007488L;
     public static final long JWT_TOKEN_VALIDITY = (long)12 * 60 * 60;
-//    @Value("${secret}")
-    @Value("Badj")
+    @Value("${secret}")
+//    @Value("Badj")
     private String secret;
 
     /**
