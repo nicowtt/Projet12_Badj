@@ -1,0 +1,85 @@
+<div class="raw">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <h4 id="frontTitle">Enregistrement de bourse</h4>
+    <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <p></p>
+        <!-- bourse choice -->
+        <label for="type">Choix type de bourse:</label>
+        <select class="form-control" id="type" formControlName="type"
+        (change)="onEditClick($event.target.value)" [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+          <option [value]="sale" *ngFor="let sale of saleType">{{sale}}</option>
+        </select>
+        <div *ngIf="f.type.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.type.errors.required">Un type est requis</div>
+        </div>
+        <p></p>
+
+        <!-- Category choice -->
+        <label *ngIf="choiceTypeOk" for="description">Choix description:</label>
+        <!-- spring and automn sale -->
+        <select *ngIf="springAndAutomnSale" class="form-control" id="description" formControlName="description"
+          [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+          <option [value]="description" *ngFor="let description of descriptionsForSpringAndAutomnSale">{{description}}</option>
+        </select>
+        <!-- noel sale -->
+        <select *ngIf="noelSale" class="form-control" id="description" formControlName="description"
+          [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+          <option [value]="description" *ngFor="let description of descriptionsForNoelSale">{{description}}</option>
+        </select>
+        <div *ngIf="f.description.errors && choiceTypeOk" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.description.errors.required">Une description est requise</div>
+        </div>
+        
+        <!-- date begin choice -->
+        <p></p>
+        <label for="dateBegin" id="dateBeginText">Début:</label>
+        <input type="date" name="sale-start" value={{todayDate}} min={{todayDate}} formControlName="dateBegin">
+        <div *ngIf="f.dateBegin.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.dateBegin.errors.required">Une date est requise</div>
+        </div>
+        
+        
+
+        <!-- date end choice -->
+        <p></p>
+        <label for="dateEnd" id="dateEndText">Fin:</label>
+        <input type="date" name="sale-end" value={{todayDate}} min={{todayDate}} formControlName="dateEnd">
+        <div *ngIf="f.dateEnd.errors" class="invalid-feedback">
+          <div class="error" *ngIf="submitted && f.dateEnd.errors.required">Une date est requise</div>
+        </div>
+        <p></p>
+        
+
+        <div class="form-group">
+          <label for="street">Rue</label>
+          <input type="text" id="street" formControlName="street"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.street.errors }" />
+          <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
+            <div class="error" *ngIf="f.street.errors.required">Une rue est requise</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="postalCode">Code postal</label>
+          <input type="number" id="postalCode" formControlName="postalCode"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" />
+          <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+            <div class="error"*ngIf="f.postalCode.errors.required">Un code postal est requis</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="city">Ville</label>
+          <input type="text" id="city" formControlName="city"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+          <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+            <div class="error" *ngIf="f.city.errors.required">Une ville est requis</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Enregistrement de la bourse</button>
+      </div>
+    </form>

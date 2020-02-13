@@ -1,0 +1,142 @@
+<div class="raw">
+    <div class="col-sm-8 col-sm-offset-2">
+  
+      <h4>Modification d'articles:</h4>
+      <form [formGroup]="modificationForm" (ngSubmit)="onSubmit()">
+
+        <!-- change clothe size -->
+        <div class="form-group" *ngIf="clothe && toChange === 'size'">
+        <label for="size">Ancienne taille: {{articleConcerned.clothe.size}}</label>
+          <input type="text" id="size" formControlName="size"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.size.errors }" />
+          <div *ngIf="submitted && f.size.errors" class="invalid-feedback">
+            <div class="error"*ngIf="f.size.errors.required">Une taille est requise</div>
+          </div>
+        </div>
+
+        <!-- change clothe gender -->
+        <div class="form-group" *ngIf="clothe && toChange === 'gender'">Ancien Genre: {{articleConcerned.clothe.gender}}
+        <select *ngIf="clothe" class="form-control" id="gender" formControlName="gender"
+        [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+        <option [value] = "gender" *ngFor="let gender of genders">{{gender}}</option>
+        </select>
+          <div *ngIf="f.gender.errors" class="invalid-feedback">
+            <div class="error" *ngIf="clothe && submitted && f.gender.errors.required">Le genre est requis</div>
+          </div>
+        </div>
+
+        <!--*** change clothe material ***-->
+        <div class="form-group" *ngIf="clothe && toChange === 'material'">
+          <label for="material">Ancienne matière: {{articleConcerned.clothe.material}}</label>
+        <input *ngIf="clothe" type="text" id="material" class="form-control" formControlName="material"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.material.errors }" />
+          <div *ngIf="f.material.errors" class="invalid-feedback">
+            <div class="error" *ngIf="clothe && submitted && f.material.errors.required">Une matière est requis</div>
+          </div>
+        </div>
+
+        <!--*** change clothe/object/toy color ***-->
+        <div class="form-group" *ngIf="clothe && toChange === 'color'|| 
+        object && toChange === 'color'
+        || toy && toChange === 'color'">
+          <label *ngIf="clothe" for="color">Ancienne couleur: {{articleConcerned.clothe.color}}</label>
+          <label *ngIf="object" for="color">Ancienne couleur: {{articleConcerned.object.color}}</label>
+          <label *ngIf="toy" for="color">Ancienne couleur: {{articleConcerned.toy.color}}</label>
+
+        <input *ngIf="clothe || object || toy" type="text" id="color" class="form-control" formControlName="color"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.color.errors }" />
+          <div *ngIf="f.color.errors" class="invalid-feedback">
+            <div class="error" *ngIf="clothe && submitted && f.color.errors.required || 
+            object && submitted && f.color.errors.required 
+            || toy && submitted && f.color.errors.required">Une couleur est requise</div>
+          </div>
+        </div>
+
+        <!--*** change object/toy brand ***-->
+        <div class="form-group" *ngIf="object && toChange === 'brand'|| 
+        toy && toChange === 'brand'">
+          <label *ngIf="object" for="brand">Ancienne marque: {{articleConcerned.object.brand}}</label>
+          <label *ngIf="toy" for="brand">Ancienne marque: {{articleConcerned.toy.brand}}</label>
+
+        <input *ngIf="object || toy" type="text" id="brand" class="form-control" formControlName="brand"
+               class="form-control" [ngClass]="{ 'is-invalid': submitted && f.brand.errors }" />
+          <div *ngIf="f.brand.errors" class="invalid-feedback">
+            <div class="error" *ngIf="object && submitted && f.brand.errors.required 
+            || toy && submitted && f.brand.errors.required">Une marque est requise</div>
+          </div>
+        </div>
+
+        <!-- change book bookName -->
+        <div class="form-group" *ngIf="book && toChange === 'bookName'">
+          <label for="bookName">Ancien titre: {{articleConcerned.book.name}}</label>
+            <input type="text" id="bookName" formControlName="bookName"
+                   class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bookName.errors }" />
+            <div *ngIf="submitted && f.bookName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="f.bookName.errors.required">Un titre est requis</div>
+            </div>
+          </div>
+        
+         <!-- change book bookAuthor -->
+         <div class="form-group" *ngIf="book && toChange === 'bookAuthor'">
+          <label for="bookAuthor">Ancien titre: {{articleConcerned.book.author}}</label>
+            <input type="text" id="bookAuthor" formControlName="bookAuthor"
+                   class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bookAuthor.errors }" />
+            <div *ngIf="submitted && f.bookAuthor.errors" class="invalid-feedback">
+              <div class="error" *ngIf="f.bookAuthor.errors.required">Un auteur est requis</div>
+            </div>
+          </div>
+
+        <!-- change comment -->
+        <div class="form-group" *ngIf="clothe && toChange === 'comment'">
+        <label for="comment">Ancien commentaire: {{articleConcerned.clothe.comment}}</label>
+          <input type="text" id="comment" formControlName="comment"
+                 class="form-control" />
+        </div>
+
+        <div class="form-group" *ngIf="book && toChange === 'comment'">
+        <label for="comment">Ancien commentaire: {{articleConcerned.book.comment}}</label>
+            <input type="text" id="comment" formControlName="comment"
+                   class="form-control" />
+        </div>
+
+        <div class="form-group" *ngIf="object && toChange === 'comment'">
+        <label for="comment">Ancien commentaire: {{articleConcerned.object.comment}}</label>
+            <input type="text" id="comment" formControlName="comment"
+                   class="form-control" />
+        </div>
+
+        <div class="form-group" *ngIf="toy && toChange === 'comment'">
+        <label for="comment">Ancien commentaire: {{articleConcerned.toy.comment}}</label>
+            <input type="text" id="comment" formControlName="comment"
+                   class="form-control" />
+        </div>
+        
+        <!-- change price -->
+        <div class="form-group" *ngIf="toChange === 'price'">
+        <label for="price">Ancien prix: {{articleConcerned.price | currency :'EUR'}}</label>
+          <input type="number" id="price" formControlName="price"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+          <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+            <div class="error" *ngIf="submitted && f.price.errors.required">Un prix est requis</div>
+            <div class="error" *ngIf="submitted && f.price.errors.pattern">Exemple: 10.20</div>
+          </div>
+        </div>
+
+        <!-- change type -->
+        <div class="form-group" *ngIf="toChange === 'type'">
+          <label for="type">Ancien type: {{articleConcerned.type}}</label>
+            <input type="text" id="type" formControlName="type"
+                   class="form-control" [ngClass]="{ 'is-invalid': submitted && f.type.errors }" />
+            <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+              <div class="error" *ngIf="f.type.errors.required">Un type est requis</div>
+            </div>
+          </div>
+
+        <p></p>
+        <button class="btn btn-primary" type="submit" >modifier</button>
+      </form>
+      
+    </div>
+  </div>
+  
+  

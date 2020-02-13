@@ -1,0 +1,218 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h4 id="frontTitle">Voici les articles 
+    <span *ngIf="!emailFilter"> de la bourse</span>
+    <span *ngIf="emailFilter"> de</span>:</h4>
+
+    <!-- autocomplétion for filter by email -->
+    <div class="searchByMail">
+      <div class="ng-autocomplete">
+        <ng-autocomplete 
+          [data]="autocompletionEmails"
+          [searchKeyword]="keyword"
+          placeHolder="Filtrer par email"
+          (selected)='selectEvent($event)'
+          (inputChanged)='onChangeSearch($event)'
+          (inputFocused)='onFocused($event)'
+          historyIdentifier="emails"
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+      
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item"></a>
+        </ng-template>
+      
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+        <p></p>
+    </div>
+
+    <!-- display all article for one sale  -->
+    <div *ngIf="!emailFilter" class="list-group">
+      <button class="list-group-item" *ngFor="let article of articles | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" >
+        <h4 *ngIf="!article.sold && !article.stolen && !article.returnOwner" id="articleTypeBourse">Bourse: {{article.sale.description}} du
+          {{article.sale.dateBegin | date: 'shortDate' }}
+        </h4>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">
+            <span id="articleCategory">Identifiant étiquette pour la vente: </span>{{article.saleNumber}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">
+            <span id="articleCategory">Email propriétaire: </span>{{article.user.email}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner" >
+          <span id="articleCategory">Categorie: </span>{{article.category}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner"(click)="changeCharacteristics(article.id,'type')">
+          <span id="articleCategory">Article: </span>{{article.type}}
+        </h5>
+        
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'size')">
+          <span id="articleCategory">Taille: </span>{{article.clothe.size}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'gender')">
+          <span id="articleCategory">Genre: </span> {{article.clothe.gender}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe"(click)="changeCharacteristics(article.id,'material')">
+          <span id="articleCategory">Matière:</span> {{article.clothe.material}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'color')">
+          <span id="articleCategory">Couleur:</span> {{article.clothe.color}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'comment')">
+          <span id="articleCategory">Commentaire:</span> {{article.clothe.comment}}
+        </h5>
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book" (click)="changeCharacteristics(article.id,'bookName')">
+          <span id="articleCategory">Titre:</span> {{article.book.name}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book" (click)="changeCharacteristics(article.id,'bookAuthor')">
+          <span id="articleCategory">Auteur:</span> {{article.book.author}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book" (click)="changeCharacteristics(article.id,'comment')">
+          <span id="articleCategory">Commentaire:</span> {{article.book.comment}}
+        </h5>
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object " (click)="changeCharacteristics(article.id,'brand')">
+          <span id="articleCategory">Marque:</span> {{article.object.brand}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object " (click)="changeCharacteristics(article.id,'color')">
+          <span id="articleCategory">Couleur:</span> {{article.object.color}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object " (click)="changeCharacteristics(article.id,'comment')">
+          <span id="articleCategory">Commentaire:</span> {{article.object.comment}}
+        </h5>
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy" (click)="changeCharacteristics(article.id,'brand')">
+          <span id="articleCategory">Marque: </span>{{article.toy.brand}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy"(click)="changeCharacteristics(article.id,'color')">
+          <span id="articleCategory">Couleur:</span> {{article.toy.color}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy" (click)="changeCharacteristics(article.id,'comment')">
+          <span id="articleCategory">Commentaire:</span> {{article.toy.comment}}
+        </h5>
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner" (click)="changeCharacteristics(article.id,'price')">
+          <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
+        </h5>
+
+        <!-- validation action-->
+        <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+          (click)="validateArticle(article.id)" class="btn btn-info ">
+          <span class="glyphicon glyphicon-save"></span> Valider
+        </a>
+        <!-- for remove article -->
+        <a id="deleteArticleButton" *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+          (click)="onDeleteArticle(article.id)" class="btn btn-danger ">
+          <span class="glyphicon glyphicon-trash"></span> Supprimer
+        </a>
+        <!-- validation ok-->
+        <h4>
+          <a *ngIf="article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+            class="label label-success" aria-disabled="true">
+            <span class="glyphicon glyphicon-thumbs-up"></span> Validé
+          </a>
+        </h4>
+      </button>
+    </div>
+    <button id="stopFilter" *ngIf="emailFilter"
+              (click)="onStopFilter()" class="btn btn-danger ">Enlever le filtre
+      </button>
+
+    <!-- display all articles by sale with Email Filter -->
+    <div *ngIf="emailFilter" class="list-group">
+      <button class="list-group-item" *ngFor="let article of articlesFilteredByMail | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+        <h4 *ngIf="!article.sold && !article.stolen && !article.returnOwner" id="articleTypeBourse">Bourse: {{article.sale.description}} du
+          {{article.sale.dateBegin | date: 'shortDate' }}
+        </h4>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">
+            <span id="articleCategory">Identifiant étiquette pour la vente: </span>{{article.saleNumber}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">
+            <span id="articleCategory">Email propriétaire: </span>{{article.user.email}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner">
+          <span id="articleCategory">Categorie: </span>{{article.category}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner"(click)="changeCharacteristics(article.id,'type')">
+          <span id="articleCategory">Article: </span>{{article.type}}
+        </h5>
+        
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'size')">
+          <span id="articleCategory">Taille: </span>{{article.clothe.size}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'gender')">
+          <span id="articleCategory">Genre: </span> {{article.clothe.gender}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'material')">
+          <span id="articleCategory">Matière:</span> {{article.clothe.material}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'color')">
+          <span id="articleCategory">Couleur:</span> {{article.clothe.color}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.clothe" (click)="changeCharacteristics(article.id,'comment')">
+          <span id="articleCategory">Commentaire:</span> {{article.clothe.comment}}
+        </h5>
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book" (click)="changeCharacteristics(article.id,'bookName')">
+          <span id="articleCategory">Titre:</span> {{article.book.name}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book" (click)="changeCharacteristics(article.id,'bookAuthor')">
+          <span id="articleCategory">Auteur:</span> {{article.book.author}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.book" (click)="changeCharacteristics(article.id,'comment')">
+          <span id="articleCategory">Commentaire:</span> {{article.book.comment}}
+        </h5>
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object " (click)="changeCharacteristics(article.id,'brand')">
+          <span id="articleCategory">Marque:</span> {{article.object.brand}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object "(click)="changeCharacteristics(article.id,'color')">
+          <span id="articleCategory">Couleur:</span> {{article.object.color}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.object " (click)="changeCharacteristics(article.id,'comment')">
+          <span id="articleCategory">Commentaire:</span> {{article.object.comment}}
+        </h5>
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy" (click)="changeCharacteristics(article.id,'brand')">
+          <span id="articleCategory">Marque: </span>{{article.toy.brand}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy"(click)="changeCharacteristics(article.id,'color')">
+          <span id="articleCategory">Couleur:</span> {{article.toy.color}}
+        </h5>
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner && article.toy" (click)="changeCharacteristics(article.id,'comment')">
+          <span id="articleCategory">Commentaire:</span> {{article.toy.comment}}
+        </h5>
+
+        <h5 *ngIf="!article.sold && !article.stolen && !article.returnOwner" (click)="changeCharacteristics(article.id,'price')">
+          <span id="articleCategory">Prix: </span>{{article.price | currency :'EUR'}}
+        </h5>
+
+        <!-- validation action-->
+        <a *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+          (click)="validateArticle(article.id)" class="btn btn-info ">
+          <span class="glyphicon glyphicon-save"></span> Valider
+        </a>
+        <!-- for remove article -->
+        <a id="deleteArticleButton" *ngIf="!article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+          (click)="onDeleteArticle(article.id)" class="btn btn-danger ">
+          <span class="glyphicon glyphicon-trash"></span> Supprimer
+        </a>
+        <!-- validation ok-->
+        <h4>
+          <a *ngIf="article.validateToSell && !article.sold && !article.stolen && !article.returnOwner"
+            class="label label-success" aria-disabled="true">
+            <span class="glyphicon glyphicon-thumbs-up"></span> Validé
+          </a>
+        </h4>
+
+        
+      </button>
+    </div>
+  </div>
+</div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

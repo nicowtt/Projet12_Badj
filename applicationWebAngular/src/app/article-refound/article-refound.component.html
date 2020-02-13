@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div id="refundResult">
+      <h4>Resumé du remboursement des {{articleTotalNbr}} articles:</h4>
+      <p>{{articleSoldNbr}} article(s) vendu(s).<br>
+        {{articleStolenNbr}} article(s) volé(s).
+      </p>
+
+      <p id="sommeToRefund">Somme à rembourser au client (10% badj enlevé):
+        <span *ngIf="allArticleOk" id="sommeToRefundNbr">{{refoundTotal | currency :'EUR'}}</span></p>
+      <span *ngIf="!allArticleOk" id="hiddenRefund">veuillez rendre les articles pour voir la somme à rembourser.</span>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="list-group">
+      <h5 id="frontTitle">Articles de {{userEmailConcerned}}</h5>
+      <ul class="list-group-item"
+        *ngFor="let article of articlesList | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+        <h5>
+          <span id="articleCategory">Identifiant étiquette pour la vente: </span>{{article.saleNumber}}
+        </h5>
+        <h5>
+          <span id="articleCategory">Categorie: <span class="texte"> {{article.category}}
+              <span id="articleCategory"> Article: <span class="texte">{{article.type}}</span></span>
+              <span *ngIf="article.clothe" id="articleCategory"> Taille: <span
+                  class="texte">{{article.clothe.size}}</span></span>
+              <span *ngIf="article.clothe" id="articleCategory"> Genre: <span
+                  class="texte">{{article.clothe.gender}}</span> </span>
+              <span *ngIf="article.clothe" id="articleCategory"> Matière: <span
+                  class="texte">{{article.clothe.material}}</span> </span>
+              <span *ngIf="article.clothe" id="articleCategory"> Couleur: <span
+                  class="texte">{{article.clothe.color}}</span> </span>
+              <span *ngIf="article.clothe" id="articleCategory"> Commentaire: <span
+                  class="texte">{{article.clothe.comment}}</span> </span>
+              <span *ngIf="article.book" id="articleCategory"> Titre: <span class="texte">{{article.book.name}}</span>
+              </span>
+              <span *ngIf="article.book" id="articleCategory"> Autheur: <span
+                  class="texte">{{article.book.author}}</span> </span>
+              <span *ngIf="article.book" id="articleCategory"> Commentaire: <span
+                  class="texte">{{article.book.comment}}</span> </span>
+              <span *ngIf="article.object" id="articleCategory"> Marque: <span
+                  class="texte">{{article.object.brand}}</span> </span>
+              <span *ngIf="article.object " id="articleCategory"> Couleur: <span
+                  class="texte">{{article.object.color}}</span> </span>
+              <span *ngIf="article.object " id="articleCategory"> Commentaire: <span
+                  class="texte">{{article.object.comment}}</span> </span>
+              <span *ngIf="article.toy" id="articleCategory"> Marque: <span class="texte">{{article.toy.brand}}</span>
+              </span>
+              <span *ngIf="article.toy" id="articleCategory"> Couleur: <span class="texte">{{article.toy.color}}</span>
+              </span>
+              <span *ngIf="article.toy" id="articleCategory"> Commentaire: <span
+                  class="texte">{{article.toy.comment}}</span> </span><br>
+              <span id="articleCategory">Prix: </span> <span class="texte">{{article.price | currency :'EUR'}}
+              </span></span></span>
+        </h5>
+
+        <h4><a *ngIf="article.sold && !article.stolen && !article.returnOwner" class="label label-success"
+            aria-disabled="true"><span class="glyphicon glyphicon-thumbs-up"></span> Vendu</a></h4>
+
+        <h4>
+          <a *ngIf="!article.sold && article.stolen && !article.returnOwner" class="label label-default"
+            aria-disabled="true">
+            <span class="glyphicon glyphicon-thumbs-down"></span> volé
+          </a>
+        </h4>
+
+        <h4>
+          <a *ngIf="!article.sold && !article.stolen && article.returnOwner" class="label label-success"
+            aria-disabled="true">
+            <span class="glyphicon glyphicon-thumbs-up"></span> retourné au propriétaire
+          </a>
+        </h4>
+
+        <a id="buttonDeclareStolen" *ngIf="!article.sold && !article.stolen && !article.returnOwner"
+          (click)="onDeclareStolen(article.id)" class="btn btn-danger ">
+          <span></span> Article volé
+        </a>
+
+        <a id="buttonDeclareReturnOwner" *ngIf="!article.sold && !article.stolen && !article.returnOwner"
+          (click)="onDeclareReturnOwner(article.id)" class="btn btn-info ">
+          <span></span> Article rendu au propriétaire
+        </a>
+
+      </ul>
+    </div>
+  </div>
+</div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

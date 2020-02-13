@@ -1,0 +1,39 @@
+#articleTypeBourse {
+    color: blue;
+    font-style: italic;
+}
+
+#frontTitle {
+    text-align: center;
+}
+
+#articleCategory {
+    color: #A58EB7
+}
+
+.list-group {
+    font-family: georgia, "trebuchet ms", arial, serif;
+  }
+
+#responsibleFonction {
+    font-family: georgia, "trebuchet ms", arial, serif;
+    text-align: center;
+}
+
+#addSaleButton {
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+#seeResultButton {
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+#accessButton {
+    margin-top: 5px;
+}
+
+#userUpdateButton {
+    float: right;
+}

@@ -1,0 +1,32 @@
+#seeResultButton {
+    float: right;
+}
+
+#frontTitle {
+    font-family: georgia, "trebuchet ms", arial, serif;
+    text-align: center;
+  }
+
+.list-group-item {
+    font-family: georgia, "trebuchet ms", arial, serif;
+}
+
+#articleCategory {
+    color: #A58EB7
+}
+
+#searchBydateButton {
+    margin-left: 5px;
+}
+
+.error {
+    color: red;
+}
+
+#noSaleResult {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+}

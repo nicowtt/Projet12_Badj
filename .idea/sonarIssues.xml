@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="issues">
+    <option name="index">
+      <map>
+        <entry key="/Dummy.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/microservice-model/src/main/java/com/eSales/microserviceModel/dto/SaleDto.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/microservice-model/src/main/java/com/eSales/microserviceModel/entity/Article.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/microservice-model/src/main/java/com/eSales/microserviceModel/entity/Sale.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/microservice-web/src/main/java/com/eSales/microserviceWeb/controllers/SaleController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/microservice-web/src/test/java/com/eSales/microserviceWeb/AddressControllerIntegrityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/microservice-web/src/test/java/com/eSales/microserviceWeb/ArticleControllerIntegrityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/microservice-web/src/test/java/com/eSales/microserviceWeb/SaleControllerIntegrityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/microservice-web/src/test/java/com/eSales/microserviceWeb/UserControllerIntegrityTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/microserviceBdd/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

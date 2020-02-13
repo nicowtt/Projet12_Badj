@@ -30,7 +30,11 @@
 		<projectName>microserviceBdd</projectName>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.RC2</spring-cloud.version>
+		
+		<!-- Tell sonar where to look for the coverage file. Property inherited by submodules test-->
+		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 	</properties>
+
 
 	<!-- =============================================================== -->
 	<!-- Modules -->
@@ -41,6 +45,23 @@
 		<module>microservice-model</module>
 		<module>microservice-web</module>
 	</modules>
+
+	<!-- =============================================================== -->
+	<!-- Profiles -->
+	<!-- =============================================================== -->
+	<profiles>
+
+		<!-- Profile using for test microserviceBdd -->
+		<profile>
+			<id>test-microserviceBdd</id>
+		</profile>
+
+		<!-- Profile using for test applicationWebAngular -->
+		<profile>
+			<id>test-ApplicationWebAngular</id>
+		</profile>
+	</profiles>
+
 	<!-- =============================================================== -->
 	<!-- dependency management -->
 	<!-- =============================================================== -->
@@ -72,6 +93,13 @@
 			</dependency>
 
 			<!-- ===== Bibliothèques tierces ===== -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.10</version>
+				<scope>provided</scope>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter</artifactId>
@@ -106,11 +134,49 @@
 				<scope>runtime</scope>
 			</dependency>
 
+			<!-- security -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>2.2.1.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>0.9.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>5.2.1.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>5.2.1.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>5.2.1.RELEASE</version>
+			</dependency>
+
 			<!-- Test unitaires -->
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-api</artifactId>
 				<version>5.5.2</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -137,6 +203,42 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<!-- ===== sonarCloud ===== -->
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.6.0.1398</version>
+				</plugin>
+
+				<!-- ===== jacoco ===== -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.2</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<!-- attached to Maven test phase -->
+						<execution>
+							<id>report</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- ===== Test / Reporting ===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.20</version>
+				</plugin>
+
 				<!-- Packaging JAR -->
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -179,6 +281,7 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 	</build>

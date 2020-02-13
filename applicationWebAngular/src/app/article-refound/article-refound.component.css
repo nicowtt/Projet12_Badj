@@ -1,0 +1,42 @@
+#sommeToRefundNbr {
+    font-weight: bold;
+    font-size: 200%;
+    float: right;
+}
+
+#frontTitle {
+    margin: 1em 0;
+	text-align: center;
+    font-family: georgia, "trebuchet ms", arial, serif;
+    font-style: italic;
+}
+
+.list-group {
+    font-family: georgia, "trebuchet ms", arial, serif;
+  }
+
+#articleCategory {
+    color: #A58EB7
+}
+
+#buttonDeclareStolen {
+    float: right;
+}
+
+#refundResult {
+    font-family: georgia, "trebuchet ms", arial, serif;
+}
+
+#sommeToRefund {
+    border-top: 1px solid #ccc;
+}
+
+#hiddenRefund {
+    float: right;
+    width: 200px;
+    font-weight: bold;
+}
+
+.texte {
+    color: black;
+}

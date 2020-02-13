@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h4 id="frontTitle">Gestion
+    <span *ngIf="emailFilter"> d'accés pour :</span>
+    <span *ngIf="!emailFilter"> des accés: </span>
+    </h4>
+
+    <!-- autocomplétion for filter by email -->
+    <div class="searchByMail">
+      <div class="ng-autocomplete">
+        <ng-autocomplete [data]="usersEmailList" [searchKeyword]="keyword" placeHolder="Filtrer par email"
+          (selected)='selectEvent($event)' 
+          (inputChanged)='onChangeSearch($event)' 
+          (inputFocused)='onFocused($event)'
+          historyIdentifier="emails" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+
+        <p></p>
+      </div>
+      <div class="col-xs-12"></div>
+      <button id="stopFilter" *ngIf="emailFilter"
+              (click)="onStopFilter()" class="btn btn-danger ">Enlever le filtre
+      </button>
+      
+
+      <!-- filtered list email -->
+      <div *ngIf="emailFilter">
+        <ul id="oneUserEmail" class="list-group" *ngFor="let user of userFilteredList; let i = index">
+          <li class="list-group-item">
+            <span id="displayVoluntary" *ngIf="user.voluntary">Bénévole: </span>
+            <span id="displayResponsible" *ngIf="user.responsible">Responsable: </span>
+            {{user.email}}
+            <span id="buttonOnResponsable" *ngIf="!user.responsible"
+              (click)="onDeclareResponsible(user.id)" class="btn btn-info ">Déclarer responsable
+            </span>
+            <span id="buttonOnResponsable" *ngIf="user.responsible"
+              (click)="onDeclareResponsibleOff(user.id)" class="btn btn-danger">Enlever accés responsable
+            </span>
+            <span id="buttonOnVoluntary" *ngIf="!user.voluntary && !user.responsible"
+              (click)="onDeclareVoluntary(user.id)" class="btn btn-info ">Déclarer bénévole
+            </span>
+            <span id="buttonOnVoluntary" *ngIf="user.voluntary && !user.responsible"
+              (click)="onDeclareVoluntaryOff(user.id)" class="btn btn-danger ">Enlever accés bénévoles
+            </span>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- full list email -->
+      <div *ngIf="!emailFilter">
+        <ul class="list-group" *ngFor="let user of usersList; let i = index">
+        <li class="list-group-item">
+          <span id="displayVoluntary" *ngIf="user.voluntary">Bénévole: </span>
+          <span id="displayResponsible" *ngIf="user.responsible">Responsable: </span>
+          {{user.email}}
+          <span id="buttonOnResponsable" *ngIf="!user.responsible"
+            (click)="onDeclareResponsible(user.id)" class="btn btn-warning ">Déclarer responsable
+          </span>
+          <span id="buttonOnResponsable" *ngIf="user.responsible && user.email !='bruce.lee@gmail.com'"
+            (click)="onDeclareResponsibleOff(user.id)" class="btn btn-danger">Enlever accés responsable
+          </span>
+          <span id="buttonOnVoluntary" *ngIf="!user.voluntary && !user.responsible"
+            (click)="onDeclareVoluntary(user.id)" class="btn btn-info ">Déclarer bénévole
+          </span>
+          <span id="buttonOnVoluntary" *ngIf="user.voluntary && !user.responsible"
+            (click)="onDeclareVoluntaryOff(user.id)" class="btn btn-danger ">Enlever accés bénévoles
+          </span>
+          
+        </li>
+      </ul>
+      </div>
+    </div>
+  </div>

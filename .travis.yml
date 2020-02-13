@@ -1,0 +1,46 @@
+language: java
+
+dist: trusty
+
+addons:
+  sonarcloud:
+    organization: "nicowtt"
+    token:
+      secure: "18c28dc86fb5feb419c1fb33519309f37ab6f4f0" # encrypted value of your token
+
+jdk:
+  - oraclejdk8
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - export CONF_DIR=/home/travis/build/nicowtt/Projet12_Badj
+  - echo $CONF_DIR
+  - ls
+  - pwd
+  - cd docker/dev
+  - docker-compose up -d
+  - docker ps -a
+
+before_script:
+  - cd ../../microserviceBdd
+
+script:
+  - mvn test
+  - cd ../docker/dev
+  - docker-compose stop
+  - docker-compose rm -f
+  - docker-compose up -d
+  - docker ps -a
+  - cd ../../microserviceBdd
+
+
+after_success:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=nicowtt_Projet12_Badj
+
+notifications:
+  email: false

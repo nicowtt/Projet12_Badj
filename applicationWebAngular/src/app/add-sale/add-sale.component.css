@@ -1,0 +1,36 @@
+.error {
+  color: red;
+}
+
+.raw {
+    font-family: georgia, "trebuchet ms", arial, serif;
+  }
+
+#frontTitle {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#dateBeginText {
+  margin-right: 5px;
+}
+
+#dateEndText {
+  margin-right: 5px;
+}
+
+::ng-deep .cdk-overlay-container {
+  /* Do you changes here */
+  display: flex;
+    
+  /* position: fixed; */
+  position: relative;
+  /* z-index: 1000; */
+  margin-left: auto;
+  margin-top: -400px;
+  background-color: white;
+}
+
+::ng-deep .cdk-live-announcer-element {
+  color: white;
+}

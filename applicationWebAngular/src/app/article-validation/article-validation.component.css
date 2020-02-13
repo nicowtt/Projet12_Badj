@@ -1,0 +1,45 @@
+#articleTypeBourse {
+    color: blue;
+    font-style: italic;
+}
+
+#articleCategory {
+    color: #A58EB7
+}
+
+.ng-autocomplete {
+    width:60%;
+    max-width: 600px;
+    display: table;
+    margin: 0 auto;
+}
+
+#frontTitle {
+	margin: 1em 0;
+	text-align: center;
+    font-family: georgia, "trebuchet ms", arial, serif;
+    font-weight: bold;
+}
+
+.searchByMail {
+    font-family: georgia, "trebuchet ms", arial, serif;
+}
+
+.list-group-item {
+    font-family: georgia, "trebuchet ms", arial, serif;
+}
+
+#deleteArticleButton {
+    float: right;
+    /* position:relative;
+    bottom: 45px; */
+}
+
+#stopFilter {
+    position: relative;
+    margin-top: -48px;
+    float: right;
+}
+
+
+

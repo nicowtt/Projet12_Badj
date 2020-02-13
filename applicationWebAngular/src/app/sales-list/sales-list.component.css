@@ -1,3 +1,30 @@
 #date {
   font-size: 60%;
 }
+
+.ng-autocomplete {
+  width:60%;
+  max-width: 600px;
+  display: table;
+  margin: 0 auto;
+}
+
+.list-group {
+  font-family: georgia, "trebuchet ms", arial, serif;
+}
+
+#voluntaryFonction {
+  text-decoration: underline;
+}
+
+#function {
+  margin-top: 5px;
+}
+
+.searchByMail {
+  font-family: georgia, "trebuchet ms", arial, serif;
+}
+
+.modal-header {
+  font-family: georgia, "trebuchet ms", arial, serif;
+}

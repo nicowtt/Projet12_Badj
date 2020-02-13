@@ -1,0 +1,45 @@
+#displayVoluntary {
+    font-weight: bold;
+    color: blue;
+}
+
+#displayResponsible {
+    font-weight: bold;
+    color: green;
+}
+
+#buttonOnVoluntary {
+    display:table-cell;
+    float: right;
+    font-size: smaller;
+}
+
+li {
+    height: 55px;
+    line-height: 35px;
+}
+
+#frontTitle {
+    text-align: center;
+    font-family: georgia, "trebuchet ms", arial, serif;
+}
+
+.ng-autocomplete {
+    width:60%;
+    max-width: 600px;
+    display: table;
+    margin: 0 auto;
+}
+
+#stopFilter {
+    position: relative;
+    margin-top: -48px;
+    float: right;
+}
+
+#buttonOnResponsable {
+    display:table-cell;
+    float: right;
+    font-size: smaller;
+    margin-left: 5px;
+}
