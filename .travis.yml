@@ -17,7 +17,7 @@ services:
   - docker
 
 before_install:
-  - export CONF_DIR=/
+  - export CONF_DIR=/home/travis/build/nicowtt/Projet12_Badj
   - echo $CONF_DIR
   - ls
   - pwd
