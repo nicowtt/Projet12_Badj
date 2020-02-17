@@ -39,7 +39,7 @@ public class ArticleObjectDtoUnitTest {
         articleObjectDto.setReturnOwner(false);
         articleObjectDto.setUserEmail("bruce.lee@gmail.com");
 
-        Assert.assertEquals("ArticleObjectDto(ArticleId=0, category=Objet de décoration, type=lit, saleId=1, " +
+        Assert.assertEquals("ArticleObjectDto(articleId=0, category=Objet de décoration, type=lit, saleId=1, " +
                 "price=5.0, brand=laCroix, color=/, comment=null, recordDate=Fri Jan 10 00:00:00 UTC 2020, " +
                 "isValidateToSell=false, isSold=false, isStolen=false, isReturnOwner=false, " +
                 "userEmail=bruce.lee@gmail.com)", articleObjectDto.toString());

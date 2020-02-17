@@ -4,19 +4,12 @@ import com.esales.microservicebusiness.contract.SaleManager;
 import com.esales.microservicedao.SaleDao;
 import com.esales.microservicedao.UserDao;
 import com.esales.microservicemodel.dto.SaleDto;
-import com.esales.microservicemodel.entity.Address;
 import com.esales.microservicemodel.entity.Sale;
 import com.esales.microservicemodel.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 @CrossOrigin
