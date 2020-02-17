@@ -1,16 +1,17 @@
 # Open Classrooms Projet12 Badj (association)
- Voici un système de gestion de dêpots-ventes d'articles (version 1.0.0):
+ Voici un système de gestion de dêpots-ventes d'articles (version 1.0.1):
  
 ### Techniques utilisés pour ce projet:
-_Ce projet se compose de deux applications et une base de donnée:_
+_Ce projet se compose de deux applications et d'une base de donnée:_
 * Application Web crée avec le framework Angular en version 8 (typeScript).
     * Le site est responsive (pensé pour être utilisé facilement sur un petit écran tactile)
-* API web en REST (microserviceBdd) (java, jdk8) connecté à une base de données
-Mysql (version 8) dans un conteneur Docker.
+* API web en REST (microserviceBdd) (java, jdk8) connectée à la base de données
+Mysql.
     * Les dépendances sont gérés avec Maven (version 4.0.0).
-    * L'architecture est multi-modules.
+    * L'architecture est multi-modules (business, dao, model et web).
     * L'API web est couverte à 85% par des tests d'intégrations ou unitaires.
-    * L'intégration continue utilise Travis CI et SonarCloud liée au github du projet.
+    * Intégration continue (Travis CI et SonarCloud) liée au github du projet.
+* Base de donnée mySql (version 8), dans un conteneur Docker.
  
 ## Trois types de ventes(Bourses):
 _Deux bourses de printemps:_
@@ -33,7 +34,7 @@ les prochaines bourses. (Le nombre d'articles est limité)
 * Il peut modifier ses données personnelles (nom, prenom, email, password...etc)
 
 ### Les Fonctions pour les benévoles de l'association:
-Les bénévoles de l'association ont les mêmes fonctions qu'un client vendeur+:<br>
+Les bénévoles de l'association ont les mêmes fonctions qu'un client vendeur plus:<br>
 
 **1ere Etape - La Validation et la création d'articles-**<br>
 _Le premier jour de la bourse le client vendeur amène ses articles (pré-enregistré ou non)._
@@ -65,10 +66,10 @@ les infos.
 des articles que l'association à vendu. (- 10% arrondi au dixième en faveur de l'association)
 
 ### Les fonctions pour la responsable:
-La ou les responsable de l'association ont les mêmes fonctions qu'un bénévole +:<br>
+La responsable de l'association à les mêmes fonctions qu'un bénévole plus:<br>
 * La responsable peut supprimer une bourse sauf si elle a commencé ou si elle est déja passé.
 Dans son espace personnel:
-* La responsable peut gérer les accés utilisateurs
+* La responsable peut gérer les accés utilisateurs:
     * Donner ou reprendre l'accés bénévole.
     * Donner ou reprendre l'accés responsable.
 * La responsable peut crée des nouvelles bourses.
@@ -81,6 +82,10 @@ Dans son espace personnel:
     
 ## Déploiement:
 **Pour l'application web(front):**<br>
+* Executer la commande suivante afin de mettre en place les dépendances du projet angular:
+```
+    npm install
+```
 * Executer la commande suivante afin de crée le dossier dist/applicationWebAngular:
 ```
     ng build --prod
@@ -104,10 +109,10 @@ docker qui contient la base de donnée mySql:
 ```
     mvn package
 ```
-* Le fichier microservice-web-1.0.0.jar devrait être crée dans le dossier target du module web.
+* Le fichier microservice-web-1.0.1.jar devrait être crée dans le dossier target du module web.
 * Executer la commande suivante afin de lancer l'API:
 ```
-    Java -jar microservice-web-1.0.0.jar
+    Java -jar microservice-web-1.0.1.jar
 ```
 * Lancer votre serveur Tomcat et rendez-vous à l'adresse :
 ```
