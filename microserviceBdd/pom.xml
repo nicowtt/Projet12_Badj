@@ -13,9 +13,9 @@
 	<!-- project information -->
 	<!-- =============================================================== -->
 	<!-- ===== Maven information ===== -->
-	<groupId>com.eSales</groupId>
+	<groupId>com.esales</groupId>
 	<artifactId>microserviceBdd</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>pom</packaging>
 
 	<!-- ===== global Informations ===== -->

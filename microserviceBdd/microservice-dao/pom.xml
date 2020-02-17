@@ -8,9 +8,9 @@
 	<!-- =============================================================== -->
 	<!-- ===== Maven Project Parent ===== -->
 	<parent>
-		<groupId>com.eSales</groupId>
+		<groupId>com.esales</groupId>
 		<artifactId>microserviceBdd</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<!-- ===== Maven information ===== -->
@@ -19,7 +19,7 @@
 	<!-- ===== global Informations ===== -->
 	<name>microservice-dao</name>
 	<description>module for bdd link</description>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<!-- =============================================================== -->
 	<!-- Dependencies -->

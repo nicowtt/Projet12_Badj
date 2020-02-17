@@ -26,7 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    private static final Log logger = LogFactory.getLog(JwtRequestFilter.class);
+    private static final Log log = LogFactory.getLog(JwtRequestFilter.class);
 
     /**
      * filter for check if there is a token on the header of request
@@ -55,12 +55,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
-                logger.error("Unable to get JWT Token");
+                log.error("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
-                logger.error("JWT Token has expired");
+                log.error("JWT Token has expired");
             }
         } else {
-            logger.warn("JWT Token does not begin with Bearer String or no token found on header");
+            log.warn("JWT Token does not begin with Bearer String or no token found on header");
         }
         // if there is a token -> Validation
         // take secure bean with user on bdd

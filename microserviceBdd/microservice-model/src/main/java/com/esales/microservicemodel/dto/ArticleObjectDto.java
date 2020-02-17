@@ -13,7 +13,7 @@ import java.util.Date;
 @ToString
 public class ArticleObjectDto {
 
-    private int ArticleId;
+    private int articleId;
     private String category;
     private String type;
     private int saleId;

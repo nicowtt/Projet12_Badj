@@ -91,7 +91,6 @@ public class SaleManagerImpl implements SaleManager {
     @Override
     @Transactional
     public Sale addSale(SaleDto saleDto) {
-        Calendar cal = Calendar.getInstance();
         Address addressInputFromSaleDto;
         Address newAddress;
         Sale newSaleFromDto;
@@ -104,9 +103,7 @@ public class SaleManagerImpl implements SaleManager {
         // new sale -> bdd
         newSaleFromDto = saleMapper.fromSaleDtoToSale(saleDto);
         newSaleFromDto.setAddress(newAddress);
-        Sale sale = saleDao.save(newSaleFromDto);
-
-        return sale;
+        return saleDao.save(newSaleFromDto);
     }
 
     /**

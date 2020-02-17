@@ -155,7 +155,7 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
   }
 
   alertOneArticleIsNotValidate() {
-    this.alertService.error('Tous les articles doivent être validé avant l\'encaissement !');
+    this.alertService.error('Tous les articles doivent être validés avant l\'encaissement !');
     setTimeout(() => {
       this.alertService.clear();
     }, 2000);
@@ -224,7 +224,7 @@ export class CashArticlesComponent implements OnInit, OnDestroy {
     this.articlesCashList.forEach(article => {
       article.sold = true;
       this.articlesService.updateArticle(article, () => {
-        this.alertService.success('la transaction est validé', true);
+        this.alertService.success('La transaction est validée', true);
         setTimeout(() => {
           this.alertService.clear();
           window.location.reload();

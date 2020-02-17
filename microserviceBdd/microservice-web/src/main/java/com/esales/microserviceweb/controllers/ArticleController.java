@@ -137,8 +137,7 @@ public class ArticleController {
     @GetMapping(value = "/AllArticlesForId/{userEmail}")
     public List<Article> getAllArticleForOneId(@PathVariable String userEmail) {
         User userConcerned = userDao.findByEmail(userEmail);
-        List<Article> articlesList = articleManager.getAllArticlesForOneUser(userConcerned.getId());
-        return articlesList;
+        return articleManager.getAllArticlesForOneUser(userConcerned.getId());
     }
 
 
