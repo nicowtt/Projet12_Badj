@@ -40,7 +40,7 @@ export class AuthService {
           localStorage.setItem('currentUser', JSON.stringify(user));
           localStorage.setItem('currentUserToken', JSON.stringify(this.userInProgress.token));
           this.currentUserSubject.next(user);
-          // console.log('local quand sigIn: ' + localStorage.getItem('currentUser'));
+          console.log('local quand sigIn: ' + localStorage.getItem('currentUser'));
         }
         return user;
       }));

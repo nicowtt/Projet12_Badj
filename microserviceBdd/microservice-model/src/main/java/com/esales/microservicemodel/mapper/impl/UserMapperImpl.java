@@ -43,7 +43,7 @@ public class UserMapperImpl implements UserMapper {
         UserDto userDto = new UserDto();
         Address address = new Address();
 
-        address.setId(user.getId());
+        address.setId(user.getAddress().getId());
         address.setStreet(user.getAddress().getStreet());
         address.setPostalCode(user.getAddress().getPostalCode());
         address.setCity(user.getAddress().getCity());

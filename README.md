@@ -1,5 +1,5 @@
 # Open Classrooms Projet12 Badj (association)
- Voici un système de gestion de dêpots-ventes d'articles (version 1.0.1):
+ Voici un système de gestion de dêpots-ventes d'articles (version 1.0.2):
  
 ### Techniques utilisés pour ce projet:
 _Ce projet se compose de deux applications et d'une base de donnée:_
@@ -109,10 +109,10 @@ docker qui contient la base de donnée mySql:
 ```
     mvn package
 ```
-* Le fichier microservice-web-1.0.1.jar devrait être crée dans le dossier target du module web.
+* Le fichier microservice-web-1.0.2.jar devrait être crée dans le dossier target du module web.
 * Executer la commande suivante afin de lancer l'API:
 ```
-    Java -jar microservice-web-1.0.1.jar
+    Java -jar microservice-web-1.0.2.jar
 ```
 * Lancer votre serveur Tomcat et rendez-vous à l'adresse :
 ```
@@ -138,8 +138,21 @@ docker qui contient la base de donnée mySql:
 
 ![alt text](https://github.com/nicowtt/Projet12_Badj/blob/master/ViewSite.jpg)
 
-## Auteur
-Nicow
+## Licence
+    Copyright (C) 2020  BODELLE Nicolas
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>..
 
 Voir mes autres projets :
 [ICI](https://github.com/nicowtt?tab=repositories)

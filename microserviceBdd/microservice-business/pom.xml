@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>com.esales</groupId>
 		<artifactId>microserviceBdd</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 	</parent>
 
 	<!-- ===== Maven information ===== -->
@@ -19,7 +19,7 @@
 	<!-- ===== global Informations ===== -->
 	<name>microservice-business</name>
 	<description>module for business</description>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 
 	<!-- =============================================================== -->
 	<!-- Dependencies -->
