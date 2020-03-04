@@ -17,8 +17,8 @@ services:
   - docker
 
 before_install:
-  - export CONF_DIR=/home/travis/build/nicowtt/Projet12_Badj
-  - echo $CONF_DIR
+  - export token-secret=Badj
+  - echo $token-secret
   - ls
   - pwd
   - cd docker/dev

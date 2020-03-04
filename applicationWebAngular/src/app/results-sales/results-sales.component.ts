@@ -38,6 +38,7 @@ export class ResultsSalesComponent implements OnInit, OnDestroy {
   submitted = false;
   todayDate: Date;
   saleResult: boolean;
+  p: any;
 
   constructor(private salesService: SalesService,
               private articlesService: ArticlesService,
