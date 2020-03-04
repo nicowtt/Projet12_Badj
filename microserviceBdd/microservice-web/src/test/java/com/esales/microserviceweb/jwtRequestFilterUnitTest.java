@@ -1,4 +1,4 @@
-package com.esales.microserviceweb.unitTest;
+package com.esales.microserviceweb;
 
 import com.esales.microservicebusiness.securitytoken.JwtUserDetailsService;
 import com.esales.microserviceweb.security.JwtRequestFilter;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class jwtRequestFilterTest {
+public class jwtRequestFilterUnitTest {
 
     private static final String token = "Bearer 260bce87-6be9-4897-add7-b3b675952538";
     private static final String testUri = "/testUri";
@@ -39,7 +39,7 @@ public class jwtRequestFilterTest {
     private JwtRequestFilter jwtRequestFilter;
 
     @Test
-    public void testdoFilterInternalPositiveScenarioWhenTokenIsInHeader() throws ServletException, IOException {
+    public void testDoFilterInternalPositiveScenarioWhenTokenIsInHeader() throws ServletException, IOException {
         String TOKEN = "Authorization";
         String userName = "nico";
         MockHttpServletRequest request = new MockHttpServletRequest();
