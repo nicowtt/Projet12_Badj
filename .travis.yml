@@ -15,12 +15,10 @@ sudo: required
 
 services:
   - docker
-
+env:
+  - token-secret=Badj
+  
 before_install:
-  - export token-secret=Badj
-  - echo $token-secret
-  - ls
-  - pwd
   - cd docker/dev
   - docker-compose up -d
   - docker ps -a
