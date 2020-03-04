@@ -3,12 +3,14 @@ package com.esales.microserviceweb;
 import com.esales.microservicebusiness.securitytoken.JwtUserDetailsService;
 import com.esales.microserviceweb.security.JwtRequestFilter;
 import com.esales.microserviceweb.security.JwtTokenUtil;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -51,6 +53,7 @@ public class jwtRequestFilterUnitTest {
         when(jwtTokenUtil.validateToken(anyString(), any())).thenReturn(true);
         when(jwtUserDetailsService.loadUserByUsername(anyString())).thenReturn(this.createUserDetails());
         jwtRequestFilter.doFilter(request, response, filterChain);
+        Assert.assertEquals(200, response.getStatus());
     }
 
     public UserDetails createUserDetails() {
