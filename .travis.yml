@@ -17,7 +17,7 @@ services:
   - docker
 env:
   global:
-    - TOKEN-SECRET=Badj
+    - token-secret=Badj
 
 before_install:
   - cd docker/dev
@@ -28,8 +28,8 @@ before_script:
   - cd ../../microserviceBdd
 
 script:
-  - export TOKEN-SECRET=Badj
-  - echo $TOKEN-SECRET
+  - export token-secret=Badj
+  - echo $token-secret
   - mvn test
   - cd ../docker/dev
   - docker-compose stop

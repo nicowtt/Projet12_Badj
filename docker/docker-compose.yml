@@ -34,7 +34,7 @@ services:
     ports:
       - 9001:9001
     environment:
-      TOKEN-SECRET: Badj
+      token-secret: Badj
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: nicotine
       SPRING_DATASOURCE_URL: jdbc:mysql://bdd-badj/badj?serverTimezone=UTC
