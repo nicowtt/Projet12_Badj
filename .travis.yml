@@ -16,7 +16,8 @@ sudo: required
 services:
   - docker
 env:
-  - token-secret=Badj
+  global:
+    - TOKEN-SECRET=Badj
 
 before_install:
   - cd docker/dev
@@ -27,8 +28,8 @@ before_script:
   - cd ../../microserviceBdd
 
 script:
-  - export secret_token=Badj
-  - echo $secret_token
+  - export TOKEN-SECRET=Badj
+  - echo $TOKEN-SECRET
   - mvn test
   - cd ../docker/dev
   - docker-compose stop
