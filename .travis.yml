@@ -15,12 +15,10 @@ sudo: required
 
 services:
   - docker
+env:
+  - TOKEN_SECRET=Badj
 
 before_install:
-  - export CONF_DIR=/home/travis/build/nicowtt/Projet12_Badj
-  - echo $CONF_DIR
-  - ls
-  - pwd
   - cd docker/dev
   - docker-compose up -d
   - docker ps -a
@@ -29,6 +27,8 @@ before_script:
   - cd ../../microserviceBdd
 
 script:
+  - export TOKEN_SECRET=Badj
+  - echo $TOKEN_SECRET
   - mvn test
   - cd ../docker/dev
   - docker-compose stop

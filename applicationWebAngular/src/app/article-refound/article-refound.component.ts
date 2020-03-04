@@ -24,6 +24,7 @@ export class ArticleRefoundComponent implements OnInit, OnDestroy {
   refoundTotal: number = 0;
 
   allArticleOk: boolean = false;
+  p: any;
 
   constructor(private route: ActivatedRoute,
     private articlesService: ArticlesService) { }

@@ -29,6 +29,7 @@ export class ArticleValidationComponent implements OnInit, OnDestroy {
   autocompletionEmails = [ ];
 
   emailFilter: boolean = false;
+  p: any;
 
   constructor(private route: ActivatedRoute,
               private articlesService: ArticlesService,

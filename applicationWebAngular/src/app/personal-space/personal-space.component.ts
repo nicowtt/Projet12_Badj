@@ -20,6 +20,7 @@ export class PersonalSpaceComponent implements OnInit, OnDestroy {
   currentUser: UserModel;
   article: ArticleModel;
   articleConcerned: ArticleModel;
+  p: any;
 
   constructor(private articlesService: ArticlesService,
               private alertService: AlertService,

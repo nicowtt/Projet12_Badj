@@ -11,7 +11,10 @@ Mysql.
     * L'architecture est multi-modules (business, dao, model et web).
     * L'API web est couverte à 85% par des tests d'intégrations ou unitaires.
     * Intégration continue (Travis CI et SonarCloud) liée au github du projet.
-* Base de donnée mySql (version 8), dans un conteneur Docker.
+* Base de donnée mySql (version 8).
+* Toutes les applications sont dockérizé. (docker-compose dans le dossier docker)
+* Une variable d'environnement "token-secret" contient le mot secret pour la sécurité lié aux tokens.
+
  
 ## Trois types de ventes(Bourses):
 _Deux bourses de printemps:_
@@ -81,43 +84,19 @@ Dans son espace personnel:
     * Total des gains de la bourse pour l'association sur les articles vendus.
     
 ## Déploiement:
-**Pour l'application web(front):**<br>
-* Executer la commande suivante afin de mettre en place les dépendances du projet angular:
+Placez-vous dans le dossier docker et executez la commande suivante:
 ```
-    npm install
+    docker-compose up
 ```
-* Executer la commande suivante afin de crée le dossier dist/applicationWebAngular:
-```
-    ng build --prod
-```
-Copier/coller le contenu de ce dossier dans un serveur static web de type apache httpd ou nginx.
-
-**Pour l'API web (microserviceBDD -> back):**<br>
-* Copier/coller le fichier "token-conf.properties" à l'emplacement de votre choix.
-- Dans ce fichier , vous pouvez changer la variable "secret", elle contient le mot secret pour le token.
-* Afin de lancer la base de donnée mySql: copier/coller le dossier docker et executer la commande suivante afin de lancer un conteneur
-docker qui contient la base de donnée mySql:
-```
-    docker-compose up -d
-```
-* Afin de lancer l'API web microserviceBdd: créez une variable d'environnement temporaire avec l'emplacement du fichier "token-conf.properties"
-, exemple sur windows:
-```
-    set CONF_DIR=C:\Users\nicob\Documents\GitHub\Projet12_Badj\microserviceBdd\microservice-web\target
-```
-* Dans le dossier microserviceBdd executez la commande:
+## modification microserviceBdd(back):
+- Effectuez la modification
+- executer la commande:
 ```
     mvn package
 ```
-* Le fichier microservice-web-1.0.2.jar devrait être crée dans le dossier target du module web.
-* Executer la commande suivante afin de lancer l'API:
-```
-    Java -jar microservice-web-1.0.2.jar
-```
-* Lancer votre serveur Tomcat et rendez-vous à l'adresse :
-```
-   http://localhost:4200/
-``` 
+- Déplacez le .jar obtenu du dossier: microservice-web/target/[version du microserviceBdd.jar]
+vers le dossier: microserviceBdd/executable
+- Modifier le nom du nouveau jar dans le fichier Dockerfile
 
 ## Contribution
 [Github du projet](https://github.com/nicowtt/Projet12_Badj)
