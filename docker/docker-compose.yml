@@ -18,7 +18,7 @@ services:
     expose:
       - '3306'
     volumes:
-      - bdd-badj:/var/lib/mysql
+      - "./dev/init/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     networks:
       - network-badj
 
@@ -51,7 +51,7 @@ services:
       dockerfile: Dockerfile
     container_name: applicationwebangular
     volumes:
-      - applicationwebangular:/usr/src/app
+      - './applicationwebangular:/usr/src/app'
     ports:
       - '4200:4200'
     command: >
@@ -65,5 +65,4 @@ networks:
     driver: bridge
 
 volumes:
-  bdd-badj:
-  applicationwebangular:
+  front:
