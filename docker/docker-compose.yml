@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.7'
 services:
   bdd-badj:
     image: mysql:8.0.18
@@ -9,24 +9,17 @@ services:
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'nicotine'
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
     ports:
       - '127.0.0.1:9032:3306'
-    expose:
-      - '3306'
     volumes:
-      - "./dev/init/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - bdd-badj:/var/lib/mysql
     networks:
       - network-badj
 
 
   microservicebdd:
     depends_on:
-      bdd-badj:
-        condition: service_healthy
+      - bdd-badj
     build:
       context: ../microserviceBdd
       dockerfile: Dockerfile
@@ -43,15 +36,12 @@ services:
 
 
   applicationwebangular:
-    depends_on:
-      - bdd-badj
-      - microservicebdd
     build:
       context: ../applicationWebAngular
       dockerfile: Dockerfile
     container_name: applicationwebangular
     volumes:
-      - './applicationwebangular:/usr/src/app'
+      - applicationwebangular:/usr/src/app
     ports:
       - '4200:4200'
     command: >
@@ -65,4 +55,5 @@ networks:
     driver: bridge
 
 volumes:
-  front:
+  applicationwebangular:
+  bdd-badj:

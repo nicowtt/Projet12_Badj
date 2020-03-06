@@ -19,7 +19,7 @@
       <button class="list-group-item" *ngFor="let article of articles | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
         <h4 *ngIf="!article.stolen && !article.returnOwner"
         id="articleTypeBourse">Bourse: {{article.sale.description}} du
-          {{article.sale.dateBegin | date: 'shortDate' }}</h4>
+          {{article.sale.dateBegin | date: 'dd/MM/y' }}</h4>
         <h5 *ngIf="!article.stolen && !article.returnOwner">
           <span id="articleCategory">Categorie: </span>{{article.category}}
         </h5>
