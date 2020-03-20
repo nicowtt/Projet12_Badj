@@ -6,6 +6,7 @@ import com.esales.microservicedao.UserDao;
 import com.esales.microservicemodel.dto.SaleDto;
 import com.esales.microservicemodel.entity.Sale;
 import com.esales.microservicemodel.entity.User;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,7 @@ public class SaleController {
      * @param userEmail -> input from front
      * @return -> list of sale with number of article pre-record on each sale
      */
+    @ApiOperation(value = "get all sales (after today) with all pre-record articles for one user")
     @GetMapping(value = "/AfterTodaySales/{userEmail}")
     public List<SaleDto> getAfterTodaySales(@PathVariable String userEmail) {
         List<SaleDto> afterTodaySalesDtoList;

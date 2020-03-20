@@ -98,6 +98,9 @@ Placez-vous dans le dossier docker et executez la commande suivante:
 vers le dossier: microserviceBdd/executable
 - Modifier le nom du nouveau jar dans le fichier Dockerfile
 
+## Documentation API microserviceBdd:
+http://localhost:9001/swagger-ui.html
+
 ## Contribution
 [Github du projet](https://github.com/nicowtt/Projet12_Badj)
 
